@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 7: Week 1 Review & Practice | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 50%; }
+        .review-card { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; border-left: 4px solid var(--info); }
+        .review-card h4 { color: var(--info); margin-bottom: 15px; font-size: 1.2rem; }
+        .quiz-question { background: rgba(243, 156, 18, 0.1); border: 1px solid rgba(243, 156, 18, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; }
+        .quiz-question h4 { color: var(--warning); margin-bottom: 15px; }
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li { padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; gap: 15px; }
+        .checklist li:before { content: "☐"; font-size: 1.3rem; color: var(--gold); }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day06.html">← Previous</a>
+                <a href="day08.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 7 OF 14</span>
+            <h1>Week 1 Review & Practice Session</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Review & Practice</span>
+                <span>🎯 Consolidation</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎉 Congratulations! Week 1 Complete</h2>
+                <p>You've completed the first week of your trading education. You now know more about price action, technical analysis, and risk management than 90% of retail traders. Today we consolidate that knowledge.</p>
+                
+                <blockquote>
+                    "Knowledge is not power. Applied knowledge is power."
+                    <cite>— Trading Wisdom</cite>
+                </blockquote>
+            </section>
+
+            <section class="section">
+                <h2>📋 Week 1 Concept Review</h2>
+                
+                <div class="review-card">
+                    <h4>Day 1: Market Fundamentals & 80/20 Mindset</h4>
+                    <ul>
+                        <li>Stock market = marketplace for buying/selling company ownership</li>
+                        <li>Prices move based on supply and demand</li>
+                        <li>80% of results come from 20% of concepts</li>
+                        <li>Choose your style: Day trading, swing trading, or investing</li>
+                    </ul>
+                </div>
+                
+                <div class="review-card">
+                    <h4>Day 2: Price Action & Market Structure</h4>
+                    <ul>
+                        <li>Price action = studying price movement without indicators</li>
+                        <li>3 market states: Uptrend (HH/HL), Downtrend (LH/LL), Range</li>
+                        <li>Trade WITH the trend, not against it</li>
+                        <li>Break of Structure signals potential trend change</li>
+                    </ul>
+                </div>
+                
+                <div class="review-card">
+                    <h4>Day 3: Support & Resistance</h4>
+                    <ul>
+                        <li>Support = price floor where buyers step in</li>
+                        <li>Resistance = price ceiling where sellers step in</li>
+                        <li>Role reversal: Old resistance becomes new support (and vice versa)</li>
+                        <li>Trade bounces in ranges, breakouts in trending markets</li>
+                    </ul>
+                </div>
+                
+                <div class="review-card">
+                    <h4>Day 4: Candlestick Patterns</h4>
+                    <ul>
+                        <li>5 patterns that work: Pin Bar, Engulfing, Inside Bar, Doji, Morning/Evening Star</li>
+                        <li>Context is everything—patterns only work at key levels</li>
+                        <li>Always wait for confirmation</li>
+                        <li>Look for confluence (multiple factors aligning)</li>
+                    </ul>
+                </div>
+                
+                <div class="review-card">
+                    <h4>Day 5: Moving Averages</h4>
+                    <ul>
+                        <li>3 essential MAs: 20 (fast), 50 (medium), 200 (trend)</li>
+                        <li>MA order shows trend strength: 20 > 50 > 200 = uptrend</li>
+                        <li>MAs act as dynamic support/resistance</li>
+                        <li>Trade pullbacks to MAs in trending markets</li>
+                    </ul>
+                </div>
+                
+                <div class="review-card">
+                    <h4>Day 6: Risk Management</h4>
+                    <ul>
+                        <li>Never risk more than 1-2% per trade</li>
+                        <li>Position Size = Risk Amount ÷ (Entry - Stop Loss)</li>
+                        <li>Place stops at technical levels, not arbitrary distances</li>
+                        <li>Only take trades with 1:2 or better risk-reward</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📝 Knowledge Check Quiz</h2>
+                <p>Answer these questions to test your understanding. Write your answers before checking.</p>
+                
+                <div class="quiz-question">
+                    <h4>Question 1: Market Structure</h4>
+                    <p>You see a stock making Higher Highs and Higher Lows. What market state is this? What type of trades should you look for?</p>
+                    <details style="margin-top: 15px; color: var(--gold-light);">
+                        <summary style="cursor: pointer;">Show Answer</summary>
+                        <p style="margin-top: 10px;">This is an <strong>uptrend</strong>. You should only look for <strong>buying opportunities</strong> (long trades), preferably on pullbacks to support levels or moving averages.</p>
+                    </details>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>Question 2: Support & Resistance</h4>
+                    <p>Price breaks above a resistance level at $100 and then pulls back to test $100 again. What concept is this? How would you trade it?</p>
+                    <details style="margin-top: 15px; color: var(--gold-light);">
+                        <summary style="cursor: pointer;">Show Answer</summary>
+                        <p style="margin-top: 10px;">This is <strong>role reversal</strong>—old resistance ($100) becoming new support. You would look to <strong>buy on the retest</strong> with a stop-loss below $100 and a target at the next resistance level.</p>
+                    </details>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>Question 3: Candlestick Patterns</h4>
+                    <p>You see a hammer candle in the middle of a ranging market. Should you trade it? Why or why not?</p>
+                    <details style="margin-top: 15px; color: var(--gold-light);">
+                        <summary style="cursor: pointer;">Show Answer</summary>
+                        <p style="margin-top: 10px;"><strong>No</strong>. Candlestick patterns only work at <strong>key levels</strong> (support, resistance, MAs). A hammer in the middle of a range has no context and is unreliable. Wait for patterns at the range boundaries.</p>
+                    </details>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>Question 4: Position Sizing</h4>
+                    <p>You have a $20,000 account and want to risk 1%. Your entry is $40, and your stop-loss is $38. How many shares can you buy?</p>
+                    <details style="margin-top: 15px; color: var(--gold-light);">
+                        <summary style="cursor: pointer;">Show Answer</summary>
+                        <p style="margin-top: 10px;">
+                            Risk amount = $20,000 × 1% = <strong>$200</strong><br>
+                            Risk per share = $40 - $38 = <strong>$2</strong><br>
+                            Position size = $200 ÷ $2 = <strong>100 shares</strong>
+                        </p>
+                    </details>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4>Question 5: Risk-Reward</h4>
+                    <p>Your entry is $50, stop-loss is $48, and target is $56. What is the risk-reward ratio? Is this a good trade?</p>
+                    <details style="margin-top: 15px; color: var(--gold-light);">
+                        <summary style="cursor: pointer;">Show Answer</summary>
+                        <p style="margin-top: 10px;">
+                            Risk = $50 - $48 = <strong>$2</strong><br>
+                            Reward = $56 - $50 = <strong>$6</strong><br>
+                            Risk:Reward = 1:3<br>
+                            <strong>Yes, this is a good trade</strong> (minimum acceptable is 1:2).
+                        </p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📊 Practical Exercise: Full Trade Analysis</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Complete Trade Setup Exercise (40 minutes)</h4>
+                    <p>Open TradingView and complete this full analysis for <strong>SPY (S&P 500 ETF)</strong> on the daily chart:</p>
+                    
+                    <h3 style="color: var(--gold); margin-top: 20px;">Step 1: Trend Analysis (5 min)</h3>
+                    <ul class="checklist">
+                        <li>Identify if price is above or below the 200 EMA</li>
+                        <li>Note the MA order (which is on top: 20, 50, or 200?)</li>
+                        <li>Is the stock in an uptrend, downtrend, or range?</li>
+                        <li>Write: "The trend is _______ because _______"</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--gold); margin-top: 20px;">Step 2: Key Levels (10 min)</h3>
+                    <ul class="checklist">
+                        <li>Mark 2-3 major support levels below current price</li>
+                        <li>Mark 2-3 major resistance levels above current price</li>
+                        <li>Note any round numbers ($400, $450, $500, etc.)</li>
+                        <li>Identify any flip zones (role reversals)</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--gold); margin-top: 20px;">Step 3: Entry Opportunity (10 min)</h3>
+                    <ul class="checklist">
+                        <li>Is price at or near a key level?</li>
+                        <li>Are there any candlestick patterns forming?</li>
+                        <li>Is price pulling back to a moving average?</li>
+                        <li>Identify a potential entry price</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--gold); margin-top: 20px;">Step 4: Risk Management (10 min)</h3>
+                    <ul class="checklist">
+                        <li>Where would you place your stop-loss? (Technical level)</li>
+                        <li>Where is your target? (Next resistance/support level)</li>
+                        <li>Calculate the risk-reward ratio</li>
+                        <li>Using a $10,000 account with 1% risk, calculate position size</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--gold); margin-top: 20px;">Step 5: Trade Decision (5 min)</h3>
+                    <ul class="checklist">
+                        <li>How many confluence factors align?</li>
+                        <li>Is this a trade you would take? Why or why not?</li>
+                        <li>What would need to happen for you to enter?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Week 1 Completion Checklist</h2>
+                <p>Before moving to Week 2, ensure you can confidently do these:</p>
+                
+                <ul class="checklist">
+                    <li>Identify trend direction using price structure (HH/HL vs LH/LL)</li>
+                    <li>Draw accurate support and resistance levels</li>
+                    <li>Recognize the 5 key candlestick patterns</li>
+                    <li>Set up and interpret the 20, 50, and 200 EMAs</li>
+                    <li>Calculate position size using the 1% rule</li>
+                    <li>Determine risk-reward ratio for any trade</li>
+                    <li>Place stop-losses at technical levels</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 Moving Forward</h4>
+                    <p>If you struggle with any of these, go back and review that day's lesson. It's better to master Week 1 concepts before moving on. Trading is a skill built layer by layer—weak foundations create weak traders.
+                    <br><br>
+                    In Week 2, we'll focus on psychology, strategy development, and putting everything together into a complete trading system.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Week 1 Key Takeaways</h2>
+                <ol>
+                    <li><strong>Trend is king:</strong> Trade with it, not against it</li>
+                    <li><strong>Levels matter:</strong> Support and resistance are where you make decisions</li>
+                    <li><strong>Patterns need context:</strong> No pattern works without the right location</li>
+                    <li><strong>Simplicity wins:</strong> 3 moving averages and price action is all you need</li>
+                    <li><strong>Risk first:</strong> Always know your risk before taking a trade</li>
+                    <li><strong>Risk-reward:</strong> Only take 1:2 or better setups</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day06.html" class="nav-btn prev">← Day 6: Risk Management</a>
+                <a href="day08.html" class="nav-btn next">Day 8: Trading Psychology →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

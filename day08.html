@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 8: Trading Psychology - Master Your Mind | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; --danger: #e74c3c; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .video-link:hover { background: #2980b9; transform: translateY(-2px); }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        .warning-box { background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .warning-box h4 { color: var(--danger); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        blockquote cite { display: block; margin-top: 15px; font-size: 1rem; font-style: normal; color: var(--text-muted); }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 57.12%; }
+        .emotion-card { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; border-left: 4px solid var(--danger); }
+        .emotion-card h4 { color: var(--danger); margin-bottom: 15px; font-size: 1.2rem; }
+        .emotion-card.solution { border-left-color: var(--success); }
+        .emotion-card.solution h4 { color: var(--success); }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day07.html">← Previous</a>
+                <a href="day09.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 8 OF 14</span>
+            <h1>Trading Psychology - Master Your Mind</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Psychology</span>
+                <span>🎯 High-Impact Concept #6</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand why psychology is 80% of trading success</li>
+                    <li>Identify the 5 emotional traps that destroy traders</li>
+                    <li>Learn practical techniques to manage emotions</li>
+                    <li>Develop the mindset of a professional trader</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>🧠 The Truth About Trading Success</h2>
+                
+                <blockquote>
+                    "Trading is 10% strategy and 90% psychology. Most traders spend 90% of their time on strategy and 10% on psychology. That's why most traders fail."
+                    <cite>— Mark Douglas, Trading in the Zone</cite>
+                </blockquote>
+                
+                <p>You can have the best strategy in the world, but if you can't execute it under emotional pressure, you'll lose. Every trader knows they should "cut losses short" and "let winners run"—yet most do the exact opposite. Why?</p>
+                
+                <p><strong>Because emotions override logic.</strong></p>
+                
+                <div class="key-concept">
+                    <h4>💡 The Psychological Edge</h4>
+                    <p>The market doesn't care about your feelings. It doesn't know your entry price. It doesn't owe you anything. The sooner you accept this, the sooner you can trade objectively.
+                    <br><br>
+                    Profitable traders don't have better strategies—they have <strong>better emotional control</strong>.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>😱 The 5 Emotional Traps</h2>
+                
+                <div class="emotion-card">
+                    <h4>1. FEAR - The Paralyzer</h4>
+                    <p><strong>How it shows up:</strong></p>
+                    <ul>
+                        <li>Not taking valid setups because you're scared of losing</li>
+                        <li>Closing winning trades too early to "lock in profits"</li>
+                        <li>Moving stop-loss closer during a pullback</li>
+                        <li>Freezing when you should be acting</li>
+                    </ul>
+                    <p><strong>Root cause:</strong> Fear of loss, fear of being wrong, fear of missing out on profits.</p>
+                </div>
+                
+                <div class="emotion-card solution">
+                    <h4>→ Solution for Fear</h4>
+                    <ul>
+                        <li>Accept that losses are part of the business (they're just a cost of doing business)</li>
+                        <li>Risk only 1-2% per trade so losses are manageable</li>
+                        <li>Focus on executing your plan, not on the money</li>
+                        <li>Ask: "What would I tell a friend in this situation?"</li>
+                    </ul>
+                </div>
+                
+                <div class="emotion-card">
+                    <h4>2. GREED - The Destroyer</h4>
+                    <p><strong>How it shows up:</strong></p>
+                    <ul>
+                        <li>Holding winners too long until they reverse into losers</li>
+                        <li>Increasing position size after winning streaks</li>
+                        <li>Taking trades that don't meet your criteria</li>
+                        <li>Averaging down on losing positions</li>
+                    </ul>
+                    <p><strong>Root cause:</strong> Wanting more, not being satisfied with reasonable gains.</p>
+                </div>
+                
+                <div class="emotion-card solution">
+                    <h4>→ Solution for Greed</h4>
+                    <ul>
+                        <li>Set profit targets BEFORE entering trades and honor them</li>
+                        <li>Use trailing stops to capture trends while locking in gains</li>
+                        <li>Remember: "Pigs get fat, hogs get slaughtered"</li>
+                        <li>Celebrate taking profits—it's not "leaving money on the table"</li>
+                    </ul>
+                </div>
+                
+                <div class="emotion-card">
+                    <h4>3. FOMO - Fear Of Missing Out</h4>
+                    <p><strong>How it shows up:</strong></p>
+                    <ul>
+                        <li>Chasing trades after they've already moved</li>
+                        <li>Entering without waiting for your setup</li>
+                        <li>Jumping into "hot tips" without analysis</li>
+                        <li>Feeling anxious when you're not in a trade</li>
+                    </ul>
+                    <p><strong>Root cause:</strong> Scarcity mindset—believing opportunities are rare.</p>
+                </div>
+                
+                <div class="emotion-card solution">
+                    <h4>→ Solution for FOMO</h4>
+                    <ul>
+                        <li>Remind yourself: There's ALWAYS another trade. The market will be here tomorrow.</li>
+                        <li>If you missed an entry, look for the next valid setup</li>
+                        <li>Keep a "missed trades" journal—you'll see they often fail</li>
+                        <li>Focus on process, not outcomes</li>
+                    </ul>
+                </div>
+                
+                <div class="emotion-card">
+                    <h4>4. REVENGE TRADING - The Account Killer</h4>
+                    <p><strong>How it shows up:</strong></p>
+                    <ul>
+                        <li>Taking impulsive trades after a loss to "get back" your money</li>
+                        <li>Increasing position size to recover losses faster</li>
+                        <li>Abandoning your trading plan after losing</li>
+                        <li>Feeling angry at the market or a stock</li>
+                    </ul>
+                    <p><strong>Root cause:</strong> Ego, not accepting being wrong, treating losses as personal attacks.</p>
+                </div>
+                
+                <div class="emotion-card solution">
+                    <h4>→ Solution for Revenge Trading</h4>
+                    <ul>
+                        <li>Set a daily maximum loss limit (e.g., 3%). If hit, stop trading for the day.</li>
+                        <li>After 2 consecutive losses, take a 10-minute break minimum</li>
+                        <li>The market doesn't owe you money back—each trade is independent</li>
+                        <li>Ask: "Am I trading to make money or to prove something?"</li>
+                    </ul>
+                </div>
+                
+                <div class="emotion-card">
+                    <h4>5. OVERCONFIDENCE - The Silent Killer</h4>
+                    <p><strong>How it shows up:</strong></p>
+                    <ul>
+                        <li>Taking larger positions after winning streaks</li>
+                        <li>Skipping analysis because "I know this stock"</li>
+                        <li>Ignoring stop-losses because "I can't be wrong again"</li>
+                        <li>Trading more frequently than your strategy allows</li>
+                    </ul>
+                    <p><strong>Root cause:</strong> Confusing luck with skill, ego attachment to being right.</p>
+                </div>
+                
+                <div class="emotion-card solution">
+                    <h4>→ Solution for Overconfidence</h4>
+                    <ul>
+                        <li>Treat every trade the same—same position size, same process</li>
+                        <li>Winning streaks END. Don't increase risk after wins.</li>
+                        <li>Keep a journal—data beats feelings</li>
+                        <li>Remember: The market humbles everyone eventually</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🧘 The Professional Trader's Mindset</h2>
+                
+                <h3>Think in Probabilities</h3>
+                <p>Professional traders don't think in terms of individual trades. They think in terms of <strong>probabilities over many trades</strong>.</p>
+                <ul>
+                    <li>Each trade is just one of the next 100 trades</li>
+                    <li>Any single trade can be a winner or loser—you can't know which</li>
+                    <li>Your edge only shows up over a large sample size</li>
+                    <li>The outcome of ONE trade is meaningless</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The Casino Analogy</h4>
+                    <p>Casinos don't worry about individual hands of blackjack. They know that over millions of hands, they have a 2-3% edge. Some players win big. That's fine. Over time, the math works.
+                    <br><br>
+                    <strong>Trade like a casino, not like a gambler.</strong> Execute your edge over and over, and let probability do its work.</p>
+                </div>
+                
+                <h3>Process Over Outcome</h3>
+                <p>You can make money on a bad trade (lucky) and lose money on a good trade (unlucky). What matters is:</p>
+                <ul>
+                    <li><strong>Did you follow your plan?</strong></li>
+                    <li><strong>Did you manage risk properly?</strong></li>
+                    <li><strong>Did you execute without emotional interference?</strong></li>
+                </ul>
+                <p>If yes, it was a good trade—regardless of outcome.</p>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Trading Psychology - How To Master Your Emotions</strong></p>
+                    <p>Essential guide to controlling emotions while trading.</p>
+                    <a href="https://www.youtube.com/watch?v=zBqF_wQaLLE" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>The Psychology of Trading</strong></p>
+                    <p>Understanding the mental game of successful trading.</p>
+                    <a href="https://www.youtube.com/watch?v=sPnQFMN6Pb8" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (SMB Capital)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>How Professional Traders Think</strong></p>
+                    <p>The mindset shift that separates professionals from amateurs.</p>
+                    <a href="https://www.youtube.com/watch?v=U5kIdtMJGc8" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Investors Underground)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Emotional Self-Assessment (15 minutes)</h4>
+                    <p>Honestly answer these questions:</p>
+                    <ol>
+                        <li>Which of the 5 emotional traps affects you most?</li>
+                        <li>Think of your last 5 trades—how many were influenced by emotion?</li>
+                        <li>What triggers your worst trading decisions?</li>
+                        <li>What physical symptoms do you experience during trades? (Racing heart, sweaty palms, etc.)</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Create Your Trading Rules (20 minutes)</h4>
+                    <p>Write down personal rules to combat your emotional weaknesses:</p>
+                    <ol>
+                        <li>Maximum daily loss before stopping: $______ or ______%</li>
+                        <li>After 2 consecutive losses, I will: ___________</li>
+                        <li>Before every trade, I will check: ___________</li>
+                        <li>I will NOT trade when: ___________</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Mindset Affirmations (10 minutes)</h4>
+                    <p>Write these on a card and read before each trading session:</p>
+                    <ol>
+                        <li>"The outcome of this trade does not define me as a trader."</li>
+                        <li>"I trade my plan, not my emotions."</li>
+                        <li>"Losses are a cost of doing business."</li>
+                        <li>"There's always another trade."</li>
+                        <li>"I focus on process, not outcome."</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Psychology is 80-90% of trading success</li>
+                    <li>5 emotional traps: Fear, Greed, FOMO, Revenge Trading, Overconfidence</li>
+                    <li>Think in probabilities—each trade is just one of many</li>
+                    <li>Focus on process over outcome</li>
+                    <li>Create rules to protect yourself from yourself</li>
+                    <li>Trade like a casino, not like a gambler</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day07.html" class="nav-btn prev">← Day 7: Week 1 Review</a>
+                <a href="day09.html" class="nav-btn next">Day 9: Trading Plan →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

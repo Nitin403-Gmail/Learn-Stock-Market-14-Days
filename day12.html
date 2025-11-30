@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 12: Portfolio Management & Diversification | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; --danger: #e74c3c; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        .warning-box { background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .warning-box h4 { color: var(--danger); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 85.68%; }
+        .rule-card { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; border-left: 4px solid var(--gold); }
+        .rule-card h4 { color: var(--gold); margin-bottom: 15px; font-size: 1.2rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .comparison-table th { color: var(--gold); font-weight: 600; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day11.html">← Previous</a>
+                <a href="day13.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 12 OF 14</span>
+            <h1>Portfolio Management & Diversification</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Risk Management</span>
+                <span>🎯 Protecting Capital</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand the 5% diversification rule</li>
+                    <li>Learn how to allocate across sectors and asset classes</li>
+                    <li>Know when to rebalance your portfolio</li>
+                    <li>Avoid common portfolio mistakes</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>🎨 Why Diversification Matters</h2>
+                
+                <blockquote>
+                    "Diversification is the only free lunch in investing."
+                    <cite>— Harry Markowitz, Nobel Prize Winner</cite>
+                </blockquote>
+                
+                <p>Diversification means spreading your investments so that no single position can destroy your portfolio. It's not about maximizing returns—it's about <strong>surviving long enough to compound</strong>.</p>
+                
+                <h3>What Diversification Does</h3>
+                <ul>
+                    <li><strong>Reduces volatility:</strong> When one holding drops, others may hold or rise</li>
+                    <li><strong>Protects against black swans:</strong> Company fraud, unexpected news, sector crashes</li>
+                    <li><strong>Allows you to stay in the game:</strong> No single loss knocks you out</li>
+                    <li><strong>Reduces emotional stress:</strong> No single position feels like "life or death"</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Concentration Risk Example</h4>
+                    <p>Imagine putting 50% of your portfolio in one stock. The company announces fraud—stock drops 80% overnight. Your portfolio just lost 40%. That's months or years of work erased in hours.</p>
+                    <p>With proper diversification (5% max per position), the same event costs you only 4%. Painful but survivable.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📏 The 5% Diversification Rule</h2>
+                
+                <div class="rule-card">
+                    <h4>The Rule: No Single Position > 5% of Portfolio</h4>
+                    <p>At the time of purchase, no single stock or trade should represent more than 5% of your total portfolio value.</p>
+                    <p><strong>Example:</strong> $20,000 portfolio × 5% = $1,000 maximum per position</p>
+                </div>
+                
+                <h3>Why 5%?</h3>
+                <ul>
+                    <li>If a position goes to zero, you lose only 5%—recoverable</li>
+                    <li>Allows for 20+ positions = good diversification</li>
+                    <li>Still concentrated enough that winners make a difference</li>
+                    <li>Industry standard for professional portfolio management</li>
+                </ul>
+                
+                <h3>Adjustments Based on Account Size</h3>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Account Size</th>
+                        <th>Recommended Max Position</th>
+                        <th>Number of Positions</th>
+                    </tr>
+                    <tr>
+                        <td>Under $5,000</td>
+                        <td>10-15%</td>
+                        <td>7-10</td>
+                    </tr>
+                    <tr>
+                        <td>$5,000 - $25,000</td>
+                        <td>5-10%</td>
+                        <td>10-20</td>
+                    </tr>
+                    <tr>
+                        <td>$25,000+</td>
+                        <td>3-5%</td>
+                        <td>20-30</td>
+                    </tr>
+                </table>
+                
+                <div class="key-concept">
+                    <h4>💡 Small Account Reality</h4>
+                    <p>With a $2,000 account, holding 20 positions of $100 each isn't practical (commissions eat you alive). Start with 5-10 positions, but still apply the 1-2% <em>risk</em> per trade rule. As your account grows, add diversification.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🏢 Sector Diversification</h2>
+                
+                <p>Don't just own different stocks—own stocks in <strong>different sectors</strong>. Sectors move together, so 5 tech stocks isn't diversification.</p>
+                
+                <h3>The 11 S&P 500 Sectors</h3>
+                <ol>
+                    <li>Technology (AAPL, MSFT)</li>
+                    <li>Healthcare (JNJ, UNH)</li>
+                    <li>Financials (JPM, BAC)</li>
+                    <li>Consumer Discretionary (AMZN, TSLA)</li>
+                    <li>Consumer Staples (PG, KO)</li>
+                    <li>Energy (XOM, CVX)</li>
+                    <li>Industrials (CAT, UPS)</li>
+                    <li>Materials (LIN, SHW)</li>
+                    <li>Utilities (NEE, DUK)</li>
+                    <li>Real Estate (AMT, PLD)</li>
+                    <li>Communication Services (GOOGL, META)</li>
+                </ol>
+                
+                <div class="rule-card">
+                    <h4>Sector Diversification Rule</h4>
+                    <p>No more than 25% of your portfolio should be in any single sector.</p>
+                    <p>Aim for exposure to at least 5-6 different sectors.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔄 Portfolio Rebalancing</h2>
+                
+                <p>Over time, winners grow and losers shrink, throwing off your diversification. Rebalancing brings it back in line.</p>
+                
+                <h3>When to Rebalance</h3>
+                <ul>
+                    <li><strong>Time-based:</strong> Quarterly or annually</li>
+                    <li><strong>Threshold-based:</strong> When any position exceeds 2x its target (e.g., 5% becomes 10%)</li>
+                    <li><strong>After major moves:</strong> Market crash, individual stock surge</li>
+                </ul>
+                
+                <h3>How to Rebalance</h3>
+                <ol>
+                    <li>Trim positions that have grown too large</li>
+                    <li>Add to positions that are now underweight</li>
+                    <li>Or simply direct new money to underweight areas</li>
+                </ol>
+                
+                <div class="key-concept">
+                    <h4>💡 Winner's Tax Problem</h4>
+                    <p>Be mindful of taxes when rebalancing. Selling winners triggers capital gains taxes. Options:
+                    <br>• Let winners run slightly overweight if tax impact is high
+                    <br>• Direct new money to underweight areas instead of selling
+                    <br>• Use tax-advantaged accounts (IRA, 401k) for frequent rebalancing</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>⚠️ Common Portfolio Mistakes</h2>
+                
+                <div class="warning-box">
+                    <h4>Mistake 1: Fake Diversification</h4>
+                    <p>Owning AAPL, MSFT, GOOGL, AMZN, and META isn't diversified—it's 100% tech/growth. A tech sector crash hits all of them simultaneously.</p>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Mistake 2: Over-Diversification (Diworsification)</h4>
+                    <p>Owning 50+ stocks dilutes your winners. If your best idea goes up 50% but it's only 2% of your portfolio, you gain 1%. Just buy an index fund at that point.</p>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Mistake 3: Ignoring Correlation</h4>
+                    <p>Some stocks move together even if they're in different sectors. Oil stocks and airline stocks (fuel cost) often move inversely. Understand how your holdings interact.</p>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Mistake 4: No Cash Position</h4>
+                    <p>Being 100% invested means you can't buy the dip when opportunities arise. Keep 10-20% cash for opportunities and emergencies.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Portfolio Diversification Explained</strong></p>
+                    <p>How to properly diversify your investment portfolio.</p>
+                    <a href="https://www.youtube.com/watch?v=6K_lT4HnKTo" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (The Plain Bagel)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>How to Build a Stock Portfolio</strong></p>
+                    <p>Building a balanced, diversified portfolio from scratch.</p>
+                    <a href="https://www.youtube.com/watch?v=pG_oZcpGR7M" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Andrei Jikh)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Portfolio Analysis (20 minutes)</h4>
+                    <p>If you have an existing portfolio, analyze it:</p>
+                    <ol>
+                        <li>What percentage is your largest position?</li>
+                        <li>What percentage is in your largest sector?</li>
+                        <li>How many different sectors are you exposed to?</li>
+                        <li>Do you have any cash position?</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Design Your Ideal Allocation (20 minutes)</h4>
+                    <p>Create your target portfolio structure:</p>
+                    <ol>
+                        <li>Maximum position size: ____%</li>
+                        <li>Maximum sector allocation: ____%</li>
+                        <li>Number of positions: ____</li>
+                        <li>Cash reserve: ____%</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Rebalancing Plan (10 minutes)</h4>
+                    <p>Decide on your rebalancing approach:</p>
+                    <ol>
+                        <li>Frequency: Quarterly / Annually / Threshold-based</li>
+                        <li>Trigger: When position exceeds ___% of target</li>
+                        <li>Method: Sell winners / Direct new cash / Both</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Diversification protects against catastrophic losses</li>
+                    <li>5% max per position (adjust for small accounts)</li>
+                    <li>25% max per sector</li>
+                    <li>Own stocks across at least 5-6 sectors</li>
+                    <li>Rebalance quarterly or when positions exceed thresholds</li>
+                    <li>Keep 10-20% cash for opportunities</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day11.html" class="nav-btn prev">← Day 11: Fundamentals</a>
+                <a href="day13.html" class="nav-btn next">Day 13: Trading Journal →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

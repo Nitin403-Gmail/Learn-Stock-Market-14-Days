@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3: Support & Resistance Mastery | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a;
+            --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0;
+            --success: #2ecc71; --warning: #f39c12; --info: #3498db; --danger: #e74c3c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; align-items: center; gap: 10px; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .video-link:hover { background: #2980b9; transform: translateY(-2px); }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        .warning-box { background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .warning-box h4 { color: var(--danger); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        blockquote cite { display: block; margin-top: 15px; font-size: 1rem; font-style: normal; color: var(--text-muted); }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { display: flex; align-items: center; gap: 10px; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 21.42%; }
+        .chart-example { background: rgba(0, 0, 0, 0.3); border-radius: 10px; padding: 20px; margin: 20px 0; font-family: monospace; font-size: 0.85rem; color: var(--gold-light); overflow-x: auto; white-space: pre; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day02.html">← Previous</a>
+                <a href="day04.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 3 OF 14</span>
+            <h1>Support & Resistance Mastery</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Core Technical Skill</span>
+                <span>🎯 High-Impact Concept #2</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand what support and resistance levels really represent</li>
+                    <li>Learn 3 reliable methods to identify S/R levels</li>
+                    <li>Understand the concept of role reversal (flip zones)</li>
+                    <li>Know when to trade bounces vs. breakouts</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>🧱 The Foundation of Technical Analysis</h2>
+                
+                <blockquote>
+                    "If I could only teach one concept to a new trader, it would be support and resistance. Master this, and you're 80% of the way there."
+                    <cite>— Professional Floor Trader</cite>
+                </blockquote>
+                
+                <p>Support and resistance levels are <strong>price areas where buying or selling pressure is expected to be strong enough to pause or reverse price movement</strong>. They represent the collective memory of the market.</p>
+                
+                <h3>Support: Where Buyers Step In</h3>
+                <p><strong>Support</strong> is a price level where demand is strong enough to prevent price from falling further. Think of it as a floor.</p>
+                <ul>
+                    <li>Buyers believe the price is "cheap" and start buying</li>
+                    <li>Sellers who shorted want to take profits</li>
+                    <li>Previous buyers who missed out see a second chance</li>
+                </ul>
+                
+                <h3>Resistance: Where Sellers Step In</h3>
+                <p><strong>Resistance</strong> is a price level where supply is strong enough to prevent price from rising further. Think of it as a ceiling.</p>
+                <ul>
+                    <li>Sellers believe the price is "expensive" and start selling</li>
+                    <li>Buyers who bought lower want to take profits</li>
+                    <li>People who bought at that level and saw losses want to "get out even"</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The Psychology Behind S/R</h4>
+                    <p>Support and resistance work because <strong>humans have memory</strong>. If a stock bounced at $50 three times in the past, traders remember. When it approaches $50 again, buyers anticipate another bounce and buy—creating a self-fulfilling prophecy. The more times a level is tested, the more significant it becomes.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔍 3 Methods to Identify S/R Levels</h2>
+                
+                <h3>Method 1: Swing Highs and Swing Lows</h3>
+                <p>The most basic and reliable method. Look for points where price reversed direction.</p>
+                
+                <div class="chart-example">
+        ←── Swing High (Resistance)
+       /\
+      /  \          ←── Swing High (Resistance)
+     /    \        /\
+    /      \      /  \
+   /        \    /    \
+              \  /      
+               \/
+               ↑
+         Swing Low (Support)
+                </div>
+                
+                <p><strong>Rule:</strong> A swing high requires at least 2 lower candles on each side. A swing low requires at least 2 higher candles on each side.</p>
+                
+                <h3>Method 2: Round Numbers (Psychological Levels)</h3>
+                <p>Humans are drawn to round numbers. $100, $50, $25, $10 are all psychological levels that act as S/R.</p>
+                <ul>
+                    <li><strong>Major levels:</strong> $50, $100, $150, $200...</li>
+                    <li><strong>Medium levels:</strong> $25, $75, $125...</li>
+                    <li><strong>Minor levels:</strong> $10, $20, $30...</li>
+                </ul>
+                
+                <h3>Method 3: Volume Clusters</h3>
+                <p>Areas where a lot of trading occurred in the past become significant S/R zones. Many platforms show "Volume Profile" which highlights these areas.</p>
+                
+                <div class="key-concept">
+                    <h4>💡 Quality Over Quantity</h4>
+                    <p>Don't draw 50 lines on your chart. Focus on the <strong>most significant</strong> 3-5 levels. A good support/resistance level should be:
+                    <br>• Touched multiple times (2+ touches minimum)
+                    <br>• Visible on higher timeframes
+                    <br>• Confluent with other factors (round numbers, moving averages)</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔄 Role Reversal: The Magic of Flip Zones</h2>
+                
+                <p>One of the most powerful concepts in technical analysis: <strong>Old resistance becomes new support, and old support becomes new resistance.</strong></p>
+                
+                <div class="chart-example">
+                                    ↗ Price continues up
+                                   /
+                                  /
+RESISTANCE ────────────────────/────── Now becomes SUPPORT
+               \    /\    /   ↑
+                \  /  \  /   Price breaks above
+                 \/    \/    then pulls back and bounces
+                </div>
+                
+                <h3>Why Does This Happen?</h3>
+                <ol>
+                    <li><strong>Trapped traders:</strong> People who sold at resistance are now underwater and looking to get out at breakeven</li>
+                    <li><strong>Missed opportunity:</strong> Traders who missed the breakout see the pullback as a second chance to buy</li>
+                    <li><strong>New floor established:</strong> The breakout proves buyers are stronger, establishing a new floor</li>
+                </ol>
+                
+                <div class="key-concept">
+                    <h4>💡 The Retest Trade</h4>
+                    <p>One of the highest probability setups: Wait for price to break through a level, then <strong>wait for the retest</strong> of that level before entering. This gives you:
+                    <br>• Confirmation the breakout is real
+                    <br>• Better entry price
+                    <br>• Clearer stop-loss placement</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📊 Bounces vs. Breakouts: When to Trade What</h2>
+                
+                <h3>Trading the Bounce (Range Trading)</h3>
+                <p>When price is in a range, trade the bounces:</p>
+                <ul>
+                    <li>Buy when price touches support and shows rejection</li>
+                    <li>Sell when price touches resistance and shows rejection</li>
+                    <li>Use the opposite level as your target</li>
+                </ul>
+                
+                <h3>Trading the Breakout</h3>
+                <p>When price breaks through a level convincingly:</p>
+                <ul>
+                    <li>Enter in the direction of the breakout</li>
+                    <li>Or wait for the retest (safer)</li>
+                    <li>Use the breakout level as your new S/R reference</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Beware of False Breakouts</h4>
+                    <p>Not every breakout is real. Many fail and reverse. Signs of a false breakout:</p>
+                    <ul style="margin-bottom: 0;">
+                        <li>Low volume on the breakout candle</li>
+                        <li>Quick reversal back below/above the level</li>
+                        <li>Breakout against the larger trend</li>
+                        <li>Long wicks (rejection candles)</li>
+                    </ul>
+                    <p style="margin-top: 15px; margin-bottom: 0;"><strong>Solution:</strong> Wait for the candle to CLOSE beyond the level, or wait for a retest.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Support and Resistance Trading Strategy</strong></p>
+                    <p>Rayner Teo explains how to identify and trade support/resistance levels effectively.</p>
+                    <a href="https://www.youtube.com/watch?v=GBKqWPk__Jk" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>How to Draw Support and Resistance Like a Pro</strong></p>
+                    <p>Practical guide on drawing S/R levels correctly on any chart.</p>
+                    <a href="https://www.youtube.com/watch?v=QDjvdABgvwQ" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (The Trading Channel)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>Support and Resistance Zones Explained</strong></p>
+                    <p>Understanding zones vs. exact lines for more realistic trading.</p>
+                    <a href="https://www.youtube.com/watch?v=3nAZwtN4Y7I" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Trading 212)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: S/R Level Identification (20 minutes)</h4>
+                    <p>Open TradingView and load the daily chart of SPY (S&P 500 ETF):</p>
+                    <ol>
+                        <li>Identify the 3 most important resistance levels above current price</li>
+                        <li>Identify the 3 most important support levels below current price</li>
+                        <li>Mark any psychological round numbers near these levels</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Find Flip Zones (15 minutes)</h4>
+                    <p>On the same SPY chart:</p>
+                    <ol>
+                        <li>Find 2 examples where old resistance became new support</li>
+                        <li>Find 2 examples where old support became new resistance</li>
+                        <li>Note how price behaved at these flip zones</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Real-Time Practice (10 minutes)</h4>
+                    <p>Pick 3 stocks you're interested in trading:</p>
+                    <ol>
+                        <li>Mark the key S/R levels on each</li>
+                        <li>Identify what trade would make sense (bounce or breakout)</li>
+                        <li>Note where you would set a stop-loss (we'll cover this in Day 6)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Support is where buyers are expected to step in; resistance is where sellers emerge</li>
+                    <li>S/R works because of human psychology and market memory</li>
+                    <li>Use swing highs/lows, round numbers, and volume clusters to identify levels</li>
+                    <li>Role reversal (flip zones) creates high-probability trade opportunities</li>
+                    <li>Trade bounces in ranges; trade breakouts when trend is clear</li>
+                    <li>Beware of false breakouts—wait for confirmation</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day02.html" class="nav-btn prev">← Day 2: Price Action</a>
+                <a href="day04.html" class="nav-btn next">Day 4: Candlestick Patterns →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

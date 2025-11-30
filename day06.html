@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6: Risk Management - The Money Skill | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; --danger: #e74c3c; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .video-link:hover { background: #2980b9; transform: translateY(-2px); }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        .warning-box { background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .warning-box h4 { color: var(--danger); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        blockquote cite { display: block; margin-top: 15px; font-size: 1rem; font-style: normal; color: var(--text-muted); }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 42.84%; }
+        .calculator { background: rgba(0, 0, 0, 0.4); border-radius: 12px; padding: 25px; margin: 25px 0; border: 1px solid var(--gold); }
+        .calculator h4 { color: var(--gold); margin-bottom: 20px; font-size: 1.2rem; }
+        .calc-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .calc-row:last-child { border-bottom: none; font-weight: 700; color: var(--gold); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .comparison-table th { color: var(--gold); font-weight: 600; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day05.html">← Previous</a>
+                <a href="day07.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 6 OF 14</span>
+            <h1>Risk Management - The Money Skill</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Critical Skill</span>
+                <span>🎯 High-Impact Concept #3</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand why risk management is the #1 skill for survival</li>
+                    <li>Master the 1-2% rule that protects your capital</li>
+                    <li>Learn position sizing formulas</li>
+                    <li>Know where to place stop-losses correctly</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>⚠️ The Truth About Trading Losses</h2>
+                
+                <blockquote>
+                    "The first rule of trading is: Don't lose money. The second rule is: Don't forget rule number one."
+                    <cite>— Warren Buffett (adapted)</cite>
+                </blockquote>
+                
+                <p>This is the most important lesson in the entire course. You can have a winning strategy, perfect entries, and great market analysis—but without proper risk management, <strong>you will eventually blow up your account</strong>.</p>
+                
+                <div class="warning-box">
+                    <h4>⚠️ The Math of Losing</h4>
+                    <p>Look at how much you need to gain back after a loss:</p>
+                    <table class="comparison-table">
+                        <tr><th>Loss</th><th>Gain Needed to Recover</th></tr>
+                        <tr><td>10%</td><td>11%</td></tr>
+                        <tr><td>20%</td><td>25%</td></tr>
+                        <tr><td>30%</td><td>43%</td></tr>
+                        <tr><td>50%</td><td>100%</td></tr>
+                        <tr><td>75%</td><td>300%</td></tr>
+                        <tr><td>90%</td><td>900%</td></tr>
+                    </table>
+                    <p style="margin-top: 15px; margin-bottom: 0;">If you lose 50% of your account, you need to make 100% just to get back to breakeven. This is why <strong>capital preservation comes first</strong>.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📏 The 1-2% Rule</h2>
+                
+                <p>The golden rule of risk management: <strong>Never risk more than 1-2% of your total account on any single trade.</strong></p>
+                
+                <h3>Why 1-2%?</h3>
+                <ul>
+                    <li><strong>Survival:</strong> Even 10 losing trades in a row only costs you 10-20%</li>
+                    <li><strong>Psychology:</strong> Small losses are easy to accept emotionally</li>
+                    <li><strong>Recovery:</strong> You can recover from a 10% drawdown easily</li>
+                    <li><strong>Longevity:</strong> Allows you to stay in the game long enough to learn</li>
+                </ul>
+                
+                <div class="calculator">
+                    <h4>📊 Example: 1% Risk Calculation</h4>
+                    <div class="calc-row">
+                        <span>Account Size:</span>
+                        <span>$10,000</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Risk Percentage:</span>
+                        <span>1%</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Maximum Risk per Trade:</span>
+                        <span>$100</span>
+                    </div>
+                </div>
+                
+                <p>This means if your stop-loss gets hit, you lose <strong>at most $100</strong>. Not a penny more. This $100 determines your position size.</p>
+                
+                <div class="key-concept">
+                    <h4>💡 Risk First, Position Size Second</h4>
+                    <p>Most beginners think: "How many shares can I afford?"
+                    <br>Professionals think: "How much can I lose? What position size allows that?"
+                    <br><br>
+                    <strong>Always start with your maximum risk, then calculate your position size.</strong></p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📐 Position Sizing Formula</h2>
+                
+                <p>Once you know your maximum risk, calculate your position size:</p>
+                
+                <div class="calculator">
+                    <h4>📊 Position Size Formula</h4>
+                    <p style="text-align: center; font-size: 1.3rem; color: var(--gold); margin: 20px 0;">
+                        Position Size = Risk Amount ÷ (Entry Price - Stop Loss Price)
+                    </p>
+                </div>
+                
+                <h3>Real Example</h3>
+                <div class="calculator">
+                    <h4>📊 Position Sizing Example</h4>
+                    <div class="calc-row">
+                        <span>Account Size:</span>
+                        <span>$10,000</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Risk per Trade (1%):</span>
+                        <span>$100</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Entry Price:</span>
+                        <span>$50.00</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Stop Loss:</span>
+                        <span>$48.00</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Risk per Share:</span>
+                        <span>$2.00</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Position Size:</span>
+                        <span>$100 ÷ $2 = 50 shares</span>
+                    </div>
+                </div>
+                
+                <p>With 50 shares, if price drops from $50 to $48 (your stop), you lose exactly $100 (1% of account). <strong>Not a penny more.</strong></p>
+            </section>
+
+            <section class="section">
+                <h2>🎯 Where to Place Stop-Losses</h2>
+                
+                <p>Your stop-loss placement determines your risk per share. Here are the rules:</p>
+                
+                <h3>Rule 1: Place Stops at Technical Levels</h3>
+                <ul>
+                    <li>Below support for long trades</li>
+                    <li>Above resistance for short trades</li>
+                    <li>Below/above recent swing lows/highs</li>
+                    <li>Below/above key moving averages</li>
+                </ul>
+                
+                <h3>Rule 2: Give Your Trade Room to Breathe</h3>
+                <p>Don't place stops so tight that normal price fluctuation stops you out. Add a buffer:</p>
+                <ul>
+                    <li>Place stop slightly below the support level, not exactly on it</li>
+                    <li>Use the ATR (Average True Range) indicator to measure normal volatility</li>
+                    <li>Generally, 1-2 ATR below support works well</li>
+                </ul>
+                
+                <h3>Rule 3: Never Move Your Stop-Loss Backward</h3>
+                <p>Once set, you may move your stop in profit direction (trailing), but <strong>NEVER</strong> move it further away to "give the trade more room." That's how small losses become big losses.</p>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Stop-Loss Mistakes That Kill Accounts</h4>
+                    <ol>
+                        <li><strong>No stop-loss:</strong> "It will come back" - famous last words</li>
+                        <li><strong>Moving stop backward:</strong> Hoping the trade recovers</li>
+                        <li><strong>Stop too tight:</strong> Getting stopped out by normal volatility</li>
+                        <li><strong>Stop at even numbers:</strong> Everyone puts stops there, market makers hunt them</li>
+                        <li><strong>Mental stops:</strong> "I'll exit if it hits $48" - you won't</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>⚖️ Risk-to-Reward Ratio</h2>
+                
+                <p>Every trade should have a favorable risk-to-reward ratio. Aim for <strong>at least 1:2</strong> (risk $1 to make $2).</p>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Risk:Reward</th>
+                        <th>Win Rate Needed to Break Even</th>
+                        <th>Assessment</th>
+                    </tr>
+                    <tr>
+                        <td>1:1</td>
+                        <td>50%</td>
+                        <td>Poor - not worth it</td>
+                    </tr>
+                    <tr>
+                        <td>1:2</td>
+                        <td>33%</td>
+                        <td>Good - minimum target</td>
+                    </tr>
+                    <tr>
+                        <td>1:3</td>
+                        <td>25%</td>
+                        <td>Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>1:5</td>
+                        <td>17%</td>
+                        <td>Outstanding</td>
+                    </tr>
+                </table>
+                
+                <div class="key-concept">
+                    <h4>💡 The Professional's Edge</h4>
+                    <p>With a 1:3 risk-reward ratio, you only need to win 25% of trades to break even. Win 40%? You're profitable. This is how professionals can be wrong more than they're right and still make money.
+                    <br><br>
+                    <strong>Only take trades where your target is at least 2x your stop distance.</strong></p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Risk Management for Trading</strong></p>
+                    <p>Complete guide to protecting your capital and managing risk.</p>
+                    <a href="https://www.youtube.com/watch?v=Nt_eSJhNfRY" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>Position Sizing Strategies</strong></p>
+                    <p>How to calculate the right position size for every trade.</p>
+                    <a href="https://www.youtube.com/watch?v=vU2F5PNqNZY" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (SMB Capital)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>Stop Loss Placement Tutorial</strong></p>
+                    <p>Where to place your stop-loss for maximum protection.</p>
+                    <a href="https://www.youtube.com/watch?v=lYPRZQdM0JE" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (The Trading Channel)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Calculate Your Risk Parameters (10 minutes)</h4>
+                    <p>Write down and commit to these numbers:</p>
+                    <ol>
+                        <li>Your account size: $______</li>
+                        <li>Your risk per trade (1-2%): $______</li>
+                        <li>Maximum number of open positions: ______</li>
+                        <li>Maximum daily loss before stopping: $______</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Practice Position Sizing (20 minutes)</h4>
+                    <p>Use the formula to calculate position sizes for these scenarios:</p>
+                    <ol>
+                        <li>$10,000 account, 1% risk, entry $25, stop $24</li>
+                        <li>$5,000 account, 2% risk, entry $150, stop $145</li>
+                        <li>$25,000 account, 1% risk, entry $80, stop $77</li>
+                    </ol>
+                    <p>Show your work: Risk $ ÷ Risk per share = Position size</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Stop-Loss Planning (15 minutes)</h4>
+                    <p>Open TradingView and find 3 potential trade setups:</p>
+                    <ol>
+                        <li>Identify the entry point</li>
+                        <li>Mark where you would place the stop-loss</li>
+                        <li>Mark your profit target (2-3x the stop distance)</li>
+                        <li>Calculate the risk-reward ratio</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Risk management is the #1 skill for trading survival</li>
+                    <li>Never risk more than 1-2% of your account per trade</li>
+                    <li>Position Size = Risk Amount ÷ (Entry - Stop Loss)</li>
+                    <li>Place stops at technical levels, not arbitrary distances</li>
+                    <li>Never move your stop-loss backward</li>
+                    <li>Only take trades with at least 1:2 risk-reward ratio</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day05.html" class="nav-btn prev">← Day 5: Moving Averages</a>
+                <a href="day07.html" class="nav-btn next">Day 7: Week 1 Review →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

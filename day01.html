@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: Market Fundamentals & The 80/20 Mindset | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--gold-light); }
+        .nav-links { display: flex; gap: 30px; }
+        
+        /* Header */
+        header {
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .lesson-meta {
+            display: flex;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .lesson-meta span { display: flex; align-items: center; gap: 8px; }
+        
+        /* Content Sections */
+        .content { padding: 50px 0; }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px 0;
+        }
+        
+        p { margin-bottom: 20px; color: var(--text-light); }
+        
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+        
+        /* Key Concept Box */
+        .key-concept {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .key-concept h4 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Video Resource */
+        .video-resource {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .video-resource h4 {
+            color: var(--info);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--info);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .video-link:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Action Step */
+        .action-step {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .action-step h4 {
+            color: var(--success);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Quote */
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-left: 3px solid var(--gold);
+            padding-left: 25px;
+            margin: 30px 0;
+        }
+        blockquote cite {
+            display: block;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-style: normal;
+            color: var(--text-muted);
+        }
+        
+        /* Navigation Footer */
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 40px;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-btn.next {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+        }
+        .nav-btn:hover { transform: translateY(-2px); }
+        
+        /* Progress */
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-bottom: 30px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 2px;
+            width: 7.14%; /* 1/14 days */
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .lesson-meta { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="day02.html">Next Lesson →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 1 OF 14</span>
+            <h1>Market Fundamentals & The 80/20 Mindset</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Foundation Level</span>
+                <span>🎯 Critical Importance</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <!-- Learning Objectives -->
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <p>By the end of this lesson, you will:</p>
+                <ol>
+                    <li>Understand how the stock market actually works at a fundamental level</li>
+                    <li>Know the key players: buyers, sellers, market makers, and exchanges</li>
+                    <li>Embrace the 80/20 mindset that separates profitable traders from the masses</li>
+                    <li>Identify the vital few concepts you'll master in this course</li>
+                </ol>
+            </section>
+
+            <!-- What is the Stock Market -->
+            <section class="section">
+                <h2>📈 What Is The Stock Market, Really?</h2>
+                
+                <p>Forget the complicated explanations. At its core, the stock market is simply a <strong>marketplace where people buy and sell ownership pieces (shares) of companies</strong>.</p>
+                
+                <h3>The Simple Truth</h3>
+                <p>When you buy a stock, you're buying a tiny piece of that company. If the company does well and grows, your piece becomes more valuable. If it struggles, your piece loses value.</p>
+                
+                <div class="key-concept">
+                    <h4>💡 Key Insight</h4>
+                    <p>Stock prices move for one reason only: <strong>supply and demand</strong>. If more people want to buy than sell, prices go up. If more people want to sell than buy, prices go down. Everything else—earnings reports, news, technical patterns—only matters because they influence buying and selling decisions.</p>
+                </div>
+                
+                <h3>The Main Players</h3>
+                <ul>
+                    <li><strong>Retail Traders (You)</strong> - Individual investors trading their own money</li>
+                    <li><strong>Institutional Investors</strong> - Big funds, banks, pension funds with massive capital</li>
+                    <li><strong>Market Makers</strong> - Firms that provide liquidity by always offering to buy and sell</li>
+                    <li><strong>Exchanges</strong> - NYSE, NASDAQ - the venues where trades happen</li>
+                </ul>
+                
+                <h3>How Trades Actually Happen</h3>
+                <ol>
+                    <li>You place an order to buy 10 shares of Apple at $175</li>
+                    <li>Your broker sends this order to an exchange or market maker</li>
+                    <li>The system matches your buy order with someone willing to sell at $175</li>
+                    <li>The trade executes, and you now own those shares</li>
+                </ol>
+                
+                <p>This happens in milliseconds. The complexity behind the scenes doesn't change what you need to focus on: <strong>buying low and selling high</strong>.</p>
+            </section>
+
+            <!-- The 80/20 Principle -->
+            <section class="section">
+                <h2>🧠 The 80/20 Principle in Trading</h2>
+                
+                <blockquote>
+                    "The majority of profits come from a minority of trades. The majority of losses come from fighting this truth."
+                    <cite>— Trading Wisdom</cite>
+                </blockquote>
+                
+                <p>The Pareto Principle states that roughly 80% of effects come from 20% of causes. In trading, this manifests in several critical ways:</p>
+                
+                <h3>How 80/20 Applies to Your Trading</h3>
+                <ul>
+                    <li><strong>20% of your trades</strong> will generate 80% of your profits</li>
+                    <li><strong>20% of trading concepts</strong> will create 80% of your edge</li>
+                    <li><strong>20% of stocks</strong> will provide 80% of your opportunities</li>
+                    <li><strong>20% of your time</strong> should be trading; 80% should be waiting</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The Mentor's Secret</h4>
+                    <p>After coaching over 1,000 traders, I've found that <strong>most people fail because they try to learn everything</strong>. They watch 100 YouTube videos, study 50 indicators, and memorize 30 candlestick patterns—then can't execute a single profitable trade consistently. The winners? They master 5-7 core concepts and apply them relentlessly.</p>
+                </div>
+                
+                <h3>The 7 High-Impact Concepts We'll Master</h3>
+                <ol>
+                    <li><strong>Price Action & Market Structure</strong> - How to read what the market is telling you</li>
+                    <li><strong>Support & Resistance</strong> - Where to buy, where to sell</li>
+                    <li><strong>Risk Management</strong> - How to not lose your money</li>
+                    <li><strong>Key Candlestick Patterns</strong> - The 5 that actually work</li>
+                    <li><strong>Moving Averages</strong> - The only indicator you really need</li>
+                    <li><strong>Trading Psychology</strong> - Mastering your emotions</li>
+                    <li><strong>Trading Plan & Execution</strong> - Systematic profit-taking</li>
+                </ol>
+                
+                <p>That's it. These 7 concepts, truly understood and applied, will outperform any complex system or expensive course.</p>
+            </section>
+
+            <!-- Types of Trading -->
+            <section class="section">
+                <h2>⏰ Choose Your Style: Trading vs Investing</h2>
+                
+                <p>Before going further, you need to decide what approach suits your personality and lifestyle:</p>
+                
+                <h3>Day Trading</h3>
+                <ul>
+                    <li>Buying and selling within the same day</li>
+                    <li>Requires 2-4+ hours of screen time daily</li>
+                    <li>Higher stress, faster profits (or losses)</li>
+                    <li>Needs $25,000+ for US pattern day trading rules</li>
+                </ul>
+                
+                <h3>Swing Trading (Recommended for Most)</h3>
+                <ul>
+                    <li>Holding positions for days to weeks</li>
+                    <li>Requires 30-60 minutes daily</li>
+                    <li>Balanced risk/reward profile</li>
+                    <li>Works with any account size</li>
+                </ul>
+                
+                <h3>Position Trading / Investing</h3>
+                <ul>
+                    <li>Holding for months to years</li>
+                    <li>Requires a few hours weekly</li>
+                    <li>Lower stress, benefits from compounding</li>
+                    <li>Focuses more on fundamentals</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 Recommendation</h4>
+                    <p>This course focuses primarily on <strong>swing trading</strong> principles because they offer the best risk/reward for most people. However, the concepts apply to all timeframes—the same support/resistance level that matters on a 15-minute chart matters on a weekly chart.</p>
+                </div>
+            </section>
+
+            <!-- Video Resources -->
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <p>Watch these videos to reinforce today's concepts. Budget approximately 30-40 minutes for video learning.</p>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Stock Market For Beginners - How The Stock Market Works</strong></p>
+                    <p>A clear explanation of stock market fundamentals, perfect for building your foundation.</p>
+                    <a href="https://www.youtube.com/watch?v=p7HKvqRI_Bo" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (ClearValue Tax)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>How To Invest In Stocks For Beginners</strong></p>
+                    <p>Vincent Chan's comprehensive guide covering the basics every beginner needs.</p>
+                    <a href="https://www.youtube.com/watch?v=2NKmCQ-XfNc" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Vincent Chan)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>The 80/20 Rule Explained (Pareto Principle)</strong></p>
+                    <p>Understanding how to apply the Pareto Principle to accelerate your learning.</p>
+                    <a href="https://www.youtube.com/watch?v=EAynHZE-lK4" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Productivity Game)
+                    </a>
+                </div>
+            </section>
+
+            <!-- Action Steps -->
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Self-Assessment (10 minutes)</h4>
+                    <p>Write down answers to these questions:</p>
+                    <ol>
+                        <li>What is my trading/investing goal? (Be specific with numbers)</li>
+                        <li>How much time can I realistically dedicate daily?</li>
+                        <li>What is my starting capital?</li>
+                        <li>Am I comfortable with the idea of losing some of that capital while learning?</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Choose Your Style (5 minutes)</h4>
+                    <p>Based on your answers above, decide:</p>
+                    <ul>
+                        <li>Will you focus on day trading, swing trading, or investing?</li>
+                        <li>Write this decision down. Commit to it for at least 90 days before reconsidering.</li>
+                    </ul>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Set Up Your Environment (15 minutes)</h4>
+                    <p>If you haven't already:</p>
+                    <ul>
+                        <li>Create a free account at <a href="https://www.tradingview.com" target="_blank" style="color: var(--gold);">TradingView.com</a> for charting</li>
+                        <li>Download your broker's mobile app or set up their desktop platform</li>
+                        <li>Bookmark financial news sites (Yahoo Finance, MarketWatch)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Key Takeaways -->
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>The stock market is simply where buyers and sellers meet to trade company ownership</li>
+                    <li>Prices move based on supply and demand—more buyers = higher prices</li>
+                    <li>80% of your results will come from mastering 20% of concepts</li>
+                    <li>We'll focus on 7 high-impact concepts throughout this course</li>
+                    <li>Choose your trading style (day, swing, or position) and stick with it</li>
+                </ol>
+            </section>
+
+            <!-- Navigation -->
+            <div class="lesson-nav">
+                <a href="index.html" class="nav-btn prev">← Course Home</a>
+                <a href="day02.html" class="nav-btn next">Day 2: Price Action →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

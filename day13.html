@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 13: Trading Journal & Performance Review | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 92.82%; }
+        .journal-template { background: rgba(0, 0, 0, 0.4); border: 2px solid var(--gold); border-radius: 15px; padding: 30px; margin: 25px 0; }
+        .journal-template h4 { color: var(--gold); font-size: 1.3rem; margin-bottom: 20px; text-align: center; }
+        .journal-section { margin: 20px 0; padding: 15px; background: rgba(255, 255, 255, 0.02); border-radius: 8px; }
+        .journal-section h5 { color: var(--gold-light); margin-bottom: 10px; }
+        .journal-field { display: flex; gap: 10px; margin: 10px 0; }
+        .journal-field label { min-width: 150px; color: var(--text-muted); }
+        .journal-field span { color: var(--text-light); }
+        .metric-card { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; border-left: 4px solid var(--info); }
+        .metric-card h4 { color: var(--info); margin-bottom: 15px; font-size: 1.2rem; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day12.html">← Previous</a>
+                <a href="day14.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 13 OF 14</span>
+            <h1>Trading Journal & Performance Review</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Improvement</span>
+                <span>🎯 Accelerated Learning</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand why a trading journal accelerates improvement 10x</li>
+                    <li>Learn what to record for every trade</li>
+                    <li>Know which metrics to track</li>
+                    <li>Set up your performance review system</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>📔 Why You Must Keep a Trading Journal</h2>
+                
+                <blockquote>
+                    "The definition of insanity is doing the same thing over and over and expecting different results."
+                    <cite>— Often attributed to Einstein</cite>
+                </blockquote>
+                
+                <p>Most traders make the same mistakes repeatedly because they don't track what they're doing. A trading journal changes everything.</p>
+                
+                <h3>Benefits of a Trading Journal</h3>
+                <ul>
+                    <li><strong>Identifies patterns:</strong> You'll see which setups work and which don't</li>
+                    <li><strong>Exposes emotional trading:</strong> Hard to deny patterns when data shows them</li>
+                    <li><strong>Accelerates learning:</strong> Review mistakes without having to experience them again</li>
+                    <li><strong>Builds confidence:</strong> See your actual edge in the data</li>
+                    <li><strong>Keeps you accountable:</strong> Forces honesty about your trading</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The 10x Learning Multiplier</h4>
+                    <p>A trader who keeps a journal and reviews it weekly will improve 10x faster than one who doesn't. Why? Because you learn from EVERY trade—wins, losses, and mistakes—instead of just the ones you remember.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📝 What to Record for Every Trade</h2>
+                
+                <div class="journal-template">
+                    <h4>📊 TRADE JOURNAL TEMPLATE</h4>
+                    
+                    <div class="journal-section">
+                        <h5>📋 Basic Information</h5>
+                        <div class="journal-field"><label>Date/Time:</label> <span>_________________</span></div>
+                        <div class="journal-field"><label>Symbol:</label> <span>_________________</span></div>
+                        <div class="journal-field"><label>Direction:</label> <span>Long / Short</span></div>
+                        <div class="journal-field"><label>Position Size:</label> <span>_________________</span></div>
+                    </div>
+                    
+                    <div class="journal-section">
+                        <h5>🎯 Trade Details</h5>
+                        <div class="journal-field"><label>Entry Price:</label> <span>$_________________</span></div>
+                        <div class="journal-field"><label>Stop-Loss:</label> <span>$_________________</span></div>
+                        <div class="journal-field"><label>Target:</label> <span>$_________________</span></div>
+                        <div class="journal-field"><label>R:R Ratio:</label> <span>_________________</span></div>
+                    </div>
+                    
+                    <div class="journal-section">
+                        <h5>📊 Setup Information</h5>
+                        <div class="journal-field"><label>Setup Type:</label> <span>Pullback / Breakout / Reversal</span></div>
+                        <div class="journal-field"><label>Timeframe:</label> <span>_________________</span></div>
+                        <div class="journal-field"><label>Trend Direction:</label> <span>Up / Down / Range</span></div>
+                        <div class="journal-field"><label>Key Level:</label> <span>_________________</span></div>
+                        <div class="journal-field"><label>Confluence Factors:</label> <span>_________________</span></div>
+                    </div>
+                    
+                    <div class="journal-section">
+                        <h5>📸 Screenshots</h5>
+                        <p>Attach: Chart before entry | Chart at exit | Marked up analysis</p>
+                    </div>
+                    
+                    <div class="journal-section">
+                        <h5>📈 Exit Details</h5>
+                        <div class="journal-field"><label>Exit Price:</label> <span>$_________________</span></div>
+                        <div class="journal-field"><label>Exit Reason:</label> <span>Target / Stop / Manual</span></div>
+                        <div class="journal-field"><label>P/L ($):</label> <span>$_________________</span></div>
+                        <div class="journal-field"><label>P/L (R):</label> <span>_________________R</span></div>
+                    </div>
+                    
+                    <div class="journal-section">
+                        <h5>🧠 Psychological Review</h5>
+                        <div class="journal-field"><label>Emotional State (Entry):</label> <span>Calm / Anxious / FOMO / Confident</span></div>
+                        <div class="journal-field"><label>Emotional State (Exit):</label> <span>Calm / Fearful / Greedy / Impatient</span></div>
+                        <div class="journal-field"><label>Did I follow my plan?</label> <span>Yes / No</span></div>
+                        <div class="journal-field"><label>Grade (A-F):</label> <span>_________________</span></div>
+                    </div>
+                    
+                    <div class="journal-section">
+                        <h5>💡 Lessons Learned</h5>
+                        <p>What did this trade teach me?</p>
+                        <p style="border-bottom: 1px solid var(--gold); margin-top: 10px;"></p>
+                        <p style="border-bottom: 1px solid var(--gold); margin-top: 20px;"></p>
+                        <p>What would I do differently?</p>
+                        <p style="border-bottom: 1px solid var(--gold); margin-top: 10px;"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📊 Key Performance Metrics to Track</h2>
+                
+                <div class="metric-card">
+                    <h4>1. Win Rate</h4>
+                    <p><strong>Formula:</strong> (Winning Trades ÷ Total Trades) × 100</p>
+                    <p><strong>Target:</strong> 40-60% is good. Higher isn't always better if R:R is low.</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>2. Average R (Risk Multiple)</h4>
+                    <p><strong>Formula:</strong> Average profit/loss expressed as multiples of risk</p>
+                    <p><strong>Example:</strong> If you risk $100 and average $150 profit, your average R is 1.5R</p>
+                    <p><strong>Target:</strong> Positive average R means you're profitable</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>3. Expectancy</h4>
+                    <p><strong>Formula:</strong> (Win Rate × Avg Win) - (Loss Rate × Avg Loss)</p>
+                    <p><strong>What it means:</strong> Expected $ per trade over time</p>
+                    <p><strong>Target:</strong> Positive expectancy = profitable system</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>4. Maximum Drawdown</h4>
+                    <p><strong>What it is:</strong> Largest peak-to-trough decline in account value</p>
+                    <p><strong>Why it matters:</strong> Shows your risk exposure</p>
+                    <p><strong>Target:</strong> Keep under 20% if possible</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h4>5. Profit Factor</h4>
+                    <p><strong>Formula:</strong> Gross Profits ÷ Gross Losses</p>
+                    <p><strong>What it means:</strong> How much you make for every $ you lose</p>
+                    <p><strong>Target:</strong> Above 1.5 is good, above 2.0 is excellent</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📅 Weekly Review Process</h2>
+                
+                <p>Set aside 30-60 minutes every weekend for your trading review:</p>
+                
+                <h3>Step 1: Gather the Data (10 min)</h3>
+                <ul>
+                    <li>Calculate your week's statistics (wins, losses, R total)</li>
+                    <li>Note any pattern in your results</li>
+                </ul>
+                
+                <h3>Step 2: Review Each Trade (20 min)</h3>
+                <ul>
+                    <li>Look at screenshots—did setups match your criteria?</li>
+                    <li>Check emotional notes—any patterns?</li>
+                    <li>Did you follow your rules? Grade each trade A-F</li>
+                </ul>
+                
+                <h3>Step 3: Identify Patterns (15 min)</h3>
+                <ul>
+                    <li>Which setups performed best?</li>
+                    <li>Which days/times were most profitable?</li>
+                    <li>What mistakes keep repeating?</li>
+                    <li>Are you breaking any trading rules consistently?</li>
+                </ul>
+                
+                <h3>Step 4: Create Action Items (10 min)</h3>
+                <ul>
+                    <li>One thing to STOP doing</li>
+                    <li>One thing to START doing</li>
+                    <li>One thing to CONTINUE doing</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The Compound Effect</h4>
+                    <p>If you improve just 1% each week through journaling and review, you'll be 67% better in one year. Small, consistent improvements compound dramatically over time.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🛠️ Journal Tools</h2>
+                
+                <h3>Free Options</h3>
+                <ul>
+                    <li><strong>Google Sheets / Excel:</strong> Create your own template</li>
+                    <li><strong>Notion:</strong> Flexible database with screenshots</li>
+                    <li><strong>TradingView Notes:</strong> Built-in notes for each chart</li>
+                </ul>
+                
+                <h3>Paid Options</h3>
+                <ul>
+                    <li><strong>Edgewonk:</strong> Comprehensive trading journal software</li>
+                    <li><strong>TraderSync:</strong> Auto-import from brokers</li>
+                    <li><strong>Tradervue:</strong> Detailed analytics</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>How to Create a Trading Journal</strong></p>
+                    <p>Step-by-step guide to setting up an effective trading journal.</p>
+                    <a href="https://www.youtube.com/watch?v=f1J9pV0F_rE" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (SMB Capital)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>Trading Journal Best Practices</strong></p>
+                    <p>What successful traders track and why.</p>
+                    <a href="https://www.youtube.com/watch?v=8HSE8slw2As" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Create Your Journal (30 minutes)</h4>
+                    <p>Choose a tool (Google Sheets recommended for beginners) and create your trading journal using the template above. Include all fields.</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Practice Entry (15 minutes)</h4>
+                    <p>Even if you haven't traded yet, find a setup on TradingView and fill out a complete journal entry as if you were taking the trade. Get comfortable with the process.</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Schedule Reviews (5 minutes)</h4>
+                    <p>Put a recurring 30-60 minute appointment in your calendar for weekly trading reviews. Treat it as non-negotiable.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>A trading journal accelerates learning 10x</li>
+                    <li>Record: Entry/Exit details, Setup type, Screenshots, Emotions, Lessons</li>
+                    <li>Key metrics: Win rate, Average R, Expectancy, Drawdown, Profit Factor</li>
+                    <li>Weekly review: Data → Trade review → Pattern identification → Action items</li>
+                    <li>1% weekly improvement = 67% better in one year</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day12.html" class="nav-btn prev">← Day 12: Portfolio Management</a>
+                <a href="day14.html" class="nav-btn next">Day 14: Final Review →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 11: Fundamental Analysis Essentials | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 78.54%; }
+        .ratio-card { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; border-left: 4px solid var(--info); }
+        .ratio-card h4 { color: var(--info); margin-bottom: 15px; font-size: 1.2rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .comparison-table th { color: var(--gold); font-weight: 600; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day10.html">← Previous</a>
+                <a href="day12.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 11 OF 14</span>
+            <h1>Fundamental Analysis Essentials</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Fundamentals</span>
+                <span>🎯 The 20% That Matters</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand when fundamentals matter (and when they don't)</li>
+                    <li>Learn the 5 key metrics that professional investors use</li>
+                    <li>Know how to quickly assess a company's financial health</li>
+                    <li>Combine fundamentals with technicals for better trades</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>📊 When Do Fundamentals Matter?</h2>
+                
+                <blockquote>
+                    "In the short run, the market is a voting machine. In the long run, it's a weighing machine."
+                    <cite>— Benjamin Graham</cite>
+                </blockquote>
+                
+                <h3>Fundamentals Matter More For:</h3>
+                <ul>
+                    <li><strong>Long-term investors</strong> (holding months to years)</li>
+                    <li><strong>Position traders</strong> (holding weeks to months)</li>
+                    <li><strong>Stock selection</strong> (choosing which stocks to trade)</li>
+                    <li><strong>Avoiding value traps</strong> (companies that look cheap but are failing)</li>
+                </ul>
+                
+                <h3>Fundamentals Matter Less For:</h3>
+                <ul>
+                    <li><strong>Day traders</strong> (price action dominates)</li>
+                    <li><strong>Short-term swing traders</strong> (technical setups drive entries)</li>
+                    <li><strong>Index/ETF traders</strong> (trading the market, not individual companies)</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The 80/20 of Fundamentals</h4>
+                    <p>You don't need to be a financial analyst. For most traders, understanding <strong>5 key metrics</strong> is enough to avoid bad stocks and identify quality companies. Leave the deep financial modeling to the hedge funds.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📈 The 5 Key Metrics</h2>
+                
+                <div class="ratio-card">
+                    <h4>1. P/E Ratio (Price-to-Earnings)</h4>
+                    <p><strong>What it is:</strong> Stock price divided by earnings per share (EPS)</p>
+                    <p><strong>What it tells you:</strong> How much you're paying for each dollar of earnings</p>
+                    <p><strong>How to use it:</strong></p>
+                    <ul>
+                        <li>Low P/E (< 15): Potentially undervalued or slow growth</li>
+                        <li>High P/E (> 25): High growth expectations or overvalued</li>
+                        <li>Compare to industry peers, not just absolute numbers</li>
+                    </ul>
+                    <p><strong>Example:</strong> Stock at $100 with EPS of $5 = P/E of 20 (you pay $20 for every $1 of earnings)</p>
+                </div>
+                
+                <div class="ratio-card">
+                    <h4>2. Revenue Growth</h4>
+                    <p><strong>What it is:</strong> Year-over-year percentage change in total sales</p>
+                    <p><strong>What it tells you:</strong> Is the company growing its business?</p>
+                    <p><strong>How to use it:</strong></p>
+                    <ul>
+                        <li>Growing revenue = healthy, expanding business</li>
+                        <li>Declining revenue = potential problems ahead</li>
+                        <li>Look for consistent growth, not one-time spikes</li>
+                    </ul>
+                    <p><strong>Good sign:</strong> 10%+ year-over-year revenue growth</p>
+                </div>
+                
+                <div class="ratio-card">
+                    <h4>3. EPS Growth (Earnings Per Share)</h4>
+                    <p><strong>What it is:</strong> Year-over-year percentage change in earnings per share</p>
+                    <p><strong>What it tells you:</strong> Is the company becoming more profitable?</p>
+                    <p><strong>How to use it:</strong></p>
+                    <ul>
+                        <li>Growing EPS = increasing profitability</li>
+                        <li>EPS growth > Revenue growth = improving margins</li>
+                        <li>Negative or declining EPS = caution</li>
+                    </ul>
+                    <p><strong>Good sign:</strong> 15%+ year-over-year EPS growth</p>
+                </div>
+                
+                <div class="ratio-card">
+                    <h4>4. Debt-to-Equity Ratio</h4>
+                    <p><strong>What it is:</strong> Total debt divided by shareholders' equity</p>
+                    <p><strong>What it tells you:</strong> How much the company relies on debt</p>
+                    <p><strong>How to use it:</strong></p>
+                    <ul>
+                        <li>Low D/E (< 0.5): Conservative, financially stable</li>
+                        <li>High D/E (> 2): Risky, vulnerable in downturns</li>
+                        <li>Varies by industry (banks have high D/E by nature)</li>
+                    </ul>
+                    <p><strong>Good sign:</strong> D/E under 1.0 for most industries</p>
+                </div>
+                
+                <div class="ratio-card">
+                    <h4>5. ROE (Return on Equity)</h4>
+                    <p><strong>What it is:</strong> Net income divided by shareholders' equity</p>
+                    <p><strong>What it tells you:</strong> How efficiently the company uses investor capital</p>
+                    <p><strong>How to use it:</strong></p>
+                    <ul>
+                        <li>High ROE (> 15%): Efficient capital use</li>
+                        <li>Low ROE (< 10%): Poor capital efficiency</li>
+                        <li>Consistent ROE is better than volatile</li>
+                    </ul>
+                    <p><strong>Good sign:</strong> ROE above 15% consistently</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔍 Quick Fundamental Screening</h2>
+                
+                <p>Use this checklist to quickly assess if a stock is worth trading:</p>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Metric</th>
+                        <th>What You Want</th>
+                        <th>Red Flag</th>
+                    </tr>
+                    <tr>
+                        <td>P/E Ratio</td>
+                        <td>Reasonable for industry</td>
+                        <td>Extremely high (>50) or negative</td>
+                    </tr>
+                    <tr>
+                        <td>Revenue Growth</td>
+                        <td>Positive, ideally >10%</td>
+                        <td>Declining for 2+ quarters</td>
+                    </tr>
+                    <tr>
+                        <td>EPS Growth</td>
+                        <td>Positive, ideally >15%</td>
+                        <td>Negative or declining</td>
+                    </tr>
+                    <tr>
+                        <td>Debt/Equity</td>
+                        <td>< 1.0</td>
+                        <td>> 2.0 (outside finance sector)</td>
+                    </tr>
+                    <tr>
+                        <td>ROE</td>
+                        <td>> 15%</td>
+                        <td>< 10% or negative</td>
+                    </tr>
+                </table>
+                
+                <div class="key-concept">
+                    <h4>💡 Where to Find This Data</h4>
+                    <p>Free resources:
+                    <br>• <strong>Yahoo Finance:</strong> finance.yahoo.com (Statistics tab)
+                    <br>• <strong>Finviz:</strong> finviz.com (Screener)
+                    <br>• <strong>TradingView:</strong> tradingview.com (Financials tab)
+                    <br>• <strong>SEC Filings:</strong> sec.gov (10-K, 10-Q reports)</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>⚡ Combining Fundamentals with Technicals</h2>
+                
+                <p>The most powerful approach combines both:</p>
+                
+                <ol>
+                    <li><strong>Use fundamentals to SELECT stocks:</strong> Screen for quality companies with good metrics</li>
+                    <li><strong>Use technicals to TIME entries:</strong> Wait for pullbacks, support levels, confirmation patterns</li>
+                    <li><strong>Use technicals to MANAGE trades:</strong> Stop-losses, profit targets, trailing stops</li>
+                </ol>
+                
+                <h3>Example Process:</h3>
+                <ol>
+                    <li>Screen for stocks with: P/E < 25, Revenue growth > 10%, ROE > 15%</li>
+                    <li>Check which of these are in uptrends (above 200 EMA)</li>
+                    <li>Wait for pullback to support or 50 EMA</li>
+                    <li>Enter on bullish candlestick confirmation</li>
+                    <li>Manage with technical stop and target</li>
+                </ol>
+                
+                <div class="key-concept">
+                    <h4>💡 The Bottom Line</h4>
+                    <p>Trade <strong>quality companies</strong> (good fundamentals) at <strong>good prices</strong> (technical setups). This combination gives you an edge in both the what (stock selection) and the when (timing).</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Fundamental Analysis for Beginners</strong></p>
+                    <p>How to analyze a company's financial health.</p>
+                    <a href="https://www.youtube.com/watch?v=KfDB9e_cO4k" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (The Plain Bagel)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>How to Read Financial Statements</strong></p>
+                    <p>Understanding income statements, balance sheets, and cash flow.</p>
+                    <a href="https://www.youtube.com/watch?v=Q4szPqWNGzM" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Learn to Invest)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Analyze 3 Stocks (30 minutes)</h4>
+                    <p>Go to Yahoo Finance and look up the key metrics for: AAPL, MSFT, and TSLA</p>
+                    <p>For each, find and write down:</p>
+                    <ol>
+                        <li>P/E Ratio</li>
+                        <li>Revenue Growth (YoY)</li>
+                        <li>EPS Growth (YoY)</li>
+                        <li>Debt-to-Equity</li>
+                        <li>ROE</li>
+                    </ol>
+                    <p>Which looks like the strongest company based on these metrics?</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Set Up a Screener (15 minutes)</h4>
+                    <p>Go to finviz.com/screener.ashx and create a filter:</p>
+                    <ol>
+                        <li>P/E Under 25</li>
+                        <li>EPS growth past 5 years > 10%</li>
+                        <li>ROE > 15%</li>
+                        <li>Debt/Equity < 1</li>
+                    </ol>
+                    <p>Save the list of stocks that pass this screen.</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Combine with Technicals (10 minutes)</h4>
+                    <p>From your screened stocks, check which ones are in uptrends (above 200 EMA). These are your watchlist candidates.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Fundamentals matter more for longer-term trades and stock selection</li>
+                    <li>5 key metrics: P/E, Revenue Growth, EPS Growth, D/E, ROE</li>
+                    <li>Use fundamentals to SELECT, technicals to TIME</li>
+                    <li>Free tools: Yahoo Finance, Finviz, TradingView</li>
+                    <li>Quality companies + Good technical setups = Higher probability trades</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day10.html" class="nav-btn prev">← Day 10: Entry & Exit</a>
+                <a href="day12.html" class="nav-btn next">Day 12: Portfolio Management →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

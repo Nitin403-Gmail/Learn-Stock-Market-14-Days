@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2: Price Action & Market Structure | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+        nav a:hover { color: var(--gold-light); }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .lesson-meta span { display: flex; align-items: center; gap: 8px; }
+        .content { padding: 50px 0; }
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px 0;
+        }
+        p { margin-bottom: 20px; color: var(--text-light); }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; color: var(--text-light); }
+        .key-concept {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .key-concept h4 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .video-resource {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--info);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .video-link:hover { background: #2980b9; transform: translateY(-2px); }
+        .action-step {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-left: 3px solid var(--gold);
+            padding-left: 25px;
+            margin: 30px 0;
+        }
+        blockquote cite {
+            display: block;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-style: normal;
+            color: var(--text-muted);
+        }
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 40px;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-btn.next {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+        }
+        .nav-btn:hover { transform: translateY(-2px); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 14.28%; }
+        .chart-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            overflow-x: auto;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .lesson-meta { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day01.html">← Previous</a>
+                <a href="day03.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 2 OF 14</span>
+            <h1>Price Action & Market Structure</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Core Technical Skill</span>
+                <span>🎯 High-Impact Concept #1</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand what "price action" means and why it's the purest form of analysis</li>
+                    <li>Identify the 3 market states: uptrend, downtrend, and sideways (range)</li>
+                    <li>Learn to spot higher highs/higher lows (uptrend) and lower highs/lower lows (downtrend)</li>
+                    <li>Recognize when a trend is about to change</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>📊 What Is Price Action?</h2>
+                
+                <p>Price action is the study of <strong>price movement itself</strong>—without relying on indicators. It's watching what buyers and sellers are actually doing, not what some lagging indicator tells you they did.</p>
+                
+                <blockquote>
+                    "Price is king. Everything else is just noise."
+                    <cite>— Professional Trading Principle</cite>
+                </blockquote>
+                
+                <h3>Why Price Action Matters Most</h3>
+                <ul>
+                    <li><strong>It's leading, not lagging</strong> - Indicators calculate from past prices; price action shows you NOW</li>
+                    <li><strong>It works on any market</strong> - Stocks, forex, crypto—price behavior is universal</li>
+                    <li><strong>It works on any timeframe</strong> - From 1-minute charts to monthly charts</li>
+                    <li><strong>It's what professional traders use</strong> - Institutions don't need 10 indicators</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The Simple Truth</h4>
+                    <p>Every indicator you've ever seen—RSI, MACD, Bollinger Bands—is just a mathematical manipulation of price. Why study the derivative when you can study the source? <strong>Master price action first. Add indicators later (if ever).</strong></p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📈 The 3 Market States</h2>
+                
+                <p>At any moment, a market is in one of three states. Your job is to identify which one, and trade accordingly.</p>
+                
+                <h3>1. Uptrend (Bullish)</h3>
+                <p>Defined by a series of <strong>Higher Highs (HH)</strong> and <strong>Higher Lows (HL)</strong>.</p>
+                
+                <div class="chart-example">
+                    Price moves UP →
+                    
+                              HH ←─ new high
+                             /
+                            /
+                       HL ←─┘ pullback, but higher than before
+                      /
+                     /
+                HH ←─┘
+                   /
+                  /
+             HL ←─┘
+                </div>
+                
+                <p><strong>Strategy:</strong> In uptrends, look to BUY pullbacks to support levels. "Buy the dip."</p>
+                
+                <h3>2. Downtrend (Bearish)</h3>
+                <p>Defined by a series of <strong>Lower Highs (LH)</strong> and <strong>Lower Lows (LL)</strong>.</p>
+                
+                <div class="chart-example">
+                    Price moves DOWN →
+                    
+                LH ←─┐
+                     \
+                      \
+                 LL ←──┘ bounce, but lower than before
+                       \
+                        \
+                   LH ←──┘
+                         \
+                          \
+                     LL ←──┘
+                </div>
+                
+                <p><strong>Strategy:</strong> In downtrends, look to SELL rallies to resistance levels. "Sell the rip."</p>
+                
+                <h3>3. Sideways / Range (Consolidation)</h3>
+                <p>Price bounces between clear support and resistance levels without making new highs or lows.</p>
+                
+                <div class="chart-example">
+                    Resistance ─────────────────────────────
+                              /\      /\      /\
+                             /  \    /  \    /  \
+                            /    \  /    \  /    \
+                           /      \/      \/      \
+                    Support ───────────────────────────────
+                </div>
+                
+                <p><strong>Strategy:</strong> Buy at support, sell at resistance. OR wait for a breakout.</p>
+                
+                <div class="key-concept">
+                    <h4>💡 Critical Rule</h4>
+                    <p><strong>Trade WITH the trend, not against it.</strong> Fighting the trend is the #1 reason beginners lose money. If the market is going up, look for buying opportunities. If it's going down, look for selling opportunities. If it's sideways, wait or trade the range.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔄 Identifying Trend Changes</h2>
+                
+                <p>Trends don't last forever. Learning to spot when a trend is weakening or reversing is crucial.</p>
+                
+                <h3>Signs of an Uptrend Weakening</h3>
+                <ol>
+                    <li><strong>Lower High appears</strong> - Price fails to make a new high</li>
+                    <li><strong>Equal highs</strong> - Price hits resistance and stalls multiple times</li>
+                    <li><strong>Break of previous low</strong> - The structure starts breaking down</li>
+                </ol>
+                
+                <h3>Signs of a Downtrend Weakening</h3>
+                <ol>
+                    <li><strong>Higher Low appears</strong> - Price fails to make a new low</li>
+                    <li><strong>Equal lows</strong> - Price hits support and bounces multiple times</li>
+                    <li><strong>Break of previous high</strong> - The structure starts changing</li>
+                </ol>
+                
+                <div class="key-concept">
+                    <h4>💡 The Break of Structure (BOS)</h4>
+                    <p>When price breaks above the most recent lower high in a downtrend, or below the most recent higher low in an uptrend, it signals a potential <strong>change of character</strong>. This is often your first sign that the trend may be reversing.</p>
+                </div>
+                
+                <h3>The Change of Character (CHoCH)</h3>
+                <p>A Change of Character occurs when:</p>
+                <ul>
+                    <li><strong>In an uptrend:</strong> Price breaks below the most recent Higher Low</li>
+                    <li><strong>In a downtrend:</strong> Price breaks above the most recent Lower High</li>
+                </ul>
+                <p>This is your alert to start looking for trades in the NEW direction.</p>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Price Action Trading Explained - Full Course</strong></p>
+                    <p>Rayner Teo's comprehensive guide to price action trading fundamentals.</p>
+                    <a href="https://www.youtube.com/watch?v=MK2P-HMdqes" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>How To Identify Trends In Trading</strong></p>
+                    <p>Learn to identify uptrends, downtrends, and ranging markets with clear examples.</p>
+                    <a href="https://www.youtube.com/watch?v=O7-YmIBMcNk" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Trading 212)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>Market Structure Trading Strategy</strong></p>
+                    <p>Understanding swing highs, swing lows, and how to trade market structure.</p>
+                    <a href="https://www.youtube.com/watch?v=1VlqtLaGz7M" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (The Trading Channel)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Chart Analysis Practice (20 minutes)</h4>
+                    <p>Open TradingView and analyze 5 different stocks:</p>
+                    <ol>
+                        <li>Identify: Is it in an uptrend, downtrend, or range?</li>
+                        <li>Mark the Higher Highs/Higher Lows OR Lower Highs/Lower Lows</li>
+                        <li>Write down your analysis for each</li>
+                    </ol>
+                    <p><strong>Suggested stocks:</strong> AAPL, MSFT, TSLA, SPY, NVDA</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Historical Trend Study (15 minutes)</h4>
+                    <p>Pick one stock (like SPY - S&P 500 ETF) and zoom out to the daily chart:</p>
+                    <ol>
+                        <li>Find the last major uptrend—how many months did it last?</li>
+                        <li>Find the last major downtrend—what caused it to reverse?</li>
+                        <li>Identify 2-3 range/consolidation periods</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Trend Change Practice (10 minutes)</h4>
+                    <p>On the same charts, find examples of:</p>
+                    <ol>
+                        <li>A trend that reversed (uptrend to downtrend or vice versa)</li>
+                        <li>Mark where the first sign of weakness appeared</li>
+                        <li>Mark where the Change of Character occurred</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Price action is the foundation of all technical analysis—master this first</li>
+                    <li>Markets exist in 3 states: uptrend (HH/HL), downtrend (LH/LL), or range</li>
+                    <li>Always trade with the trend, not against it</li>
+                    <li>Watch for Higher Lows in downtrends and Lower Highs in uptrends as early reversal signs</li>
+                    <li>A Break of Structure (BOS) signals potential trend change</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day01.html" class="nav-btn prev">← Day 1: Fundamentals</a>
+                <a href="day03.html" class="nav-btn next">Day 3: Support & Resistance →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

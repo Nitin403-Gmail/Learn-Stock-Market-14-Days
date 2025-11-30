@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5: Moving Averages & Trend Identification | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; --danger: #e74c3c; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .video-link:hover { background: #2980b9; transform: translateY(-2px); }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        blockquote cite { display: block; margin-top: 15px; font-size: 1rem; font-style: normal; color: var(--text-muted); }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 35.7%; }
+        .chart-example { background: rgba(0, 0, 0, 0.3); border-radius: 10px; padding: 20px; margin: 20px 0; font-family: monospace; font-size: 0.85rem; color: var(--gold-light); overflow-x: auto; white-space: pre; }
+        .ma-card { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 25px; margin: 20px 0; border-left: 4px solid var(--info); }
+        .ma-card h4 { color: var(--info); margin-bottom: 15px; font-size: 1.2rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .comparison-table th { color: var(--gold); font-weight: 600; }
+        .comparison-table tr:hover { background: rgba(212, 175, 55, 0.05); }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day04.html">← Previous</a>
+                <a href="day06.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 5 OF 14</span>
+            <h1>Moving Averages & Trend Identification</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Technical Indicators</span>
+                <span>🎯 High-Impact Concept #5</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand what moving averages are and why they work</li>
+                    <li>Master the 3 most important MAs: 20, 50, and 200</li>
+                    <li>Learn to identify trend direction using MAs</li>
+                    <li>Use MAs as dynamic support and resistance levels</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>📊 The Only Indicator You Really Need</h2>
+                
+                <blockquote>
+                    "If I had to choose only one indicator for the rest of my trading career, it would be moving averages."
+                    <cite>— Veteran Trader</cite>
+                </blockquote>
+                
+                <p>A <strong>Moving Average (MA)</strong> is simply the average price over a set number of periods. It smooths out price action and shows you the underlying trend.</p>
+                
+                <h3>Why Moving Averages Work</h3>
+                <ul>
+                    <li><strong>They smooth noise:</strong> Filter out random price fluctuations to show the real trend</li>
+                    <li><strong>Self-fulfilling prophecy:</strong> Millions of traders watch the same MAs, making them work</li>
+                    <li><strong>Institutional use:</strong> Big funds use the 50 and 200 MAs for decisions</li>
+                    <li><strong>Dynamic S/R:</strong> MAs act as moving support and resistance levels</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 EMA vs SMA</h4>
+                    <p><strong>Simple Moving Average (SMA):</strong> Equal weight to all periods. Smoother but slower to react.
+                    <br><strong>Exponential Moving Average (EMA):</strong> More weight to recent prices. Faster to react.
+                    <br><br>
+                    <strong>Recommendation:</strong> Use EMAs for faster signals (trading) and SMAs for longer-term analysis (investing). Most traders prefer EMAs.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎯 The 3 Essential Moving Averages</h2>
+                
+                <div class="ma-card">
+                    <h4>20 EMA - The Fast Line</h4>
+                    <p><strong>Purpose:</strong> Short-term trend and momentum</p>
+                    <ul style="margin-bottom: 0;">
+                        <li>Shows the immediate trend direction</li>
+                        <li>Used for timing entries in strong trends</li>
+                        <li>Price staying above = short-term bullish</li>
+                        <li>Best for: Day traders and swing traders</li>
+                    </ul>
+                </div>
+                
+                <div class="ma-card">
+                    <h4>50 EMA - The Medium Line</h4>
+                    <p><strong>Purpose:</strong> Medium-term trend identification</p>
+                    <ul style="margin-bottom: 0;">
+                        <li>The "sweet spot" for most traders</li>
+                        <li>Great for pullback entries in trends</li>
+                        <li>Often acts as strong dynamic support/resistance</li>
+                        <li>Best for: Swing traders</li>
+                    </ul>
+                </div>
+                
+                <div class="ma-card">
+                    <h4>200 EMA - The Trend Definer</h4>
+                    <p><strong>Purpose:</strong> Long-term trend direction</p>
+                    <ul style="margin-bottom: 0;">
+                        <li>THE most watched moving average globally</li>
+                        <li>Price above 200 EMA = Bullish market</li>
+                        <li>Price below 200 EMA = Bearish market</li>
+                        <li>Institutional traders use this for major decisions</li>
+                        <li>Best for: All traders for trend direction</li>
+                    </ul>
+                </div>
+                
+                <div class="chart-example">
+TREND IDENTIFICATION USING MAs:
+
+Price above all 3 MAs (20 > 50 > 200) = STRONG UPTREND ✅ Look to BUY
+
+        Price ~~~~~~~~~~~
+        20 EMA ════════════
+        50 EMA ─────────────
+        200 EMA ═══════════════
+
+Price below all 3 MAs (20 < 50 < 200) = STRONG DOWNTREND ❌ Look to SELL
+
+        200 EMA ═══════════════
+        50 EMA ─────────────
+        20 EMA ════════════
+        Price ~~~~~~~~~~~
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔄 Trading Strategies with MAs</h2>
+                
+                <h3>Strategy 1: MA as Dynamic Support/Resistance</h3>
+                <p>In strong trends, price often bounces off moving averages like they're S/R levels.</p>
+                
+                <div class="chart-example">
+UPTREND - Buying at MA pullbacks:
+
+                                    /\
+                                   /  \
+                              /\  /    
+                             /  \/     Price bounces off 20 EMA
+                        /\  /    
+                       /  \/          
+                  /\  /    
+                 /  \/    ═══════════ 20 EMA
+            /\  /    
+           /  \/     ─────────────── 50 EMA
+          /    
+═════════════════════════════════════ 200 EMA
+                </div>
+                
+                <p><strong>Entry:</strong> Buy when price pulls back to the 20 or 50 EMA and shows a bullish candlestick pattern (pin bar, engulfing).</p>
+                <p><strong>Stop Loss:</strong> Below the MA, or below the recent swing low.</p>
+                
+                <h3>Strategy 2: The Golden Cross & Death Cross</h3>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Signal</th>
+                        <th>What Happens</th>
+                        <th>Meaning</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Golden Cross</strong></td>
+                        <td>50 EMA crosses ABOVE 200 EMA</td>
+                        <td>Bullish - Long-term uptrend starting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Death Cross</strong></td>
+                        <td>50 EMA crosses BELOW 200 EMA</td>
+                        <td>Bearish - Long-term downtrend starting</td>
+                    </tr>
+                </table>
+                
+                <p><strong>Note:</strong> These are <em>lagging</em> signals. By the time the cross happens, the move has already started. Use for confirmation, not as entry signals.</p>
+                
+                <h3>Strategy 3: MA Order for Trend Strength</h3>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>MA Order</th>
+                        <th>Trend Strength</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Price > 20 > 50 > 200</td>
+                        <td>Strong Uptrend</td>
+                        <td>Only look for longs</td>
+                    </tr>
+                    <tr>
+                        <td>Price < 20 < 50 < 200</td>
+                        <td>Strong Downtrend</td>
+                        <td>Only look for shorts</td>
+                    </tr>
+                    <tr>
+                        <td>MAs intertwined/mixed</td>
+                        <td>No Clear Trend</td>
+                        <td>Range trading or stay out</td>
+                    </tr>
+                </table>
+                
+                <div class="key-concept">
+                    <h4>💡 The Pro Tip</h4>
+                    <p>The best trades happen when:
+                    <br>1. Price is above/below all 3 MAs (clear trend)
+                    <br>2. Price pulls back to an MA (entry opportunity)
+                    <br>3. A candlestick pattern forms at the MA (confirmation)
+                    <br>4. The MA is at a horizontal S/R level (confluence)
+                    <br><br>
+                    This is the 80/20 of MA trading: <strong>trade pullbacks to MAs in trending markets</strong>.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>⚠️ Common MA Mistakes to Avoid</h2>
+                
+                <ol>
+                    <li><strong>Using too many MAs:</strong> 3 is enough. More creates confusion.</li>
+                    <li><strong>Trading MA crosses in ranging markets:</strong> Leads to whipsaws and losses.</li>
+                    <li><strong>Ignoring the bigger picture:</strong> Always check the 200 EMA first for overall trend.</li>
+                    <li><strong>Treating MAs as exact levels:</strong> They're zones, not precise lines. Give some room.</li>
+                    <li><strong>Using MAs alone:</strong> Combine with price action and S/R for best results.</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Moving Average Trading Strategy</strong></p>
+                    <p>Complete guide to using moving averages for trend trading.</p>
+                    <a href="https://www.youtube.com/watch?v=YUVmCKhsoaA" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>The 200 Day Moving Average Explained</strong></p>
+                    <p>Why the 200 MA is the most important indicator for trend direction.</p>
+                    <a href="https://www.youtube.com/watch?v=uPeFw3xBmF4" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Investopedia)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>How to Use Moving Averages</strong></p>
+                    <p>Practical tutorial on applying MAs to your trading.</p>
+                    <a href="https://www.youtube.com/watch?v=4V0YzmyzKOI" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Trading 212)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Set Up Your Charts (10 minutes)</h4>
+                    <p>Open TradingView and add these to your chart:</p>
+                    <ol>
+                        <li>20 EMA (Color: Blue)</li>
+                        <li>50 EMA (Color: Orange)</li>
+                        <li>200 EMA (Color: Red)</li>
+                    </ol>
+                    <p>Save this as a template for future use.</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Trend Analysis (20 minutes)</h4>
+                    <p>Analyze 5 stocks (AAPL, MSFT, AMZN, GOOGL, TSLA) on the daily chart:</p>
+                    <ol>
+                        <li>What is the MA order? (Which MA is on top?)</li>
+                        <li>Is the stock in an uptrend, downtrend, or range?</li>
+                        <li>Where is price relative to the 200 EMA?</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Find MA Bounces (15 minutes)</h4>
+                    <p>On the same charts, find historical examples of:</p>
+                    <ol>
+                        <li>Price bouncing off the 20 EMA in an uptrend</li>
+                        <li>Price bouncing off the 50 EMA</li>
+                        <li>Price respecting the 200 EMA as major support/resistance</li>
+                    </ol>
+                    <p>Note what candlestick patterns appeared at these bounces.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Moving averages smooth price and reveal the true trend</li>
+                    <li>Use 3 MAs: 20 (fast), 50 (medium), 200 (trend)</li>
+                    <li>MA order tells you trend strength: 20 > 50 > 200 = strong uptrend</li>
+                    <li>MAs act as dynamic support/resistance levels</li>
+                    <li>Best strategy: Trade pullbacks to MAs in trending markets</li>
+                    <li>Golden/Death Cross = long-term trend change (lagging signal)</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day04.html" class="nav-btn prev">← Day 4: Candlesticks</a>
+                <a href="day06.html" class="nav-btn next">Day 6: Risk Management →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

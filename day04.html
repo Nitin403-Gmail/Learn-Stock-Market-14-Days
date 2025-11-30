@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: Candlestick Patterns That Actually Work | Stock Market Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #F4E4BA; --dark: #1a1a2e; --darker: #0f0f1a; --accent: #16213e; --text-light: #e8e8e8; --text-muted: #a0a0a0; --success: #2ecc71; --warning: #f39c12; --info: #3498db; --danger: #e74c3c; --bullish: #26a69a; --bearish: #ef5350; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%); min-height: 100vh; color: var(--text-light); line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav { background: rgba(0, 0, 0, 0.3); padding: 15px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); padding: 8px 20px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--text-light); margin-bottom: 15px; }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .content { padding: 50px 0; }
+        .section { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.15); border-radius: 15px; padding: 40px; margin-bottom: 30px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.2); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin: 30px 0 15px 0; }
+        p { margin-bottom: 20px; }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; }
+        .key-concept { background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%); border-left: 4px solid var(--gold); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        .key-concept h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 10px; }
+        .video-resource { background: rgba(52, 152, 219, 0.1); border: 1px solid rgba(52, 152, 219, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .video-resource h4 { color: var(--info); margin-bottom: 15px; }
+        .video-link { display: inline-flex; background: var(--info); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; margin-top: 10px; }
+        .video-link:hover { background: #2980b9; transform: translateY(-2px); }
+        .action-step { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.3); border-radius: 12px; padding: 25px; margin: 25px 0; }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; color: var(--gold-light); border-left: 3px solid var(--gold); padding-left: 25px; margin: 30px 0; }
+        blockquote cite { display: block; margin-top: 15px; font-size: 1rem; font-style: normal; color: var(--text-muted); }
+        .lesson-nav { display: flex; justify-content: space-between; padding: 40px 0; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 40px; }
+        .nav-btn { padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-btn.prev { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-btn.next { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: var(--dark); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 28.56%; }
+        
+        /* Candlestick Patterns Display */
+        .pattern-card { background: rgba(0, 0, 0, 0.3); border-radius: 15px; padding: 30px; margin: 25px 0; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .pattern-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .pattern-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold-light); }
+        .pattern-type { padding: 5px 15px; border-radius: 15px; font-size: 0.85rem; font-weight: 600; }
+        .pattern-type.bullish { background: rgba(38, 166, 154, 0.2); color: var(--bullish); }
+        .pattern-type.bearish { background: rgba(239, 83, 80, 0.2); color: var(--bearish); }
+        .pattern-visual { font-family: monospace; font-size: 0.9rem; background: rgba(0, 0, 0, 0.4); padding: 20px; border-radius: 8px; margin: 20px 0; color: var(--gold-light); white-space: pre; overflow-x: auto; }
+        .pattern-details { display: grid; gap: 15px; }
+        .pattern-detail { display: flex; gap: 10px; }
+        .pattern-detail strong { color: var(--gold); min-width: 100px; }
+        
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .section { padding: 25px; } .lesson-meta { flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="day03.html">← Previous</a>
+                <a href="day05.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 4 OF 14</span>
+            <h1>Candlestick Patterns That Actually Work</h1>
+            <div class="lesson-meta">
+                <span>⏱ 60 minutes</span>
+                <span>📚 Technical Analysis</span>
+                <span>🎯 High-Impact Concept #4</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand what candlesticks tell you about buyer/seller battles</li>
+                    <li>Master the 5 most reliable candlestick patterns (not 50)</li>
+                    <li>Learn WHERE patterns matter (context is everything)</li>
+                    <li>Know how to confirm patterns before trading</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>🕯️ Reading Candlesticks: The Basics</h2>
+                
+                <p>Before diving into patterns, you must understand what a single candlestick tells you.</p>
+                
+                <div class="pattern-visual">
+                 │        ← Upper Wick (Sellers pushed price down from here)
+                 │
+┌────────────────┐   ← Close (Bullish: Green/White candle)
+│                │
+│     BODY       │   ← The body shows open-to-close range
+│                │
+└────────────────┘   ← Open
+                 │
+                 │        ← Lower Wick (Buyers pushed price up from here)
+                </div>
+                
+                <h3>What Each Part Tells You</h3>
+                <ul>
+                    <li><strong>Body Size:</strong> Large body = strong conviction. Small body = indecision.</li>
+                    <li><strong>Upper Wick:</strong> Sellers rejected higher prices. Long upper wick = selling pressure.</li>
+                    <li><strong>Lower Wick:</strong> Buyers rejected lower prices. Long lower wick = buying pressure.</li>
+                    <li><strong>Color:</strong> Green/White = Closed higher than open (bullish). Red/Black = Closed lower than open (bearish).</li>
+                </ul>
+                
+                <div class="key-concept">
+                    <h4>💡 The 80/20 of Candlesticks</h4>
+                    <p>There are 100+ named candlestick patterns. Most are unreliable or redundant. We'll focus on the <strong>5 patterns that consistently work</strong> across all markets and timeframes. Master these 5, and you'll outperform traders who know 50 patterns superficially.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📊 The 5 Patterns You Need to Know</h2>
+                
+                <!-- Pattern 1: Pin Bar -->
+                <div class="pattern-card">
+                    <div class="pattern-header">
+                        <span class="pattern-name">1. Pin Bar (Hammer / Shooting Star)</span>
+                        <span class="pattern-type bullish">Reversal Signal</span>
+                    </div>
+                    
+                    <div class="pattern-visual">
+BULLISH PIN BAR (Hammer)          BEARISH PIN BAR (Shooting Star)
+         
+    │                                     ───┬───
+    │   ← Small body at TOP               │   │
+───┴───                                   │   │  ← Long upper wick
+    │                                     ───┴───  Small body at BOTTOM
+    │   ← Long lower wick                     
+    │                                         
+                    </div>
+                    
+                    <div class="pattern-details">
+                        <div class="pattern-detail"><strong>What it means:</strong> Strong rejection of a price level. Buyers (hammer) or sellers (shooting star) took control.</div>
+                        <div class="pattern-detail"><strong>Where it works:</strong> At support (hammer) or resistance (shooting star). NOT in the middle of a range.</div>
+                        <div class="pattern-detail"><strong>Confirmation:</strong> Wait for the next candle to close in the direction of the reversal.</div>
+                        <div class="pattern-detail"><strong>Reliability:</strong> ⭐⭐⭐⭐⭐ (Highest when at key S/R levels)</div>
+                    </div>
+                </div>
+
+                <!-- Pattern 2: Engulfing -->
+                <div class="pattern-card">
+                    <div class="pattern-header">
+                        <span class="pattern-name">2. Engulfing Pattern</span>
+                        <span class="pattern-type bullish">Strong Reversal</span>
+                    </div>
+                    
+                    <div class="pattern-visual">
+BULLISH ENGULFING                    BEARISH ENGULFING
+
+    ┌─┐                                   ┌───────┐
+    │▓│ ← Small red candle                │       │
+    └─┘                                   │       │ ← Large red candle
+┌───────┐                                 │       │    completely covers
+│       │                                 └───────┘    the previous green
+│       │ ← Large green candle                ┌─┐
+│       │    completely covers                │░│ ← Small green candle
+└───────┘    the previous red                 └─┘
+                    </div>
+                    
+                    <div class="pattern-details">
+                        <div class="pattern-detail"><strong>What it means:</strong> Complete shift in momentum. The new candle "engulfs" the previous, showing buyers/sellers took total control.</div>
+                        <div class="pattern-detail"><strong>Where it works:</strong> At the end of trends, at key S/R levels. More powerful after extended moves.</div>
+                        <div class="pattern-detail"><strong>Confirmation:</strong> The engulfing candle itself is often enough, but a follow-through candle adds confidence.</div>
+                        <div class="pattern-detail"><strong>Reliability:</strong> ⭐⭐⭐⭐⭐ (One of the most reliable patterns)</div>
+                    </div>
+                </div>
+
+                <!-- Pattern 3: Inside Bar -->
+                <div class="pattern-card">
+                    <div class="pattern-header">
+                        <span class="pattern-name">3. Inside Bar</span>
+                        <span class="pattern-type bearish">Breakout/Continuation</span>
+                    </div>
+                    
+                    <div class="pattern-visual">
+INSIDE BAR PATTERN
+
+┌─────────────┐   ← "Mother Bar" - Large candle
+│             │
+│    ┌───┐    │   ← "Inside Bar" - Completely within mother bar
+│    │   │    │      (including wicks)
+│    └───┘    │
+│             │
+└─────────────┘
+
+Trade the BREAKOUT of the mother bar's range
+                    </div>
+                    
+                    <div class="pattern-details">
+                        <div class="pattern-detail"><strong>What it means:</strong> Consolidation and indecision. Energy building up for a breakout.</div>
+                        <div class="pattern-detail"><strong>Where it works:</strong> After strong moves (continuation), at key levels (reversal breakout).</div>
+                        <div class="pattern-detail"><strong>Confirmation:</strong> Trade the breakout ABOVE or BELOW the mother bar. Wait for candle close.</div>
+                        <div class="pattern-detail"><strong>Reliability:</strong> ⭐⭐⭐⭐ (Great for low-risk entries with clear stop-loss)</div>
+                    </div>
+                </div>
+
+                <!-- Pattern 4: Doji -->
+                <div class="pattern-card">
+                    <div class="pattern-header">
+                        <span class="pattern-name">4. Doji (Indecision Candle)</span>
+                        <span class="pattern-type bullish">Potential Reversal</span>
+                    </div>
+                    
+                    <div class="pattern-visual">
+TYPES OF DOJI
+
+    │              │                    │
+    │              │                ────┼────  
+────┼────      ────┼                    │
+    │              │                    │
+    │                                   
+                   
+Standard Doji    Dragonfly Doji     Gravestone Doji
+(Indecision)     (Bullish at        (Bearish at
+                  support)           resistance)
+                    </div>
+                    
+                    <div class="pattern-details">
+                        <div class="pattern-detail"><strong>What it means:</strong> Open and close at nearly the same price. Total indecision between buyers and sellers.</div>
+                        <div class="pattern-detail"><strong>Where it works:</strong> After extended trends, at key S/R levels. Signals the trend may be exhausted.</div>
+                        <div class="pattern-detail"><strong>Confirmation:</strong> NEVER trade a doji alone. Wait for the next candle to confirm direction.</div>
+                        <div class="pattern-detail"><strong>Reliability:</strong> ⭐⭐⭐ (Only reliable with proper context and confirmation)</div>
+                    </div>
+                </div>
+
+                <!-- Pattern 5: Morning/Evening Star -->
+                <div class="pattern-card">
+                    <div class="pattern-header">
+                        <span class="pattern-name">5. Morning Star / Evening Star</span>
+                        <span class="pattern-type bullish">3-Candle Reversal</span>
+                    </div>
+                    
+                    <div class="pattern-visual">
+MORNING STAR (Bullish)              EVENING STAR (Bearish)
+
+                    ┌───┐
+                    │   │           
+                    │   │ ← Large green    
+┌───┐               │   │            ┌───┐     
+│   │               └───┘            │   │ ← Large green
+│   │ ← Large red        ┌─┐         │   │
+│   │                    │ │ ← Small │   │
+└───┘    ┌─┐             └─┘   body  └───┘    ┌─┐ ← Small
+         │ │ ← Small                          │ │   body
+         └─┘   body                           └─┘
+                                         ┌───┐
+                                         │   │
+                                         │   │ ← Large red
+                                         │   │
+                                         └───┘
+                    </div>
+                    
+                    <div class="pattern-details">
+                        <div class="pattern-detail"><strong>What it means:</strong> A 3-candle reversal. First candle shows the trend, second shows indecision, third confirms the reversal.</div>
+                        <div class="pattern-detail"><strong>Where it works:</strong> At the end of trends, at strong S/R levels. The small middle candle can gap.</div>
+                        <div class="pattern-detail"><strong>Confirmation:</strong> The third candle IS the confirmation. Should close beyond the first candle's midpoint.</div>
+                        <div class="pattern-detail"><strong>Reliability:</strong> ⭐⭐⭐⭐⭐ (Very reliable at key levels)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>⚠️ Context Is Everything</h2>
+                
+                <blockquote>
+                    "A hammer in the middle of a range is just a candle. A hammer at strong support after a downtrend is a trading opportunity."
+                    <cite>— Price Action Wisdom</cite>
+                </blockquote>
+                
+                <h3>Patterns Only Work When:</h3>
+                <ol>
+                    <li><strong>At Key Levels:</strong> Support, resistance, round numbers, moving averages</li>
+                    <li><strong>With the Trend (continuation):</strong> Or at trend exhaustion (reversal)</li>
+                    <li><strong>With Confirmation:</strong> Wait for the next candle to confirm</li>
+                    <li><strong>On Higher Timeframes:</strong> Daily > Hourly > 15-min in reliability</li>
+                </ol>
+                
+                <div class="key-concept">
+                    <h4>💡 The Confluence Rule</h4>
+                    <p>The more factors that align, the higher probability the trade:
+                    <br>• Pin bar at support ✓
+                    <br>• Support is also a round number ($100) ✓
+                    <br>• Price is at the 200 EMA ✓
+                    <br>• Overall trend is up ✓
+                    <br><br>
+                    <strong>4 factors = High probability trade.</strong> 1 factor alone = gambling.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎬 Video Learning Resources</h2>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #1</h4>
+                    <p><strong>Candlestick Patterns Trading Course</strong></p>
+                    <p>Comprehensive guide to the most important candlestick patterns and how to trade them.</p>
+                    <a href="https://www.youtube.com/watch?v=C3KRwfj9F8Q" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Rayner Teo)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #2</h4>
+                    <p><strong>How to Read Candlestick Charts</strong></p>
+                    <p>Master the basics of reading candlestick charts for beginners.</p>
+                    <a href="https://www.youtube.com/watch?v=FrUdqXdEBls" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (Trading 212)
+                    </a>
+                </div>
+                
+                <div class="video-resource">
+                    <h4>📺 Recommended Video #3</h4>
+                    <p><strong>Top 5 Candlestick Patterns for Trading</strong></p>
+                    <p>The essential patterns every trader needs to know.</p>
+                    <a href="https://www.youtube.com/watch?v=HOcmRbg2DgA" target="_blank" class="video-link">
+                        ▶ Watch on YouTube (The Trading Channel)
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Pattern Identification (20 minutes)</h4>
+                    <p>Open TradingView with a daily chart. Find real examples of:</p>
+                    <ol>
+                        <li>2 Pin Bars (hammers or shooting stars) at key levels</li>
+                        <li>2 Engulfing patterns</li>
+                        <li>1 Inside Bar setup</li>
+                    </ol>
+                    <p>Screenshot and label each pattern.</p>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Context Analysis (15 minutes)</h4>
+                    <p>For each pattern you found:</p>
+                    <ol>
+                        <li>Note what S/R level it occurred at</li>
+                        <li>What was the trend before the pattern?</li>
+                        <li>Did the pattern get confirmed by the next candle?</li>
+                        <li>What happened after—would the trade have worked?</li>
+                    </ol>
+                </div>
+                
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Create Your Pattern Cheat Sheet (10 minutes)</h4>
+                    <p>Write down or print the 5 patterns with:</p>
+                    <ol>
+                        <li>What the pattern looks like</li>
+                        <li>Where it should appear (context)</li>
+                        <li>How to confirm it before trading</li>
+                    </ol>
+                    <p>Keep this visible when you trade.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Candlesticks show the battle between buyers and sellers</li>
+                    <li>Focus on 5 patterns: Pin Bar, Engulfing, Inside Bar, Doji, Morning/Evening Star</li>
+                    <li>Context is everything—patterns only work at key levels</li>
+                    <li>Always wait for confirmation before trading</li>
+                    <li>Higher timeframes = more reliable patterns</li>
+                    <li>Look for confluence (multiple factors aligning)</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="day03.html" class="nav-btn prev">← Day 3: Support & Resistance</a>
+                <a href="day05.html" class="nav-btn next">Day 5: Moving Averages →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
