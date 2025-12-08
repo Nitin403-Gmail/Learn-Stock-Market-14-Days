@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2: Introduction to Fundamental Analysis | Long-Term Investing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+        nav a:hover { color: var(--gold-light); }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .lesson-meta span { display: flex; align-items: center; gap: 8px; }
+        .content { padding: 50px 0; }
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px 0;
+        }
+        p { margin-bottom: 20px; color: var(--text-light); }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; color: var(--text-light); }
+        .key-concept {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .key-concept h4 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .action-step {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-left: 3px solid var(--gold);
+            padding-left: 25px;
+            margin: 30px 0;
+        }
+        blockquote cite {
+            display: block;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-style: normal;
+            color: var(--text-muted);
+        }
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 40px;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-btn.next {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+        }
+        .nav-btn:hover { transform: translateY(-2px); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 14.28%; } /* 2/14 */
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .lesson-meta { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="investing_day01.html">← Previous</a>
+                <a href="investing_day03.html">Next →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 2 OF 14</span>
+            <h1>Introduction to Fundamental Analysis</h1>
+            <div class="lesson-meta">
+                <span>⏱ 45 minutes</span>
+                <span>📚 Core Analysis Skill</span>
+                <span>🎯 High-Impact Concept</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Define fundamental analysis and understand why it's crucial for long-term investing.</li>
+                    <li>Learn the three core areas of qualitative analysis: Business Model, Competitive Advantage, and Management.</li>
+                    <li>Understand the concept of a "Circle of Competence" and why you must stay within it.</li>
+                    <li>Begin to ask the right questions to determine if a company is a high-quality business.</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>📊 What Is Fundamental Analysis?</h2>
+
+                <p>Fundamental analysis is the process of evaluating a business to determine its intrinsic value. Instead of looking at charts and price patterns (technical analysis), we look at the business itself.</p>
+
+                <blockquote>
+                    "The best business to own is one that over an extended period can employ large amounts of incremental capital at very high rates of return."
+                    <cite>— Warren Buffett</cite>
+                </blockquote>
+
+                <h3>Two Types of Analysis</h3>
+                <ul>
+                    <li><strong>Quantitative Analysis:</strong> This involves numbers and financial statements. We'll dive into this tomorrow. It tells you the financial results of the business.</li>
+                    <li><strong>Qualitative Analysis:</strong> This is about the quality of the business. It's non-numeric and involves judgment. This is our focus today. It tells you *why* the business gets those results.</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>💡 The Goal</h4>
+                    <p>Our goal as fundamental investors is simple: <strong>to identify wonderful businesses and buy them at fair prices</strong>. Today, we focus on identifying what makes a business "wonderful."</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📝 The 3 Pillars of Qualitative Analysis</h2>
+
+                <p>Before you even look at a single number, you should have a good understanding of these three qualitative factors.</p>
+
+                <h3>1. The Business Model</h3>
+                <p>You must be able to simply and clearly explain how the company makes money.</p>
+                <ul>
+                    <li><strong>What product or service does it sell?</strong> (e.g., Apple sells iPhones, Coca-Cola sells beverages)</li>
+                    <li><strong>Who are its customers?</strong> (e.g., Consumers, other businesses)</li>
+                    <li><strong>Is its revenue recurring or one-time?</strong> (e.g., Adobe's subscription vs. a car sale)</li>
+                    <li><strong>Is the business easy to understand?</strong> If you can't explain it to a 10-year-old, you probably shouldn't invest in it.</li>
+                </ul>
+
+                <h3>2. The Competitive Advantage (Moat)</h3>
+                <p>A great business has a durable competitive advantage, or "moat," that protects it from competitors. This allows it to earn high profits for a long time.</p>
+                <ul>
+                    <li><strong>Brand:</strong> Do customers pay a premium for its brand? (e.g., Nike, Tiffany & Co.)</li>
+                    <li><strong>Network Effects:</strong> Does the product become more valuable as more people use it? (e.g., Facebook, Visa)</li>
+                    <li><strong>Switching Costs:</strong> Is it difficult or expensive for customers to switch to a competitor? (e.g., Microsoft Windows, your bank)</li>
+                    <li><strong>Cost Advantages:</strong> Can it produce its goods or services cheaper than anyone else? (e.g., Walmart, Costco)</li>
+                </ul>
+
+                <h3>3. The Management Team</h3>
+                <p>You are trusting the company's leadership to manage your capital effectively. Are they good at their jobs?</p>
+                <ul>
+                    <li><strong>Are they honest and transparent?</strong> Read their annual letters to shareholders.</li>
+                    <li><strong>Are they rational in how they allocate capital?</strong> (e.g., Do they make smart acquisitions or waste money?)</li>
+                    <li><strong>Do they have a long track record of success?</strong></li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>🎯 The Circle of Competence</h2>
+
+                <p>Warren Buffett often says the most important thing in investing is to know the boundaries of your "circle of competence" and to stay inside of it.</p>
+
+                <div class="key-concept">
+                    <h4>💡 Know What You Know</h4>
+                    <p>You don't need to be an expert on every industry. You just need to be an expert on the businesses you choose to own. If your background is in technology, you likely have a better understanding of software companies than a complex biotech firm. Stick to what you understand.</p>
+                </div>
+
+                <p>Your job isn't to have an opinion on every stock. It's to find a few great companies that you understand deeply. This is one of the biggest advantages a retail investor has—you don't have to invest in anything you're not comfortable with.</p>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Analyze a Simple Business (15 minutes)</h4>
+                    <p>Think about a company you know and use every day, like McDonald's (MCD) or Starbucks (SBUX).</p>
+                    <ol>
+                        <li><strong>Business Model:</strong> How do they make money? Who are their customers?</li>
+                        <li><strong>Competitive Advantage:</strong> Why do you choose them over a competitor? (Brand? Convenience?) Write down their primary moat.</li>
+                        <li><strong>Management:</strong> You don't need to know the CEO, but do you generally trust the company to deliver a consistent product?</li>
+                    </ol>
+                </div>
+
+                <div class="action-step">
+                    <h4>📝 Action Step 2: Define Your Circle of Competence (10 minutes)</h4>
+                    <p>Write down 2-3 industries or business types that you feel you understand better than the average person because of your job, hobbies, or passions.</p>
+                    <p>Examples: "I work in healthcare," "I'm a gamer so I understand video game companies," "I love fashion so I understand apparel brands." This is where you should start your research.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Fundamental analysis is about understanding the business, not the stock price.</li>
+                    <li>Focus on the three pillars: Business Model, Competitive Advantage, and Management.</li>
+                    <li>A great business has a strong "moat" that protects it from competition.</li>
+                    <li>Only invest in businesses that you can easily understand—stay within your Circle of Competence.</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="investing_day01.html" class="nav-btn prev">← Day 1: The Mindset</a>
+                <a href="investing_day03.html" class="nav-btn next">Day 3: Financial Statements →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

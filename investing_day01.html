@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: Market Fundamentals & The Investor's Mindset | Long-Term Investing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: var(--gold); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+        nav a:hover { color: var(--gold-light); }
+        .nav-links { display: flex; gap: 30px; }
+        header { padding: 60px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .day-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        .lesson-meta { display: flex; gap: 30px; color: var(--text-muted); font-size: 0.95rem; }
+        .lesson-meta span { display: flex; align-items: center; gap: 8px; }
+        .content { padding: 50px 0; }
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px 0;
+        }
+        p { margin-bottom: 20px; color: var(--text-light); }
+        ul, ol { margin: 20px 0; padding-left: 25px; }
+        li { margin-bottom: 12px; color: var(--text-light); }
+        .key-concept {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .key-concept h4 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .action-step {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .action-step h4 { color: var(--success); margin-bottom: 15px; }
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-left: 3px solid var(--gold);
+            padding-left: 25px;
+            margin: 30px 0;
+        }
+        blockquote cite {
+            display: block;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-style: normal;
+            color: var(--text-muted);
+        }
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 40px;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-btn.next {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+        }
+        .nav-btn:hover { transform: translateY(-2px); }
+        .progress-bar { height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; margin-bottom: 30px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); border-radius: 2px; width: 7.14%; } /* 1/14 */
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .section { padding: 25px; }
+            .lesson-meta { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html">← Back to Course</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="investing_day02.html">Next Lesson →</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+    </div>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 1 OF 14</span>
+            <h1>Market Fundamentals & The Investor's Mindset</h1>
+            <div class="lesson-meta">
+                <span>⏱ 30 minutes</span>
+                <span>📚 Foundational Level</span>
+                <span>🎯 Critical Importance</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="section">
+                <h2>🎯 Today's Learning Objectives</h2>
+                <ol>
+                    <li>Understand why compound interest is the most powerful force in finance.</li>
+                    <li>Clearly distinguish between long-term investing and short-term speculating.</li>
+                    <li>Embrace the mindset of a business owner, not a stock renter.</li>
+                    <li>Recognize why "time in the market" is superior to "timing the market."</li>
+                </ol>
+            </section>
+
+            <section class="section">
+                <h2>📈 The Eighth Wonder of the World</h2>
+
+                <p>Albert Einstein is often credited with saying, "Compound interest is the eighth wonder of the world. He who understands it, earns it... he who doesn't... pays it."</p>
+
+                <h3>What is Compounding?</h3>
+                <p>Compounding is the process where your investment returns start to generate their own returns. It's the snowball effect: your money earns interest, and then that interest earns interest, and so on. Over a long period, this creates exponential growth.</p>
+
+                <div class="key-concept">
+                    <h4>💡 The Power of Time</h4>
+                    <p>Imagine you invest $1,000 and it earns 10% per year.
+                        <br>After 1 year, you have $1,100.
+                        <br>After year 2, you earn 10% on $1,100, so you have $1,210.
+                        <br>After 10 years, you have $2,594.
+                        <br>After 30 years, you have $17,449.
+                        <br>The magic isn't the 10% return; it's the <strong>30-year time horizon</strong>.
+                    </p>
+                </div>
+
+                <p>This is the single most important concept for a long-term investor. Your greatest asset is not the money you start with, but the time you have.</p>
+            </section>
+
+            <section class="section">
+                <h2>🧠 Investing vs. Speculating</h2>
+
+                <blockquote>
+                    "An investment operation is one which, upon thorough analysis promises safety of principal and an adequate return. Operations not meeting these requirements are speculative."
+                    <cite>— Benjamin Graham, The Intelligent Investor</cite>
+                </blockquote>
+
+                <p>It is critical to understand the difference between investing and speculating.</p>
+
+                <h3>Key Differences</h3>
+                <ul>
+                    <li><strong>Investor's Mindset:</strong> "I am buying a piece of this company with the expectation that it will grow and become more valuable over the next 10-20 years."</li>
+                    <li><strong>Speculator's Mindset:</strong> "I am buying this stock because I think it will go up in the next few days/weeks, and I can sell it to someone else for a quick profit."</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>💡 Our Approach</h4>
+                    <p>This course is <strong>100% focused on investing</strong>. We will learn to analyze businesses, not predict short-term price movements. We are business analysts, not fortune tellers. This approach is more reliable, less stressful, and has a much higher probability of long-term success.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🏢 Think Like a Business Owner</h2>
+
+                <p>When you buy a share of a company like Apple (AAPL), you are not just buying a ticker symbol. You are buying a fractional ownership stake in a real business.</p>
+
+                <h3>Your New Mindset</h3>
+                <p>You are now a part-owner of a global enterprise. You have a claim on its assets, its earnings, and its future growth. Would you buy an entire local business without understanding what it does, who its customers are, or how it makes money? Of course not. You must apply the same diligence when buying stocks.</p>
+
+                <ul>
+                    <li><strong>Don't get distracted by daily price swings.</strong> The price of a stock can be volatile, but the value of a great business is far more stable.</li>
+                    <li><strong>Focus on the long-term health of the business.</strong> Is it growing? Is it profitable? Does it have a strong brand?</li>
+                    <li><strong>Your goal is to partner with excellent companies for the long run.</strong></li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+
+                <div class="action-step">
+                    <h4>📝 Action Step 1: Define Your "Why" (10 minutes)</h4>
+                    <p>Write down your long-term financial goals. Be specific.</p>
+                    <ol>
+                        <li>What are you investing for? (e.g., retirement, financial independence)</li>
+                        <li>What is your time horizon? (e.g., 20 years, 30 years)</li>
+                        <li>Why is a long-term, patient approach right for you?</li>
+                    </ol>
+                </div>
+
+                <div class="action-step">
+                    <h4>📝 Action Step 2: See Compounding in Action (5 minutes)</h4>
+                    <p>Use an online compound interest calculator (like the one on Investor.gov) and see how a monthly investment of $200 at an 8% average annual return grows over 30 years. The result will motivate you.</p>
+                </div>
+
+                <div class="action-step">
+                    <h4>📝 Action Step 3: Commit to the Mindset (5 minutes)</h4>
+                    <p>Write this down and put it somewhere you can see it:</p>
+                    <p><strong>"I am a long-term investor in businesses, not a short-term renter of stocks."</strong></p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔑 Key Takeaways</h2>
+                <ol>
+                    <li>Compound interest is your best friend. Time is your most valuable asset.</li>
+                    <li>We are investors, not speculators. We analyze, we don't gamble.</li>
+                    <li>A stock is not a piece of paper; it is ownership in a real business.</li>
+                    <li>Focus on the long-term value of the business, not the short-term noise of the market.</li>
+                </ol>
+            </section>
+
+            <div class="lesson-nav">
+                <a href="index.html" class="nav-btn prev">← Course Home</a>
+                <a href="investing_day02.html" class="nav-btn next">Day 2: Fundamental Analysis →</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
