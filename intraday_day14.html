@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 14: The Path Forward | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Road map */
+        .roadmap-step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .step-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .marker-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .marker-line {
+            width: 2px;
+            flex-grow: 1;
+            background: rgba(212, 175, 55, 0.3);
+            margin-top: 10px;
+        }
+
+        .step-content h4 {
+            color: var(--gold-light);
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Final Quote */
+        .final-quote {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--gold);
+            margin: 40px 0;
+            padding: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--success);
+            color: var(--dark);
+        }
+
+        /* Success for finish */
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-home {
+            background: var(--gold);
+            color: var(--dark);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 4: Completion</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 14</span>
+            <h1>The Journey Ahead: Compounding & Mastery</h1>
+            <div class="meta-info">
+                <span>⏱ 30 Minutes</span>
+                <span>🎓 Graduation</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>🎓 You Have The Tools. Now Build.</h2>
+                <p>Congratulations. You have completed the 14-Day Intraday Mastery Track. You now know more than 95% of
+                    new traders who enter the market blindly.</p>
+                <p>But knowledge is not profit. Execution is profit.</p>
+            </section>
+
+            <section class="section">
+                <h2>🗺️ Your 90-Day Roadmap</h2>
+
+                <div class="roadmap-step">
+                    <div class="step-marker">
+                        <div class="marker-circle">1</div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="step-content">
+                        <h4>Month 1: Paper Trading / Small Quantity</h4>
+                        <p>Do not trade with full capital. Trade with 1-2 shares. The goal here is not to make money,
+                            but to check if you can follow your own rules. Build the habit of journaling.</p>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="step-marker">
+                        <div class="marker-circle">2</div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="step-content">
+                        <h4>Month 2: Scaling Up (50% Capital)</h4>
+                        <p>If Month 1 was profitable (or breakeven), deploy 50% of your capital. Focus on risk
+                            management (Day 11). If you lose 5% of this capital, go back to Month 1.</p>
+                    </div>
+                </div>
+
+                <div class="roadmap-step">
+                    <div class="step-marker">
+                        <div class="marker-circle">3</div>
+                    </div>
+                    <div class="step-content">
+                        <h4>Month 3: Full Deployment</h4>
+                        <p>Now you are in the arena. You have a routine, a strategy, and emotional control. Now, the
+                            goal is consistency, not huge jackpots.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="final-quote">
+                "The market is a device for transferring money from the impatient to the patient. Be the patient one."
+            </div>
+
+            <section class="section">
+                <h2>📚 Final Resources</h2>
+                <ul>
+                    <li><strong>Books to Read:</strong> "Trading in the Zone" by Mark Douglas (Essential for
+                        Psychology).</li>
+                    <li><strong>Daily Habit:</strong> Review your journal every weekend. Your mistakes are your best
+                        teachers.</li>
+                    <li><strong>Stay Humble:</strong> The market will humble you the moment you get arrogant. Stay a
+                        student forever.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day13.html" class="nav-btn prev">← Day 13: Routine</a>
+        <a href="intraday_index.html" class="nav-btn next btn-home">Return to Course Home 🏠</a>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intraday Trading Mastery - 14 Day Intensive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Mentor Note */
+        .mentor-note {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .mentor-note h3 {
+            color: var(--danger);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .mentor-note p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        /* Modules */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 60px 0 40px;
+            color: var(--gold);
+        }
+
+        .modules-grid {
+            display: grid;
+            gap: 40px;
+        }
+
+        .phase-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .phase-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            opacity: 0.3;
+            margin-right: 20px;
+            line-height: 1;
+        }
+
+        .phase-title {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .day-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .day-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .day-label {
+            font-size: 0.8rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .day-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .day-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Tools */
+        .tools-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 60px 0;
+        }
+
+        .tool-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .tool-badge i {
+            color: var(--gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .phase-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .phase-number {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Intraday Trading Mastery</h1>
+            <p class="tagline">The Art of Generating Daily Cash Flow with Discipline</p>
+            <span class="badge">14-Day Intensive Track</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Stats -->
+        <section class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-number">9:15</div>
+                <div class="stat-label">Market Open Ready</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1-2%</div>
+                <div class="stat-label">Daily Target</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Golden Strategies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Risk</div>
+                <div class="stat-label">Management First</div>
+            </div>
+        </section>
+
+        <!-- Mentor Note -->
+        <section class="mentor-note">
+            <h3>⚠️ A Note from Your Mentor</h3>
+            <p>"Intraday trading is the Formula 1 of the stock market. It's fast, exciting, and can be incredibly
+                rewarding. BUT, it is also dangerous if you don't know how to drive. In this 14-day track, I won't just
+                teach you how to press the accelerator (buy); I will teach you how to use the brakes (stop-loss) and how
+                to read the track (market structure). Discipline is non-negotiable here."</p>
+        </section>
+
+        <!-- Syllabus -->
+        <h2 class="section-title">Your 14-Day Roadmap</h2>
+
+        <div class="modules-grid">
+            <!-- Phase 1 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <span class="phase-number">01</span>
+                    <span class="phase-title">Foundation & Setup</span>
+                </div>
+                <div class="day-list">
+                    <a href="intraday_day01.html" class="day-item">
+                        <span class="day-label">Day 1</span>
+                        <div class="day-name">Introduction to Intraday</div>
+                        <div class="day-desc">Understanding the mindset, rules, and reality of day trading.</div>
+                    </a>
+                    <a href="intraday_day02.html" class="day-item">
+                        <span class="day-label">Day 2</span>
+                        <div class="day-name">Market Terms & Phasing</div>
+                        <div class="day-desc">Gap up/down, volatility, liquidity, and liquidity traps.</div>
+                    </a>
+                    <a href="intraday_day03.html" class="day-item">
+                        <span class="day-label">Day 3</span>
+                        <div class="day-name">Terminal & Tools Setup</div>
+                        <div class="day-desc">Configuring charts, indicators, and screeners for speed.</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <span class="phase-number">02</span>
+                    <span class="phase-title">Price Action & Analysis</span>
+                </div>
+                <div class="day-list">
+                    <a href="intraday_day04.html" class="day-item">
+                        <span class="day-label">Day 4</span>
+                        <div class="day-name">Candlestick Mastery</div>
+                        <div class="day-desc">Reading the story behind every candle in real-time.</div>
+                    </a>
+                    <a href="intraday_day05.html" class="day-item">
+                        <span class="day-label">Day 5</span>
+                        <div class="day-name">Support & Resistance Zones</div>
+                        <div class="day-desc">Drawing accurate levels where price is likely to react.</div>
+                    </a>
+                    <a href="intraday_day06.html" class="day-item">
+                        <span class="day-label">Day 6</span>
+                        <div class="day-name">Essential Indicators</div>
+                        <div class="day-desc">Using VWAP, RSI, and Moving Averages effectively.</div>
+                    </a>
+                    <a href="intraday_day07.html" class="day-item">
+                        <span class="day-label">Day 7</span>
+                        <div class="day-name">Chart Patterns</div>
+                        <div class="day-desc">Identifying Flags, Triangles, and Head & Shoulders intraday.</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <span class="phase-number">03</span>
+                    <span class="phase-title">Golden Strategies</span>
+                </div>
+                <div class="day-list">
+                    <a href="intraday_day08.html" class="day-item">
+                        <span class="day-label">Day 8</span>
+                        <div class="day-name">Strategy 1: ORB</div>
+                        <div class="day-desc">Mastering the Open Range Breakout strategy.</div>
+                    </a>
+                    <a href="intraday_day09.html" class="day-item">
+                        <span class="day-label">Day 9</span>
+                        <div class="day-name">Strategy 2: VWAP Pullback</div>
+                        <div class="day-desc">Trading with the institutional trend using VWAP.</div>
+                    </a>
+                    <a href="intraday_day10.html" class="day-item">
+                        <span class="day-label">Day 10</span>
+                        <div class="day-name">Strategy 3: Trend Reversals</div>
+                        <div class="day-desc">Catching the top and bottom with confirmation.</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <span class="phase-number">04</span>
+                    <span class="phase-title">Risk & Psychology</span>
+                </div>
+                <div class="day-list">
+                    <a href="intraday_day11.html" class="day-item">
+                        <span class="day-label">Day 11</span>
+                        <div class="day-name">Ironclad Risk Management</div>
+                        <div class="day-desc">Position sizing, Stop Losses, and the 1% Rule.</div>
+                    </a>
+                    <a href="intraday_day12.html" class="day-item">
+                        <span class="day-label">Day 12</span>
+                        <div class="day-name">Trading Psychology</div>
+                        <div class="day-desc">Conquering fear, greed, and the urge to overtrade.</div>
+                    </a>
+                    <a href="intraday_day13.html" class="day-item">
+                        <span class="day-label">Day 13</span>
+                        <div class="day-name">The Professional Routine</div>
+                        <div class="day-desc">Pre-market checklist and post-market review.</div>
+                    </a>
+                    <a href="intraday_day14.html" class="day-item">
+                        <span class="day-label">Day 14</span>
+                        <div class="day-name">The Path Forward</div>
+                        <div class="day-desc">Building consistency and scaling your capital.</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Tools of the Trade</h2>
+        <div class="tools-section">
+            <div class="tool-badge">🖥️ Trading View / Chartink</div>
+            <div class="tool-badge">📊 Broker Terminal (Zerodha/Upstox)</div>
+            <div class="tool-badge">📒 Trading Journal</div>
+            <div class="tool-badge">⚡ Fast Internet</div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Intraday Trading Mastery • Designed for Serious Traders</p>
+            <p>© 2025 Expert Stock Academy</p>
+        </div>
+    </footer>
+</body>
+
+</html>

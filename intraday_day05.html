@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5: Support & Resistance Zones | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Zone Visualization */
+        .zone-viz {
+            border: 1px dashed var(--text-muted);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            height: 250px;
+        }
+
+        .viz-line {
+            height: 40px;
+            width: 100%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border-radius: 5px;
+        }
+
+        .resistance-zone {
+            top: 20px;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .support-zone {
+            bottom: 20px;
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .price-viz {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-muted);
+        }
+
+        /* Rules Grid */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .rule-card h4 {
+            color: var(--gold-light);
+            margin-bottom: 10px;
+        }
+
+        /* Mentor Tip */
+        .mentor-tip {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 2: Price Action</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 5</span>
+            <h1>The Battlefield: Support & Resistance Zones</h1>
+            <div class="meta-info">
+                <span>⏱ 45 Minutes</span>
+                <span>🧱 Market Structure</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>🏗️ The Floor and The Ceiling</h2>
+                <p>Imagine price is a bouncing ball in a multi-story building. It hits the floor and bounces up. It hits
+                    the ceiling and falls down.</p>
+
+                <div class="zone-viz">
+                    <div class="viz-line resistance-zone">RESISTANCE (Supply Zone) - Sellers Waiting</div>
+                    <div class="price-viz">↕️ Price Moves Here ↕️</div>
+                    <div class="viz-line support-zone">SUPPORT (Demand Zone) - Buyers Waiting</div>
+                </div>
+
+                <ul>
+                    <li><strong>Support (Demand Zone):</strong> A price level where buyers are strong enough to prevent
+                        the price from falling further. "The Floor".</li>
+                    <li><strong>Resistance (Supply Zone):</strong> A price level where selling is strong enough to
+                        prevent the price from rising further. "The Ceiling".</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>✍️ Drawing Zones Like a Pro</h2>
+                <p>Beginners draw thin lines. <strong>Professionals draw rectangular zones.</strong> Why? Because price
+                    is not perfect. It can overshoot by 50 cents and reverse.</p>
+
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <h4>Rule 1: Look Left</h4>
+                        <p>History repeats itself. Look to the left of the chart. Where did price reverse sharply
+                            before? That is a zone.</p>
+                    </div>
+                    <div class="rule-card">
+                        <h4>Rule 2: Touch Points</h4>
+                        <p>A valid zone needs at least <strong>2-3 touches</strong>. The more times price touches and
+                            reverses, the stronger the zone is.</p>
+                    </div>
+                    <div class="rule-card">
+                        <h4>Rule 3: Use Bodies, Not Just Wicks</h4>
+                        <p>Draw your zone covering the candle bodies and the wicks of the reversal area to capture the
+                            noise.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔄 The Concept of Role Reversal/Polarity</h2>
+                <p>This is where the magic happens. When a ball breaks through a ceiling, that ceiling becomes the new
+                    floor.</p>
+                <ul>
+                    <li>If Resistance breaks, it becomes <strong>Support</strong>.</li>
+                    <li>If Support breaks, it becomes <strong>Resistance</strong>.</li>
+                </ul>
+                <div class="mentor-tip">
+                    <h4>💡 Mentor's Strategy</h4>
+                    <p>Don't just chase a breakout. Wait for the <strong>Retest</strong>.
+                        <br>Example: Price breaks Resistance → Wait for it to come back down to the old Resistance (now
+                        Support) → Look for a Green Candle → BUY.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Open <strong>TradingView</strong> (Nifty 50 or Reliance).</li>
+                    <li>Switch to the <strong>1 Hour Timeframe</strong> (Higher timeframes show stronger zones).</li>
+                    <li>Use the "Rectangle" tool to draw the major Support and Resistance zones you see.</li>
+                    <li>Switch to 15m. See how price reacts when it hits those zones.</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day04.html" class="nav-btn prev">← Day 4: Candlesticks</a>
+        <a href="intraday_day06.html" class="nav-btn next">Day 6: Indicators →</a>
+    </footer>
+
+</body>
+
+</html>

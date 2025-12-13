@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 10: Strategy 3 - Trend Reversals | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Warning Box */
+        .knife-warning {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .knife-warning h4 {
+            color: var(--danger);
+            margin-bottom: 10px;
+        }
+
+        /* Strategy Steps */
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .step-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .step-text h4 {
+            color: var(--gold-light);
+            margin-bottom: 5px;
+        }
+
+        .step-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Viz */
+        .reversal-viz {
+            height: 150px;
+            background: linear-gradient(to right, rgba(231, 76, 60, 0.1), rgba(46, 204, 113, 0.1));
+            border: 1px dashed var(--text-muted);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 30px 0;
+            font-family: monospace;
+            color: var(--text-muted);
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 3: Golden Strategies</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 10</span>
+            <h1>The Counter-Punch: Trend Reversals</h1>
+            <div class="meta-info">
+                <span>⏱ 45 Minutes</span>
+                <span>⚡ High Skill Strategy</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <div class="knife-warning">
+                    <h4>⚠️ Warning: Don't Catch a Falling Knife</h4>
+                    <p>Trading reversals is dangerous. If a stock is falling like a stone, buying it because "it looks
+                        cheap" is suicide. We only trade reversals when we see <strong>CONFIRMATION</strong> that the
+                        trend has actually stopped.</p>
+                </div>
+
+                <h2>🔄 The Logic</h2>
+                <p>Trees don't grow to the sky, and stocks don't fall to zero in a day. Eventually, trends exhaust. We
+                    are looking for that moment when the 'Speed' of the trend dies and reverses.</p>
+            </section>
+
+            <section class="section">
+                <h2>⚙️ The Discovery Setup (RSI Divergence)</h2>
+                <p>We use our tools from Day 6 to find a potential top or bottom.</p>
+
+                <div class="reversal-viz">
+                    <span>Price: Higher High ↗</span>
+                    <span>VS</span>
+                    <span>RSI: Lower High ↘</span>
+                </div>
+
+                <div class="step-container">
+                    <div class="step-card">
+                        <div class="step-icon">👀</div>
+                        <div class="step-text">
+                            <h4>Step 1: Spot the Divergence</h4>
+                            <p>Is price making a New High, but RSI is failing to make a new high (below 70)? This means
+                                the bulls are tired.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon">🧱</div>
+                        <div class="step-text">
+                            <h4>Step 2: Check the Zone</h4>
+                            <p>Is this happening at a major Resistance (for Short) or Support (for Buy)? Divergence in
+                                the middle of nowhere is useless.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-icon">🕯️</div>
+                        <div class="step-text">
+                            <h4>Step 3: The Trigger Candle</h4>
+                            <p>Wait for a Reversal Candle (Shooting Star / Hammer / Engulfing). Enter ONLY when the
+                                Low/High of that candle is broken.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎯 Targets & Stop Loss</h2>
+                <ul>
+                    <li><strong>Stop Loss:</strong> Strictly above the High (for Short) or below the Low (for Buy) of
+                        the reversal candle.</li>
+                    <li><strong>Target 1:</strong> The 20 EMA line. Price usually magnets back to the average.</li>
+                    <li><strong>Target 2:</strong> The next Support/Resistance zone.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Open a chart and add RSI.</li>
+                    <li>Find a stock that had a big rally (uptime) recently.</li>
+                    <li>Look at the top of that rally. Did RSI show weakness (Lower High) while price was still going
+                        up?</li>
+                    <li>This is your "Aha!" moment. Once you see it, you can't unsee it.</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day09.html" class="nav-btn prev">← Day 9: Strategy 2 (VWAP)</a>
+        <a href="intraday_day11.html" class="nav-btn next">Day 11: Risk Management →</a>
+    </footer>
+
+</body>
+
+</html>

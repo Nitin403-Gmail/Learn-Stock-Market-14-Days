@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 12: Trading Psychology | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Emotion Cards */
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .emotion-card {
+            padding: 25px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .emotion-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fear {
+            border: 1px solid var(--danger);
+        }
+
+        .fear .emotion-title {
+            color: var(--danger);
+        }
+
+        .greed {
+            border: 1px solid var(--success);
+        }
+
+        .greed .emotion-title {
+            color: var(--success);
+        }
+
+        .fomo {
+            border: 1px solid var(--warning);
+            grid-column: span 2;
+        }
+
+        .fomo .emotion-title {
+            color: var(--warning);
+        }
+
+        /* Psychology Tip */
+        .psych-tip {
+            border-left: 4px solid var(--info);
+            background: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .emotion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fomo {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 4: Risk & Psychology</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 12</span>
+            <h1>The Enemy Within: Mastering Psychology</h1>
+            <div class="meta-info">
+                <span>⏱ 45 Minutes</span>
+                <span>🧠 Mindset Training</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>🧠 Trading is 80% Psychology</h2>
+                <p>You can have the best strategy in the world (like the ones we learned in Days 8-10), but if you
+                    cannot control your emotions, you will lose. The market is designed to trigger your deepest fears
+                    and desires.</p>
+            </section>
+
+            <section class="section">
+                <h2>👹 The 3 Demons of Trading</h2>
+
+                <div class="emotion-grid">
+                    <div class="emotion-card fear">
+                        <div class="emotion-title">😨 FEAR</div>
+                        <p><strong>Symptoms:</strong> Exiting a winning trade too early because you are scared profits
+                            will vanish. Or refusing to enter a perfect setup because you are scared to lose.</p>
+                        <p><strong>Cure:</strong> Trust your Backtesting. Trust your Stop Loss. Accepting the risk
+                            <em>before</em> entering eliminates fear.</p>
+                    </div>
+
+                    <div class="emotion-card greed">
+                        <div class="emotion-title">🤑 GREED</div>
+                        <p><strong>Symptoms:</strong> Holding a trade passed your target hoping for "more". Adding to a
+                            losing position hoping it will come back.</p>
+                        <p><strong>Cure:</strong> Have a fixed Target. Once hit, book it (or at least book 80%). Nobody
+                            went broke booking profits.</p>
+                    </div>
+
+                    <div class="emotion-card fomo">
+                        <div class="emotion-title">🏃 FOMO (Fear Of Missing Out)</div>
+                        <p><strong>Symptoms:</strong> Seeing a big green candle and jumping in blindly because "everyone
+                            is making money". This usually happens right at the top.</p>
+                        <p><strong>Cure:</strong> <span style="color:var(--text-light);">"There is always another
+                                bus."</span> The market will be here tomorrow. Missing a trade is better than losing
+                            money on a bad trade.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🧘 The Trader's Mindset: Probability thinking</h2>
+                <p>Amateur traders think in terms of "Right vs Wrong". Professionals think in terms of "Probabilities".
+                </p>
+                <div class="psych-tip">
+                    "I don't need to know what is going to happen next to make money. I just need to know that over a
+                    series of 20 trades, my edge (strategy) will make me profitable."
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li><strong>The "No-Touch" Drill:</strong> For your next trade, set your SL and Target in the system
+                        (Bracket Order). Then... take your hands off the mouse. Do not touch it until one side is hit.
+                    </li>
+                    <li><strong>Journal Your Emotions:</strong> Start writing down how you felt <em>during</em> the
+                        trade. Were you anxious? Excited? Bored? (Bored is good).</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day11.html" class="nav-btn prev">← Day 11: Risk Mgmt</a>
+        <a href="intraday_day13.html" class="nav-btn next">Day 13: Routine →</a>
+    </footer>
+
+</body>
+
+</html>

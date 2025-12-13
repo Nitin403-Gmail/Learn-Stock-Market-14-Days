@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6: Essential Indicators | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --vwap: #9b59b6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Indicator Cards */
+        .indicator-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .indicator-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold);
+        }
+
+        .indicator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .indicator-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--info);
+        }
+
+        .indicator-type {
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+
+        .indicator-body ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .indicator-body li {
+            margin-bottom: 5px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Warning Box */
+        .box-warning {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .box-warning h4 {
+            color: var(--danger);
+            margin-bottom: 10px;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 2: Price Action + Indicators</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 6</span>
+            <h1>The Holy Trinity: Essential Indicators</h1>
+            <div class="meta-info">
+                <span>⏱ 45 Minutes</span>
+                <span>🛠️ Technical Tools</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>⚠️ Important Rule First</h2>
+                <div class="box-warning">
+                    <h4>Indicators are Filters, Not Drivers</h4>
+                    <p>Price Action (Day 4 & 5) is the driver. Indicators are the GPS. They can tell you the speed and
+                        direction, but they cannot drive the car. <strong>Never take a trade solely because an indicator
+                            crossed over.</strong> Use them to confirm what Price Action is already telling you.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>1. VWAP (The Institutional Benchmark)</h2>
+                <div class="indicator-card">
+                    <div class="indicator-header">
+                        <span class="indicator-name" style="color: var(--vwap);">VWAP (Volume Weighted Average
+                            Price)</span>
+                        <span class="indicator-type">Intraday Only</span>
+                    </div>
+                    <div class="indicator-body">
+                        <p>VWAP shows the average price a stock has traded at throughout the day, based on both volume
+                            and price. Institutions use it to check if they are getting a good price.</p>
+                        <ul>
+                            <li><strong>Above VWAP:</strong> Bulls are in control. Only look for Buy trades. ✅</li>
+                            <li><strong>Below VWAP:</strong> Bears are in control. Only look for Sell trades. 🔻</li>
+                            <li><strong>Concept:</strong> Think of VWAP as a magnet. If price goes too far away, it
+                                snaps back. If it stays close, it might breakout.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>2. RSI (Momentum Gauge)</h2>
+                <div class="indicator-card">
+                    <div class="indicator-header">
+                        <span class="indicator-name" style="color: var(--success);">RSI (Relative Strength Index)</span>
+                        <span class="indicator-type">Momentum</span>
+                    </div>
+                    <div class="indicator-body">
+                        <p>Measures how fast price is moving. It ranges from 0 to 100.</p>
+                        <ul>
+                            <li><strong>Overbought (>70):</strong> Price might be exhausted. Don't buy here. (Does NOT
+                                mean Sell immediately).</li>
+                            <li><strong>Oversold (<30):< /strong> Price might be cheap. Don't short here.</li>
+                            <li><strong>Divergence:</strong> The Secret Weapon. If Price makes a Higher High, but RSI
+                                makes a Lower High, the trend is dying. Reversal is coming!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>3. 20 EMA (The Trend Wave)</h2>
+                <div class="indicator-card">
+                    <div class="indicator-header">
+                        <span class="indicator-name" style="color: var(--gold);">20 EMA (Exponential Moving
+                            Average)</span>
+                        <span class="indicator-type">Trend Following</span>
+                    </div>
+                    <div class="indicator-body">
+                        <p>The average price of the last 20 candles. It acts as dynamic support/resistance.</p>
+                        <ul>
+                            <li><strong>Price surfing above 20 EMA:</strong> Strong Uptrend. Buy the dips to the line.
+                            </li>
+                            <li><strong>Price surfing below 20 EMA:</strong> Strong Downtrend. Sell the rallies to the
+                                line.</li>
+                            <li><strong>Flat Line:</strong> Market is Sideways. Do nothing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🎯 The Convergence Strategy</h2>
+                <p>The highest probability trades happen when Price Action and Indicators agree.</p>
+                <div
+                    style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; border: 1px dashed var(--gold);">
+                    <strong>Example Buy Setup:</strong><br>
+                    1. Price hits a Support Zone (Day 5) ✅<br>
+                    2. Forms a Hammer Candle (Day 4) ✅<br>
+                    3. Price is Above VWAP (Day 6) ✅<br>
+                    4. RSI is rising (Day 6) ✅<br>
+                    <strong>Result:</strong> High Confidence Trade.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Add <strong>VWAP</strong>, <strong>RSI (14)</strong>, and <strong>20 EMA</strong> to your
+                        TradingView chart.</li>
+                    <li>Observe how price usually bounces off the VWAP or 20 EMA in a trending market.</li>
+                    <li>Look for "Divergence" on the RSI (Price goes up, RSI goes down). Did the price reverse after
+                        that?</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day05.html" class="nav-btn prev">← Day 5: Supp/Res</a>
+        <a href="intraday_day07.html" class="nav-btn next">Day 7: Chart Patterns →</a>
+    </footer>
+
+</body>
+
+</html>

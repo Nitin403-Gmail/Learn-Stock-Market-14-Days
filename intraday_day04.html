@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: Candlestick Mastery | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        /* Analysis Box */
+        .candle-box {
+            display: flex;
+            gap: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .candle-visual {
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .candle-desc h4 {
+            color: var(--gold-light);
+            margin-bottom: 10px;
+        }
+
+        .candle-desc p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Candle Types Colors */
+        .bullish {
+            color: var(--success);
+        }
+
+        .bearish {
+            color: var(--danger);
+        }
+
+        .neutral {
+            color: var(--text-muted);
+        }
+
+        /* Mentor Secret */
+        .mentor-secret {
+            background: rgba(212, 175, 55, 0.05);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            font-style: italic;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .candle-box {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .candle-visual {
+                font-size: 2rem;
+                min-width: auto;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 2: Price Action</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 4</span>
+            <h1>Candlestick Mastery: Reading the War</h1>
+            <div class="meta-info">
+                <span>⏱ 60 Minutes</span>
+                <span>🕯️ Price Action Core</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>🕯️ Warning: Don't Memorize Patterns</h2>
+                <p>Most beginners memorize "Hammer," "Doji," "Harami." This is useless if you don't understand
+                    <strong>WHY</strong> the candle formed.</p>
+                <div class="mentor-secret">
+                    <h3>💡 The Mentor's Secret</h3>
+                    <p>"A candlestick is not a shape. It is a war story between Buyers (Bulls) and Sellers (Bears) over
+                        a specific time period. Your job is not to name the candle, but to see who won the war."</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🔎 Anatomy of the War (OHLC)</h2>
+                <p>Every candle tells you four things:</p>
+                <ul>
+                    <li><strong>Open:</strong> Who was in control when the bell rang?</li>
+                    <li><strong>High:</strong> How far did the Bulls push?</li>
+                    <li><strong>Low:</strong> How far did the Bears push?</li>
+                    <li><strong>Close:</strong> Who had the final say? (The most important price).</li>
+                </ul>
+                <p><strong>The Wick (Tail):</strong> A long wick represents <strong>Rejection</strong>. If you see a
+                    long wick at the bottom, it means Bears tried to push it down, but Bulls pushed them back. That is
+                    hidden buying pressure.</p>
+            </section>
+
+            <section class="section">
+                <h2>🔥 The 3 Power Candles You MUST Know</h2>
+                <p>Forget the 50 exotic patterns. In intraday trading, these 3 tell you 90% of the story.</p>
+
+                <div class="candle-box">
+                    <div class="candle-visual bullish">▮</div>
+                    <div class="candle-desc">
+                        <h4>1. The Power Candle (Marubozu/Elephant)</h4>
+                        <p><strong>Appearance:</strong> Big body, tiny or no wicks.<br>
+                            <strong>Story:</strong> Complete dominance. If Green, buyers are aggressive. If Red, sellers
+                            are panicking.<br>
+                            <strong>Action:</strong> Don't trade against this candle. The trend is strong.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="candle-box">
+                    <div class="candle-visual neutral">✚</div>
+                    <div class="candle-desc">
+                        <h4>2. The Indecision Candle (Doji/Spinning Top)</h4>
+                        <p><strong>Appearance:</strong> Tiny body, long wicks on both sides.<br>
+                            <strong>Story:</strong> War is tied. Buyers and sellers are equally matched. Confusion.<br>
+                            <strong>Action:</strong> Wait. A big move is usually coming next. Do not enter inside a
+                            Doji.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="candle-box">
+                    <div class="candle-visual bullish">🔨</div>
+                    <div class="candle-desc">
+                        <h4>3. The Rejection Candle (Hammer/Pinbar)</h4>
+                        <p><strong>Appearance:</strong> Small body on one end, very long tail on the other.<br>
+                            <strong>Story:</strong> A trap. One side tried to push price, but got brutally rejected.<br>
+                            <strong>Action:</strong> A clear reversal signal. If found at Support (Hammer) or Resistance
+                            (Shooting Star), it is a high-probability trade.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📍 Context is King</h2>
+                <p>A "Hammer" candle in the middle of nowhere means NOTHING. <strong>Location is 50% of the
+                        trade.</strong></p>
+                <ul>
+                    <li><strong>Hammer at Support:</strong> Bullish Signal (Buy) ✅</li>
+                    <li><strong>Hammer at Resistance:</strong> Weird/Ignore ❌</li>
+                    <li><strong>Shooting Star at Resistance:</strong> Bearish Signal (Sell) ✅</li>
+                </ul>
+                <p>We will learn how to find these "Locations" (Support/Resistance) in Day 5.</p>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Open <strong>Bank Nifty</strong> on a 15-minute chart.</li>
+                    <li>Find the biggest Green Candle of the day. Did the price continue going up after that? (Power
+                        Candle logic).</li>
+                    <li>Find a candle with a huge wick. Did the price reverse from there? (Rejection logic).</li>
+                    <li>Don't trade yet. Just observe the war.</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day03.html" class="nav-btn prev">← Day 3: Setup</a>
+        <a href="intraday_day05.html" class="nav-btn next">Day 5: Support & Resistance →</a>
+    </footer>
+
+</body>
+
+</html>

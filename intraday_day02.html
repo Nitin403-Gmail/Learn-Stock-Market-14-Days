@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2: Market Structure & Phasing | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        ul,
+        ol {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        /* Phase Visualization */
+        .phase-viz {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 40px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .viz-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .viz-icon {
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .viz-content h4 {
+            color: var(--gold-light);
+            margin-bottom: 5px;
+        }
+
+        .viz-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Term Cards */
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .term-card {
+            background: rgba(52, 152, 219, 0.05);
+            border-left: 4px solid var(--info);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .term-card h4 {
+            color: var(--info);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .term-card p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Key Insight Box */
+        .box-gold {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Day 2: Market Structure</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 2</span>
+            <h1>The Language of the Market: Structure & Phases</h1>
+            <div class="meta-info">
+                <span>⏱ 45 Minutes</span>
+                <span>📊 Concept Mastery</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>🌍 Understanding Market Nature</h2>
+                <p>Most beginners think the market is random chaos. It is not. The market is a mechanism for price
+                    discovery, and it moves in cycles. Understanding these cycles is like having a map in a dense
+                    forest.</p>
+                <p>If you buy when the market is preparing to drop (Distribution), you will lose. If you sell when the
+                    market is preparing to rise (Accumulation), you will lose. Today, we learn to read the map.</p>
+            </section>
+
+            <section class="section">
+                <h2>🔄 The 4 Phases of the Market</h2>
+                <p>Every stock, index, or crypto moves through these four phases repeatedly on all timeframes (1-minute,
+                    15-minute, Daily, Weekly).</p>
+
+                <div class="phase-viz">
+                    <div class="viz-step">
+                        <div class="viz-icon" style="color: var(--info);">1</div>
+                        <div class="viz-content">
+                            <h4>Accumulation Phase (The Base)</h4>
+                            <p>This happens after a downtrend. Prices flatten out. Smart money (Institutions) starts
+                                buying quietly. The chart looks like it's moving sideways.</p>
+                        </div>
+                    </div>
+                    <div class="viz-step">
+                        <div class="viz-icon" style="color: var(--success);">2</div>
+                        <div class="viz-content">
+                            <h4>Advancement Phase (The Uptrend)</h4>
+                            <p>Price breaks out of the Accumulation zone. This is where we want to be buying. The trend
+                                is clearly Up. Higher Highs and Higher Lows.</p>
+                        </div>
+                    </div>
+                    <div class="viz-step">
+                        <div class="viz-icon" style="color: var(--warning);">3</div>
+                        <div class="viz-content">
+                            <h4>Distribution Phase (The Top)</h4>
+                            <p>After a good run, the trend stalls. Smart money starts selling their shares to late
+                                retail buyers. Price moves sideways again but looks "heavy".</p>
+                        </div>
+                    </div>
+                    <div class="viz-step">
+                        <div class="viz-icon" style="color: var(--danger);">4</div>
+                        <div class="viz-content">
+                            <h4>Declining Phase (The Downtrend)</h4>
+                            <p>Support breaks. Panic sets in. Price falls rapidly. We engage in Short Selling here to
+                                profit from the drop.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-gold">
+                    <h3>💡 Mentor's Tip</h3>
+                    <p>As an intraday trader, you mostly want to trade during Phase 2 (Trending Up) and Phase 4
+                        (Trending Down). Phase 1 and 3 are choppy and can hit your stop-losses frequently unless you are
+                        very experienced.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📚 Essential Market Vocabulary</h2>
+                <p>To operate professionally, you must know the professional terms.</p>
+
+                <div class="term-grid">
+                    <div class="term-card">
+                        <h4>Liquidity</h4>
+                        <p>How easily you can buy or sell shares without impacting the price. High liquidity = Easy to
+                            enter/exit (e.g., Reliance, HDFC Bank). Low liquidity = Dangerous (Penny stocks).</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>Volatility</h4>
+                        <p>The range of price movement. High volatility means big swings (good for profit, high risk).
+                            Low volatility means small moves (safer, less profit).</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>Gap Up / Gap Down</h4>
+                        <p>When the market opens significantly higher or lower than yesterday's close due to overnight
+                            news. This creates a "Gap" on the chart.</p>
+                    </div>
+                    <div class="term-card">
+                        <h4>Short Selling</h4>
+                        <p>Selling a stock you don't own (borrowing from broker) with the intent to buy it back lower.
+                            This allows you to profit when markets fall.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🕵️♂️ Smart Money vs. Retail Money</h2>
+                <p>This is the most important concept for your survival.</p>
+                <ul>
+                    <li><strong>Smart Money:</strong> Banks, FIIs (Foreign Institutional Investors), DIIs (Domestic
+                        Institutional Investors). They have billions. They move the market.</li>
+                    <li><strong>Retail Money:</strong> You, me, and the public. We are small fish. We cannot move the
+                        market.</li>
+                </ul>
+                <p><strong>The Strategy:</strong> We never fight Smart Money. We identify their footprints (volume, big
+                    candles) and we follow them like a remora fish follows a shark. If they buy, we buy. If they sell,
+                    we sell.</p>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Open TradingView and load a chart for <strong>Nifty 50</strong>.</li>
+                    <li>Look at the chart and try to identify the 4 phases (Accumulation, Advancement, Distribution,
+                        Decline).</li>
+                    <li>Notice how price never moves in a straight line; it moves in waves.</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day01.html" class="nav-btn prev">← Day 1: Intro</a>
+        <a href="intraday_day03.html" class="nav-btn next">Day 3: Terminal Setup →</a>
+    </footer>
+
+</body>
+
+</html>

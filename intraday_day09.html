@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 9: Strategy 2 - VWAP Pullback | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --vwap: #9b59b6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Strategy Box */
+        .strategy-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--vwap);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            background: var(--vwap);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content strong {
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Visual Representation */
+        .vwap-viz {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px dashed var(--text-muted);
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .viz-line {
+            width: 100%;
+            height: 2px;
+            background: var(--vwap);
+            position: absolute;
+            top: 60%;
+        }
+
+        .viz-price {
+            font-size: 1.5rem;
+            position: absolute;
+            animation: dipbounce 2s infinite;
+        }
+
+        @keyframes dipbounce {
+            0% {
+                top: 20%;
+                left: 10%;
+            }
+
+            50% {
+                top: 55%;
+                left: 50%;
+                color: var(--success);
+            }
+
+            /* Touching VWAP */
+            100% {
+                top: 10%;
+                left: 90%;
+            }
+        }
+
+        /* Rules */
+        .rules-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .rule-card {
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rule-card ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .rule-card li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .rules-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 3: Golden Strategies</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 9</span>
+            <h1>The Institutional Wave: VWAP Pullback</h1>
+            <div class="meta-info">
+                <span>⏱ 45 Minutes</span>
+                <span>🛡️ Low Risk / High Reward</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>🌊 Riding the Wave with Institutions</h2>
+                <p>ORB (Day 8) is for catching the morning explosion. But what if you miss it? Or what if the market is
+                    trending steadily?</p>
+                <p>That's where the <strong style="color: var(--vwap);">VWAP Pullback Strategy</strong> comes in. We
+                    know Institutions love to buy near the average price (VWAP). So, we wait for the price to come to
+                    us.</p>
+            </section>
+
+            <section class="section">
+                <h2>⚙️ The Setup Rules</h2>
+                <div class="strategy-box">
+                    <ul class="step-list">
+                        <li>
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <strong>Identify the Trend</strong>
+                                Price must be trading CLEARLY above VWAP for a Buy trend (or clearly below for Sell).
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <strong>The Pullback (The Dip)</strong>
+                                Wait for the price to come back down and touch (or get very close to) the VWAP line.
+                                <strong>Do not buy yet.</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <strong>The Confirmation</strong>
+                                Watch for a GREEN candle to form at the VWAP line. This proves buyers have stepped in to
+                                defend the average price.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-num">4</div>
+                            <div class="step-content">
+                                <strong>The Execution</strong>
+                                Buy above the high of that Green candle.
+                                <br><strong>Stop Loss:</strong> Just below the VWAP line. (Very small risk!).
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="vwap-viz">
+                    <div class="viz-line"><span
+                            style="color: var(--vwap); position: absolute; right: 10px; top: -20px;">VWAP Line</span>
+                    </div>
+                    <div class="viz-price">🚀</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🧠 Why this strategy works?</h2>
+                <div class="rules-container">
+                    <div class="rule-card">
+                        <h4>1. Value Buying</h4>
+                        <p>Imagine seeing an iPhone at $1000, then it goes to $1200, then drops back to $1050. Smart
+                            buyers will buy at $1050 thinking it's a "good deal" relative to the trend.</p>
+                    </div>
+                    <div class="rule-card">
+                        <h4>2. Tight Stop Loss</h4>
+                        <p>This is the biggest advantage. Since you are buying right at the support line (VWAP), your
+                            stop loss is tiny. If the line breaks, you get out immediately with a small scratch.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Open your charting platform. Add the <strong>VWAP</strong> indicator.</li>
+                    <li>Look at a trending stock (e.g., usually IT or Bank stocks on a trend day).</li>
+                    <li>Spot how many times it touched the VWAP line and bounced back up.</li>
+                    <li>This strategy requires <strong>Patience</strong>. You cannot chase price; you must wait for it
+                        to come to you.</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day08.html" class="nav-btn prev">← Day 8: Strategy 1 (ORB)</a>
+        <a href="intraday_day10.html" class="nav-btn next">Day 10: Strategy 3 (Reversal) →</a>
+    </footer>
+
+</body>
+
+</html>

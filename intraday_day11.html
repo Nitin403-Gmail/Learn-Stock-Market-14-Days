@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 11: Ironclad Risk Management | Intraday Trading Mastery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #16213e;
+            --text-light: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Calculator Box */
+        .calc-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--gold);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .formula {
+            font-family: monospace;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: var(--success);
+        }
+
+        /* Rules Grid */
+        .risk-rules {
+            display: grid;
+            gap: 20px;
+        }
+
+        .risk-card {
+            border-left: 4px solid var(--danger);
+            background: rgba(231, 76, 60, 0.05);
+            padding: 20px;
+        }
+
+        .risk-card h4 {
+            color: var(--danger);
+            margin-bottom: 5px;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: var(--gold);
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .nav-btn.next {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .nav-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="intraday_index.html">← Back to Course</a>
+            <div class="nav-links">
+                <span>Phase 4: Risk & Psychology</span>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <span class="day-badge">DAY 11</span>
+            <h1>The Survival Shield: Ironclad Risk Management</h1>
+            <div class="meta-info">
+                <span>⏱ 60 Minutes</span>
+                <span>🛡️ Non-Negotiable</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+
+            <section class="section">
+                <h2>💣 Why Traders Die</h2>
+                <p>90% of traders fail not because their strategy is bad, but because they have <strong>zero risk
+                        management</strong>. They make ₹1000 for 4 days, then lose ₹10,000 on Friday. We are here to
+                    stop that.</p>
+                <p>From today, you are not a "Trader". You are a <strong>Risk Manager</strong> who happens to place
+                    trades.</p>
+            </section>
+
+            <section class="section">
+                <h2>📏 The 1% Rule</h2>
+                <div class="risk-rules">
+                    <div class="risk-card">
+                        <h4>Never Risk More Than 1-2% Per Trade</h4>
+                        <p>If your capital is ₹1,00,000, your maximum loss on any single trade should be ₹1,000 to
+                            ₹2,000. Period. No exceptions.</p>
+                    </div>
+                </div>
+
+                <h3>Why? The Math of Ruin:</h3>
+                <table>
+                    <tr>
+                        <th>Loss Amount</th>
+                        <th>Required gain to recover</th>
+                    </tr>
+                    <tr>
+                        <td>10% Loss</td>
+                        <td>11% Gain (Easy)</td>
+                    </tr>
+                    <tr>
+                        <td>20% Loss</td>
+                        <td>25% Gain (Hard)</td>
+                    </tr>
+                    <tr>
+                        <td>50% Loss</td>
+                        <td>100% Gain (Very Hard)</td>
+                    </tr>
+                    <tr>
+                        <td>90% Loss</td>
+                        <td>900% Gain (Impossible)</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="section">
+                <h2>🔢 Position Sizing (The Magic Formula)</h2>
+                <p>Most people ask "How many shares should I buy?" The answer is calculated, not guessed.</p>
+
+                <div class="calc-box">
+                    <h3>Quantity = Risk Amount / Stop Loss Points</h3>
+                    <div class="formula">
+                        Example:<br>
+                        Capital: ₹1,00,000<br>
+                        Risk per trade (1%): ₹1,000<br>
+                        Entry Price: ₹500<br>
+                        Stop Loss Price: ₹490<br>
+                        SL Points: 10<br><br>
+                        <strong>Quantity = 1000 / 10 = 100 Shares</strong>
+                    </div>
+                    <p>If you buy more than 100 shares, you are violating your risk rules.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🛑 The Daily Stop Loss (DSL)</h2>
+                <p>What if you have 5 losing trades in a row? You need a circuit breaker for your account.</p>
+                <ul>
+                    <li><strong>Set a Daily Max Loss:</strong> Usually 3-5% of capital.</li>
+                    <li>If you hit this number, <strong>CLOSE THE TERMINAL</strong>. Walk away. Do not try to "recover"
+                        it today. Revenge trading kills accounts.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>✅ Today's Action Steps</h2>
+                <ol>
+                    <li>Calculate your "Risk Per Trade" right now based on your current capital. Write it on a sticky
+                        note.</li>
+                    <li>Stick that note on your monitor.</li>
+                    <li>Commit to never entering a trade without knowing exactly how many shares to buy using the
+                        formula above.</li>
+                </ol>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <a href="intraday_day10.html" class="nav-btn prev">← Day 10: Strategy 3</a>
+        <a href="intraday_day12.html" class="nav-btn next">Day 12: Psychology →</a>
+    </footer>
+
+</body>
+
+</html>
