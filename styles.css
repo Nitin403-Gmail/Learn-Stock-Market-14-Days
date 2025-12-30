@@ -7,15 +7,17 @@
 :root {
     --gold: #D4AF37;
     --gold-light: #F4E4BA;
-    --dark: #1a1a2e;
-    --darker: #0f0f1a;
-    --accent: #16213e;
-    --text-light: #e8e8e8;
-    --text-muted: #a0a0a0;
-    --success: #2ecc71;
-    --warning: #f39c12;
-    --danger: #e74c3c;
-    --info: #3498db;
+    --light: #ffffff;
+    --lighter: #f8f9fa;
+    --accent: #f0f2f5;
+    --text-dark: #2c3e50;
+    --text-muted: #6c757d;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --info: #17a2b8;
+    --border: #e9ecef;
+    --shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* Reset & Base Styles */
@@ -27,60 +29,63 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, var(--accent) 100%);
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--lighter) 0%, var(--light) 50%, var(--accent) 100%);
     min-height: 100vh;
-    color: var(--text-light);
+    color: var(--text-dark);
     line-height: 1.8;
 }
 
 .container {
-    max-width: 900px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    max-width: none;
 }
 
 .container-wide {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    max-width: none;
 }
 
 /* Typography */
 h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    color: var(--text-light);
+    font-size: 50px;
+    color: var(--text-dark);
     margin-bottom: 15px;
     line-height: 1.3;
 }
 
 h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--gold);
+    font-size: 32px;
+    color: var(--text-dark);
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
 }
 
 h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--gold-light);
+    font-size: 25px;
+    color: var(--text-dark);
     margin: 30px 0 15px 0;
 }
 
 h4 {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1.1rem;
-    color: var(--gold);
+    font-size: 20px;
+    color: var(--text-dark);
     margin-bottom: 10px;
 }
 
 p {
     margin-bottom: 20px;
-    color: var(--text-light);
-    font-size: 1.05rem;
+    color: var(--text-dark);
+    font-size: 19px;
 }
 
 ul,
@@ -91,36 +96,40 @@ ol {
 
 li {
     margin-bottom: 12px;
-    color: var(--text-light);
+    color: var(--text-dark);
 }
 
 blockquote {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 23px;
     font-style: italic;
-    color: var(--gold-light);
+    color: var(--text-dark);
     border-left: 3px solid var(--gold);
     padding-left: 25px;
     margin: 30px 0;
+    background: var(--accent);
+    padding: 20px 25px;
+    border-radius: 0 8px 8px 0;
 }
 
 blockquote cite {
     display: block;
     margin-top: 15px;
-    font-size: 1rem;
+    font-size: 18px;
     font-style: normal;
     color: var(--text-muted);
 }
 
 /* Navigation */
 nav {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 10px var(--shadow);
 }
 
 nav .container {
@@ -130,15 +139,15 @@ nav .container {
 }
 
 nav a {
-    color: var(--gold);
+    color: var(--text-dark);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s;
-    font-size: 0.9rem;
+    font-size: 16px;
 }
 
 nav a:hover {
-    color: var(--gold-light);
+    color: var(--text-dark);
 }
 
 .nav-links {
@@ -153,24 +162,24 @@ header {
 }
 
 header.hero-header {
-    background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, var(--lighter) 100%);
     text-align: center;
 }
 
 .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-size: 63px;
     font-weight: 700;
     background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* -webkit-text-fill-color: transparent; */
     background-clip: text;
     margin-bottom: 10px;
     letter-spacing: 2px;
 }
 
 .tagline {
-    font-size: 1.3rem;
+    font-size: 23px;
     color: var(--text-muted);
     font-weight: 300;
     margin-bottom: 30px;
@@ -179,11 +188,11 @@ header.hero-header {
 .badge {
     display: inline-block;
     background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
-    color: var(--dark);
+    color: var(--text-dark);
     padding: 8px 24px;
     border-radius: 30px;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -191,11 +200,11 @@ header.hero-header {
 .day-badge {
     display: inline-block;
     background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
-    color: var(--dark);
+    color: var(--text-dark);
     padding: 8px 20px;
     border-radius: 25px;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 16px;
     margin-bottom: 20px;
 }
 
@@ -204,7 +213,7 @@ header.hero-header {
     display: flex;
     gap: 30px;
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 17px;
 }
 
 .lesson-meta span,
@@ -217,7 +226,7 @@ header.hero-header {
 /* Progress Bar */
 .progress-bar {
     height: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border);
     border-radius: 2px;
     margin-bottom: 30px;
 }
@@ -234,16 +243,17 @@ header.hero-header {
 }
 
 .section {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: var(--light);
+    border: 1px solid var(--border);
     border-radius: 15px;
     padding: 40px;
     margin-bottom: 30px;
+    box-shadow: 0 2px 10px var(--shadow);
 }
 
 /* Special Content Boxes */
 .key-concept {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.03) 100%);
     border-left: 4px solid var(--gold);
     padding: 25px;
     margin: 25px 0;
@@ -251,8 +261,8 @@ header.hero-header {
 }
 
 .key-concept h4 {
-    color: var(--gold);
-    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-size: 20px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -260,8 +270,8 @@ header.hero-header {
 }
 
 .video-resource {
-    background: rgba(52, 152, 219, 0.1);
-    border: 1px solid rgba(52, 152, 219, 0.3);
+    background: rgba(52, 152, 219, 0.08);
+    border: 1px solid rgba(52, 152, 219, 0.2);
     border-radius: 12px;
     padding: 25px;
     margin: 25px 0;
@@ -295,8 +305,8 @@ header.hero-header {
 }
 
 .action-step {
-    background: rgba(46, 204, 113, 0.1);
-    border: 1px solid rgba(46, 204, 113, 0.3);
+    background: rgba(46, 204, 113, 0.08);
+    border: 1px solid rgba(46, 204, 113, 0.2);
     border-radius: 12px;
     padding: 25px;
     margin: 25px 0;
@@ -311,7 +321,7 @@ header.hero-header {
 }
 
 .box-warning {
-    background: rgba(231, 76, 60, 0.1);
+    background: rgba(231, 76, 60, 0.08);
     border-left: 4px solid var(--danger);
     padding: 25px;
     margin: 25px 0;
@@ -319,7 +329,7 @@ header.hero-header {
 }
 
 .box-success {
-    background: rgba(46, 204, 113, 0.1);
+    background: rgba(46, 204, 113, 0.08);
     border-left: 4px solid var(--success);
     padding: 25px;
     margin: 25px 0;
@@ -327,7 +337,7 @@ header.hero-header {
 }
 
 .box-gold {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(255, 255, 255, 0.5) 100%);
     border: 1px solid rgba(212, 175, 55, 0.2);
     padding: 30px;
     border-radius: 15px;
@@ -355,14 +365,14 @@ header.hero-header {
 }
 
 .nav-btn.prev {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-light);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--lighter);
+    color: var(--text-dark);
+    border: 1px solid var(--border);
 }
 
 .nav-btn.next {
     background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
-    color: var(--dark);
+    color: var(--text-dark);
 }
 
 .nav-btn:hover {
@@ -373,7 +383,7 @@ header.hero-header {
 .cta-button {
     display: inline-block;
     background: var(--gold);
-    color: var(--dark);
+    color: var(--text-dark);
     padding: 12px 30px;
     border-radius: 8px;
     text-decoration: none;
@@ -397,47 +407,49 @@ header.hero-header {
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: var(--light);
+    border: 1px solid var(--border);
     border-radius: 15px;
     padding: 30px;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
     border-color: var(--gold);
-    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.1);
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
 }
 
 .stat-number {
     font-family: 'Playfair Display', serif;
-    font-size: 3rem;
+    font-size: 54px;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--text-dark);
     margin-bottom: 10px;
 }
 
 .stat-label {
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 /* Philosophy Section */
 .philosophy {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--light);
     border-radius: 20px;
     padding: 60px;
     margin: 40px 0;
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px var(--shadow);
 }
 
 .philosophy h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: var(--gold);
+    font-size: 45px;
+    color: var(--text-dark);
     margin-bottom: 30px;
     text-align: center;
 }
@@ -455,14 +467,14 @@ header.hero-header {
 }
 
 .philosophy-icon {
-    font-size: 3rem;
+    font-size: 54px;
     margin-bottom: 20px;
 }
 
 .philosophy-item h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--gold-light);
+    font-size: 27px;
+    color: var(--text-dark);
     margin-bottom: 15px;
 }
 
@@ -477,10 +489,10 @@ header.hero-header {
 
 .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 45px;
     text-align: center;
     margin-bottom: 50px;
-    color: var(--gold);
+    color: var(--text-dark);
 }
 
 .week-container {
@@ -498,9 +510,9 @@ header.hero-header {
 
 .week-number {
     background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
-    color: var(--dark);
+    color: var(--text-dark);
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
+    font-size: 27px;
     font-weight: 700;
     width: 60px;
     height: 60px;
@@ -512,8 +524,8 @@ header.hero-header {
 
 .week-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--text-light);
+    font-size: 32px;
+    color: var(--text-dark);
 }
 
 .day-cards {
@@ -523,8 +535,8 @@ header.hero-header {
 }
 
 .day-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: var(--light);
+    border: 1px solid var(--border);
     border-radius: 15px;
     padding: 30px;
     text-decoration: none;
@@ -532,6 +544,7 @@ header.hero-header {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .day-card::before {
@@ -550,7 +563,7 @@ header.hero-header {
 .day-card:hover {
     transform: translateY(-5px);
     border-color: var(--gold);
-    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.2);
 }
 
 .day-card:hover::before {
@@ -566,28 +579,28 @@ header.hero-header {
 
 .day-number {
     background: rgba(212, 175, 55, 0.2);
-    color: var(--gold);
+    color: var(--text-dark);
     padding: 5px 15px;
     border-radius: 20px;
-    font-size: 0.85rem;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .day-duration {
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 15px;
 }
 
 .day-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--text-light);
+    font-size: 23px;
+    color: var(--text-dark);
     margin-bottom: 12px;
 }
 
 .day-description {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-size: 17px;
     margin-bottom: 20px;
 }
 
@@ -598,20 +611,21 @@ header.hero-header {
 }
 
 .tag {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--text-dark);
     padding: 4px 12px;
     border-radius: 15px;
-    font-size: 0.8rem;
+    font-size: 14px;
 }
 
 /* Core Concepts */
 .core-concepts {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.02) 100%);
+    background: var(--light);
     border-radius: 20px;
     padding: 60px;
     margin: 60px 0;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px var(--shadow);
 }
 
 .concept-list {
@@ -625,14 +639,15 @@ header.hero-header {
     align-items: flex-start;
     gap: 20px;
     padding: 25px;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--lighter);
     border-radius: 12px;
     border-left: 4px solid var(--gold);
+    border: 1px solid var(--border);
 }
 
 .concept-number {
     background: var(--gold);
-    color: var(--dark);
+    color: var(--text-dark);
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -645,8 +660,8 @@ header.hero-header {
 
 .concept-content h4 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--gold-light);
+    font-size: 22px;
+    color: var(--text-dark);
     margin-bottom: 8px;
 }
 
@@ -663,28 +678,29 @@ header.hero-header {
 }
 
 .tool-card {
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--light);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px var(--shadow);
 }
 
 .tool-icon {
-    font-size: 2rem;
+    font-size: 36px;
     margin-bottom: 10px;
     display: block;
 }
 
 .tool-name {
-    color: var(--gold-light);
+    color: var(--text-dark);
     font-weight: 600;
     display: block;
     margin-bottom: 5px;
 }
 
 .tool-desc {
-    font-size: 0.85rem;
+    font-size: 15px;
     color: var(--text-muted);
 }
 
@@ -692,13 +708,14 @@ header.hero-header {
 footer {
     text-align: center;
     padding: 40px 0;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    border-top: 1px solid var(--border);
     margin-top: 60px;
+    background: var(--lighter);
 }
 
 footer p {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 16px;
 }
 
 footer.nav-footer {
@@ -709,8 +726,8 @@ footer.nav-footer {
 }
 
 .disclaimer {
-    background: rgba(243, 156, 18, 0.1);
-    border: 1px solid rgba(243, 156, 18, 0.3);
+    background: rgba(243, 156, 18, 0.08);
+    border: 1px solid rgba(243, 156, 18, 0.2);
     border-radius: 10px;
     padding: 20px;
     margin: 40px 0;
@@ -718,22 +735,22 @@ footer.nav-footer {
 }
 
 .disclaimer p {
-    color: var(--warning);
-    font-size: 0.9rem;
+    color: var(--text-dark);
+    font-size: 16px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 36px;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 27px;
     }
 
     .logo {
-        font-size: 2.5rem;
+        font-size: 45px;
     }
 
     .section {
@@ -751,7 +768,7 @@ footer.nav-footer {
     }
 
     .section-title {
-        font-size: 2rem;
+        font-size: 36px;
     }
 
     .core-concepts {
@@ -773,7 +790,7 @@ footer.nav-footer {
     }
 
     h1 {
-        font-size: 1.75rem;
+        font-size: 32px;
     }
 
     .section {
@@ -793,8 +810,8 @@ footer.nav-footer {
 
 /* Intraday-Specific Styles */
 .mentor-note {
-    background: rgba(243, 156, 18, 0.1);
-    border: 1px solid rgba(243, 156, 18, 0.3);
+    background: rgba(243, 156, 18, 0.08);
+    border: 1px solid rgba(243, 156, 18, 0.2);
     border-radius: 15px;
     padding: 30px;
     margin: 40px 0;
@@ -812,16 +829,17 @@ footer.nav-footer {
 }
 
 .phase-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: var(--light);
+    border: 1px solid var(--border);
     border-radius: 15px;
     padding: 30px;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .phase-card:hover {
     border-color: var(--gold);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
 }
 
 .phase-header {
@@ -835,9 +853,9 @@ footer.nav-footer {
 
 .phase-number {
     background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
-    color: var(--dark);
+    color: var(--text-dark);
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
+    font-size: 22px;
     font-weight: 700;
     width: 50px;
     height: 50px;
@@ -849,8 +867,8 @@ footer.nav-footer {
 
 .phase-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--gold-light);
+    font-size: 27px;
+    color: var(--text-dark);
 }
 
 .day-list {
@@ -860,8 +878,8 @@ footer.nav-footer {
 }
 
 .day-item {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--lighter);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 20px;
     text-decoration: none;
@@ -873,30 +891,30 @@ footer.nav-footer {
 .day-item:hover {
     border-color: var(--gold);
     transform: translateX(5px);
-    background: rgba(212, 175, 55, 0.05);
+    background: rgba(212, 175, 55, 0.08);
 }
 
 .day-label {
     display: inline-block;
     background: rgba(212, 175, 55, 0.2);
-    color: var(--gold);
+    color: var(--text-dark);
     padding: 4px 12px;
     border-radius: 15px;
-    font-size: 0.8rem;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
 .day-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--text-light);
+    font-size: 20px;
+    color: var(--text-dark);
     margin-bottom: 8px;
 }
 
 .day-desc {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 16px;
 }
 
 .tools-section {
@@ -908,12 +926,12 @@ footer.nav-footer {
 }
 
 .tool-badge {
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text-dark);
     padding: 10px 20px;
     border-radius: 25px;
-    font-size: 0.9rem;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -928,10 +946,11 @@ footer.nav-footer {
     display: flex;
     gap: 20px;
     align-items: flex-start;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--lighter);
     padding: 20px;
     border-radius: 12px;
     border-left: 4px solid var(--gold);
+    border: 1px solid var(--border);
 }
 
 .viz-icon {
@@ -942,19 +961,19 @@ footer.nav-footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 27px;
     font-weight: 700;
     flex-shrink: 0;
 }
 
 .viz-content h4 {
-    color: var(--gold-light);
+    color: var(--text-dark);
     margin-bottom: 10px;
 }
 
 .viz-content p {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 17px;
 }
 
 /* Term Grid */
@@ -966,24 +985,26 @@ footer.nav-footer {
 }
 
 .term-card {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--light);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 20px;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 10px var(--shadow);
 }
 
 .term-card:hover {
     border-color: var(--gold);
     transform: translateY(-3px);
+    box-shadow: 0 6px 20px var(--shadow);
 }
 
 .term-card h4 {
-    color: var(--gold);
+    color: var(--text-dark);
     margin-bottom: 10px;
 }
 
 .term-card p {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 16px;
 }
