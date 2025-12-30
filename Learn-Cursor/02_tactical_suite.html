@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 02: Tactical Suite - Learn Cursor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="course.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+</head>
+
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <span style="font-size: 1.5rem;">&#9654;</span> Cursor Mastery
+            </a>
+            <span class="navbar-text ms-auto text-muted small">
+                Practitioner’s Edition
+            </span>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="index.html">🏠 Home / Roadmap</a></li>
+                        <li class="nav-item"><a class="nav-link" href="01_mental_model.html">🧠 01. Mental Model</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active" href="02_tactical_suite.html">⚡ 02. Tactical
+                                Suite</a></li>
+                        <li class="nav-item"><a class="nav-link" href="03_context_engineering.html">🎯 03. Context
+                                Engineering</a></li>
+                        <li class="nav-item"><a class="nav-link" href="04_agentic_composer.html">🤖 04. Agentic
+                                Workflows</a></li>
+                        <li class="nav-item"><a class="nav-link" href="05_production_hygiene.html">🛡️ 05. Production
+                                Hygiene</a></li>
+                        <li class="nav-item"><a class="nav-link" href="06_dotnet_mastery.html"><span
+                                    style="color:#512bd4">🟣</span> 06. .NET Mastery</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1>Module 02: The Tactical Suite</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="mermaid">
+                            graph LR
+                            A[Speed 1: Tab] -->|Micro-Edits| B(Autofill / Prediction);
+                            C[Speed 2: Cmd+K] -->|Function-Level| D(Inline Edit / Diff);
+                            E[Speed 3: Chat] -->|Architect-Level| F(Planning / Q&A);
+
+                            style A fill:#dfd,stroke:#333
+                            style C fill:#ffe,stroke:#333
+                            style E fill:#fdd,stroke:#333
+                        </div>
+
+                        <h2>1. Speed 1: "Tab" (The Ghost)</h2>
+                        <p><strong>Copilot ++. Real-time code prediction.</strong><br>
+                            Unlike traditional autocomplete, it predicts your <em>cursor movement</em> and
+                            <em>edits</em>.
+                        </p>
+                        <div class="tip-box">
+                            <strong>Advanced Tab Techniques:</strong>
+                            <ul>
+                                <li>Use <span class="kbd">Ctrl</span> + <span class="kbd">→</span> (Right Arrow) to
+                                    accept suggestions <em>word-by-word</em>. Great when the AI is 90% right but messes
+                                    up the last variable.</li>
+                                <li><strong>Cpp (Cursor Prediction Mode):</strong> If enabled, it attempts to predict
+                                    the next <em>change</em> you make after you move your cursor, not just new code.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h2>2. Speed 2: "Cmd+K" (The Scalpel)</h2>
+                        <p><strong>The Inline Edit prompt.</strong> Shortcut: <span class="kbd">Ctrl+K</span> (Win) /
+                            <span class="kbd">Cmd+K</span> (Mac).</p>
+
+                        <h4>Process for .NET Developers:</h4>
+                        <ol>
+                            <li>Highlight a C# Method.</li>
+                            <li>Press <span class="kbd">Ctrl+K</span>.</li>
+                            <li>Prompt: "Convert this <code class="inline-code">foreach</code> loop to a LINQ
+                                expression."</li>
+                            <li><strong>Review the Diff:</strong>
+                                <ul>
+                                    <li><span style="color:red; background:#fee">Red Background</span>: Lines being
+                                        removed.</li>
+                                    <li><span style="color:green; background:#eef">Green Background</span>: Lines being
+                                        added.</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <h2>3. Speed 3: "Chat" (The Brain)</h2>
+                        <p><strong>The Sidebar Interface (<span class="kbd">Ctrl+L</span>).</strong> Use this for
+                            planning or debugging.</p>
+
+                        <div class="warning-box">
+                            <strong>Common Mistake:</strong> Do NOT use Chat for small edits. Copy-pasting code from
+                            Chat to your file breaks your "Flow State". Use Cmd+K for edits. Use Chat for
+                            <em>Questions</em>.
+                        </div>
+
+                        <h2>4. Advanced Technique: The "Fix & Refactor" Loop</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Scenario: Legacy C# Code Cleanup</h5>
+                                <p><strong>Step 1 (Chat):</strong><br>
+                                    Ask: "How can I modernize this C# 7.0 code to use C# 12 features like primary
+                                    constructors?"</p>
+
+                                <p><strong>Step 2 (Cmd+K):</strong><br>
+                                    Highlight the class. Prompt: "Apply Primary Constructors and use file-scoped
+                                    namespace as discussed."</p>
+
+                                <p><strong>Step 3 (Tab):</strong><br>
+                                    Go to the properties. Start typing validatiors. Tab will auto-complete standard
+                                    Guard clauses.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-5 mb-5">
+                            <a href="01_mental_model.html" class="btn btn-secondary">← Previous</a>
+                            <a href="03_context_engineering.html" class="btn btn-primary">Next: Context Engineering
+                                →</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

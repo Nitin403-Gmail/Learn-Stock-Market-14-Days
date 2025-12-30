@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 03: Context Engineering - Learn Cursor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="course.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+</head>
+
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <span style="font-size: 1.5rem;">&#9654;</span> Cursor Mastery
+            </a>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="index.html">🏠 Home / Roadmap</a></li>
+                        <li class="nav-item"><a class="nav-link" href="01_mental_model.html">🧠 01. Mental Model</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="02_tactical_suite.html">⚡ 02. Tactical Suite</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active" href="03_context_engineering.html">🎯 03.
+                                Context Engineering</a></li>
+                        <li class="nav-item"><a class="nav-link" href="04_agentic_composer.html">🤖 04. Agentic
+                                Workflows</a></li>
+                        <li class="nav-item"><a class="nav-link" href="05_production_hygiene.html">🛡️ 05. Production
+                                Hygiene</a></li>
+                        <li class="nav-item"><a class="nav-link" href="06_dotnet_mastery.html"><span
+                                    style="color:#512bd4">🟣</span> 06. .NET Mastery</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1>Module 03: Context Engineering</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <p class="lead">The art of preparing the "Prompt Payload". Garbage In, Garbage Out.</p>
+
+                        <div class="mermaid">
+                            graph TD
+                            A[Prompt: 'Fix the bug'] --> B{Context Added?};
+                            B -- No --> C[Generic Answer];
+                            B -- Yes (@File A, @File B) --> D[Precise Solution];
+
+                            style C fill:#f99,stroke:#333
+                            style D fill:#9f9,stroke:#333
+                        </div>
+
+                        <h2>1. Precision vs. Recall tools</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Function</th>
+                                    <th>Best Use Case</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code class="inline-code">@Files</code></td>
+                                    <td>Reference File</td>
+                                    <td>When you know <strong>exactly</strong> where the code is (e.g., <code
+                                            class="inline-code">@Program.cs</code>).</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="inline-code">@Codebase</code></td>
+                                    <td>Semantic Search</td>
+                                    <td>"Where in the project do we handle JWT Tokens?" (Exploration).</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="inline-code">@Docs</code></td>
+                                    <td>Documentation</td>
+                                    <td>Use this for <code class="inline-code">@MudBlazor</code> or <code
+                                            class="inline-code">@Entity Framework Core</code>.</td>
+                                </tr>
+                                <tr>
+                                    <td><code class="inline-code">@Git</code></td>
+                                    <td>Git Context</td>
+                                    <td>"Write a commit message for my current staged changes."</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2>2. Advanced Technique: The <code class="inline-code">.cursorrules</code> File</h2>
+                        <p>You can create a file named <code>.cursorrules</code> in your solution root. The AI reads
+                            this <strong>before every prompt</strong>.</p>
+
+                        <div class="feature-card mb-4" style="border-left: 5px solid #512bd4;">
+                            <h5 style="color:#512bd4">Example .cursorrules for .NET</h5>
+                            <pre><code class="language-text">
+# .NET Coding Standards
+- Always use proper PascalCase for public members.
+- Use 'var' only when the type is obvious from the right-hand side.
+- Prefer 'async/await' over '.Result' or '.Wait()'.
+- Use file-scoped namespaces (C# 10+).
+- When using Entity Framework, always consider AsNoTracking() for read-only queries.
+                            </code></pre>
+                            <p class="small text-muted mt-2">Putting this in your root folder saves you from correcting
+                                the AI on these points repeatedly.</p>
+                        </div>
+
+                        <h2>3. Advanced: Debugging with Context</h2>
+                        <p>When you have an exception:</p>
+                        <ol>
+                            <li>Copy the Stack Trace.</li>
+                            <li>Open Chat.</li>
+                            <li>Type: "Analyze this stack trace looking at <code
+                                    class="inline-code">@MyController.cs</code> and <code
+                                    class="inline-code">@MyService.cs</code>".</li>
+                            <li>Paste the stack trace.</li>
+                        </ol>
+                        <p><strong>Why?</strong> The stack trace gives the <em>symptom</em>. The <code
+                                class="inline-code">@Files</code> give the <em>cause</em> context.</p>
+
+                        <div class="d-flex justify-content-between mt-5 mb-5">
+                            <a href="02_tactical_suite.html" class="btn btn-secondary">← Previous</a>
+                            <a href="04_agentic_composer.html" class="btn btn-primary">Next: Agentic Workflows →</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

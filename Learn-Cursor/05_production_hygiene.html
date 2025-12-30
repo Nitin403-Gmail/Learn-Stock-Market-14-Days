@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 05: Production Hygiene - Learn Cursor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="course.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <span style="font-size: 1.5rem;">&#9654;</span> Cursor Mastery
+            </a>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="index.html">🏠 Home / Roadmap</a></li>
+                        <li class="nav-item"><a class="nav-link" href="01_mental_model.html">🧠 01. Mental Model</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="02_tactical_suite.html">⚡ 02. Tactical Suite</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="03_context_engineering.html">🎯 03. Context
+                                Engineering</a></li>
+                        <li class="nav-item"><a class="nav-link" href="04_agentic_composer.html">🤖 04. Agentic
+                                Workflows</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="05_production_hygiene.html">🛡️ 05.
+                                Production Hygiene</a></li>
+                        <li class="nav-item"><a class="nav-link" href="06_dotnet_mastery.html"><span
+                                    style="color:#512bd4">🟣</span> 06. .NET Mastery</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1>Module 05: Production Hygiene</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <p class="lead">Using AI to clean, document, and harden your code. Never write boilerplate
+                            again.</p>
+
+                        <h2>1. Documentation (XML Comments)</h2>
+                        <p>In .NET, XML comments (<code>///</code>) are gold standard but tedious to write.</p>
+                        <ul>
+                            <li><strong>Action:</strong> Highlight a method. Press <span class="kbd">Cmd+K</span>.</li>
+                            <li><strong>Prompt:</strong> "Add detailed XML comments explaining the parameters and
+                                exceptions thrown."</li>
+                            <li><strong>Result:</strong>
+                                <pre><code class="language-csharp">/// &lt;summary&gt;
+/// Calculates the total interest based on the principal amount.
+/// &lt;/summary&gt;
+/// &lt;param name="principal"&gt;The initial amount.&lt;/param&gt;
+/// &lt;exception cref="ArgumentException"&gt;Thrown when principal is negative.&lt;/exception&gt;
+public decimal CalcInterest(decimal principal) { ... }</code></pre>
+                            </li>
+                        </ul>
+
+                        <h2>2. The Testing Machine (xUnit / NUnit)</h2>
+                        <p><strong>Rule:</strong> Never write test boilerplate manually.</p>
+
+                        <div class="feature-card mb-4" style="border-left: 5px solid #10b981;">
+                            <h5 style="color:#10b981">The "Break My Code" Technique</h5>
+                            <p>Instead of just asking for tests, ask the AI to find vulnerabilities.</p>
+                            <p><strong>Chat Prompt:</strong> "Look at <code class="inline-code">@OrderService.cs</code>.
+                                Identify 3 edge cases where this logic might fail, then write xUnit tests to cover
+                                them."</p>
+                        </div>
+
+                        <h2>3. Refactoring for Performance</h2>
+                        <p>AI is surprisingly good at optimizing LINQ or suggest async implementations.</p>
+                        <ul>
+                            <li><strong>Prompt:</strong> "Refactor <code class="inline-code">@MyLoop</code> to use
+                                Parallel.ForEach for better performance."</li>
+                            <li><strong>Prompt:</strong> "Check if this SQL generation in EF Core causes N+1 problem."
+                            </li>
+                        </ul>
+
+                        <div class="d-flex justify-content-between mt-5 mb-5">
+                            <a href="04_agentic_composer.html" class="btn btn-secondary">← Previous</a>
+                            <a href="06_dotnet_mastery.html" class="btn btn-primary"
+                                style="background-color:#512bd4; border-color:#512bd4">Next: .NET Mastery →</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
