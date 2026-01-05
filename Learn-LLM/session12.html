@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 12: Production Deployment - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .deployment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .deployment-card { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 2rem; transition: all 0.3s ease; }
+        .deployment-card:hover { border-color: #ef4444; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(239, 68, 68, 0.2); }
+        .deployment-type { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .type-server { background: #dbeafe; color: #1e40af; }
+        .type-container { background: #dcfce7; color: #166534; }
+        .type-cloud { background: #fef3c7; color: #92400e; }
+        .type-edge { background: #fce7f3; color: #be185d; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; overflow-x: auto; }
+        .architecture-diagram { background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 2rem 0; text-align: center; }
+        .time-indicator { background: #fef2f2; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; color: #dc2626; }
+        .progress-indicator { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .monitoring-dashboard { background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+        .scaling-strategy { background: white; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; border: 1px solid #e5e7eb; }
+        .backup-plan { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-danger me-2">Session 12 of 15</span>
+                <span class="text-muted small">45 minutes</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 80%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 12: Production Deployment</h1>
+                    <p class="lead mb-0">Deploy LLM applications for production use with reliability and scalability</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 minutes
+                    </div>
+                    <div class="badge bg-white text-danger">
+                        <i class="fas fa-server me-1"></i>Advanced Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-danger me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Master deployment architectures</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Implement monitoring and logging</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Configure production infrastructure</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Handle scaling and load balancing</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Implement backup and recovery</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Ensure production reliability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment Architectures -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-sitemap text-danger me-2"></i>Production Deployment Architectures</h2>
+
+            <div class="deployment-grid">
+                <div class="deployment-card">
+                    <div class="deployment-type type-server">Dedicated Server</div>
+                    <i class="fas fa-server fa-3x text-primary mb-3"></i>
+                    <h5 class="text-primary mb-3">Single Server Deployment</h5>
+                    <p class="mb-3">Deploy LLM Studio on a dedicated server with GPU acceleration.</p>
+                    <ul class="small mb-3">
+                        <li>High-performance GPU server</li>
+                        <li>Direct hardware access</li>
+                        <li>Simplified management</li>
+                        <li>Single point of failure</li>
+                    </ul>
+                    <div class="badge bg-primary">Simple & Fast</div>
+                </div>
+
+                <div class="deployment-card">
+                    <div class="deployment-type type-container">Containerized</div>
+                    <i class="fab fa-docker fa-3x text-info mb-3"></i>
+                    <h5 class="text-info mb-3">Docker Container Deployment</h5>
+                    <p class="mb-3">Package LLM Studio in containers for consistent deployment.</p>
+                    <ul class="small mb-3">
+                        <li>Environment consistency</li>
+                        <li>Easy scaling and updates</li>
+                        <li>Resource isolation</li>
+                        <li>Orchestration ready</li>
+                    </ul>
+                    <div class="badge bg-info">DevOps Friendly</div>
+                </div>
+
+                <div class="deployment-card">
+                    <div class="deployment-type type-cloud">Cloud Deployment</div>
+                    <i class="fas fa-cloud fa-3x text-warning mb-3"></i>
+                    <h5 class="text-warning mb-3">Cloud Infrastructure</h5>
+                    <p class="mb-3">Deploy on cloud platforms with auto-scaling capabilities.</p>
+                    <ul class="small mb-3">
+                        <li>Elastic scaling</li>
+                        <li>Global distribution</li>
+                        <li>Managed services</li>
+                        <li>Higher operational costs</li>
+                    </ul>
+                    <div class="badge bg-warning">Scalable</div>
+                </div>
+
+                <div class="deployment-card">
+                    <div class="deployment-type type-edge">Edge Deployment</div>
+                    <i class="fas fa-network-wired fa-3x text-success mb-3"></i>
+                    <h5 class="text-success mb-3">Distributed Edge Network</h5>
+                    <p class="mb-3">Deploy across multiple edge locations for low latency.</p>
+                    <ul class="small mb-3">
+                        <li>Reduced network latency</li>
+                        <li>Regional compliance</li>
+                        <li>Increased complexity</li>
+                        <li>Higher infrastructure costs</li>
+                    </ul>
+                    <div class="badge bg-success">High Performance</div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🏗️ Infrastructure as Code</h4>
+                <p>Production deployments should be defined as code using tools like Docker Compose, Kubernetes manifests, or infrastructure-as-code frameworks. This ensures consistency, reproducibility, and automated deployment.</p>
+            </div>
+        </div>
+
+        <!-- Docker Deployment -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fab fa-docker text-danger me-2"></i>Docker Containerization for LLM Deployments</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">Dockerfile for LLM Studio</h5>
+                    <div class="code-example">
+# Dockerfile for LLM Studio deployment
+FROM nvidia/cuda:11.8-runtime-ubuntu20.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    wget \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and install LM Studio
+RUN wget -O lmstudio.tar.gz \
+    "https://lmstudio.ai/download/linux" \
+    && tar -xzf lmstudio.tar.gz \
+    && rm lmstudio.tar.gz
+
+# Set up Python environment
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+# Expose ports
+EXPOSE 1234 7860
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s \
+    CMD curl -f http://localhost:1234/health || exit 1
+
+# Start LM Studio server
+CMD ["./lmstudio", "--server", "--port", "1234"]
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Docker Compose Setup</h5>
+                    <div class="code-example">
+version: '3.8'
+services:
+  lmstudio:
+    build: .
+    ports:
+      - "1234:1234"    # API port
+      - "7860:7860"    # Web UI port
+    volumes:
+      - ./models:/app/models
+      - ./config:/app/config
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  api-gateway:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - lmstudio
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring & Observability -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-chart-line text-danger me-2"></i>Monitoring & Observability</h2>
+
+            <div class="monitoring-dashboard">
+                <h5 class="text-danger mb-3">Production Monitoring Dashboard</h5>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-tachometer-alt fa-2x text-primary mb-2"></i>
+                            <h6>Performance Metrics</h6>
+                            <small>Response time, throughput, latency</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-memory fa-2x text-info mb-2"></i>
+                            <h6>Resource Usage</h6>
+                            <small>CPU, GPU, memory utilization</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                            <h6>Error Tracking</h6>
+                            <small>Failed requests, exceptions</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-users fa-2x text-success mb-2"></i>
+                            <h6>User Analytics</h6>
+                            <small>Usage patterns, satisfaction</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example">
+// Basic monitoring setup
+const monitoring = {
+    metrics: {
+        requests_total: 0,
+        requests_failed: 0,
+        response_time_avg: 0,
+        memory_usage: 0,
+        gpu_utilization: 0
+    },
+
+    logRequest: function(startTime, success) {
+        this.metrics.requests_total++;
+        if (!success) this.metrics.requests_failed++;
+
+        const responseTime = Date.now() - startTime;
+        this.metrics.response_time_avg =
+            (this.metrics.response_time_avg + responseTime) / 2;
+    },
+
+    getHealth: function() {
+        return {
+            status: 'healthy',
+            uptime: process.uptime(),
+            metrics: this.metrics
+        };
+    }
+};
+                    </div>
+        </div>
+
+        <!-- Scaling Strategies -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-expand-arrows-alt text-danger me-2"></i>Scaling & Load Balancing</h2>
+
+            <div class="scaling-strategy">
+                <h5 class="text-primary mb-3">Horizontal Scaling with Load Balancer</h5>
+                <div class="architecture-diagram">
+                    <div class="row text-center">
+                        <div class="col-md-2">
+                            <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                            <h6>Users</h6>
+                        </div>
+                        <div class="col-md-2">
+                            <i class="fas fa-balance-scale fa-2x text-info mb-2"></i>
+                            <h6>Load Balancer</h6>
+                            <small>NGINX / HAProxy</small>
+                        </div>
+                        <div class="col-md-2">
+                            <i class="fas fa-server fa-2x text-warning mb-2"></i>
+                            <h6>API Gateway</h6>
+                            <small>Rate limiting, auth</small>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <i class="fas fa-brain fa-2x text-success mb-2"></i>
+                                    <h6>LLM Server 1</h6>
+                                    <small>GPU Instance</small>
+                                </div>
+                                <div class="col-6">
+                                    <i class="fas fa-brain fa-2x text-success mb-2"></i>
+                                    <h6>LLM Server 2</h6>
+                                    <small>GPU Instance</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Load Balancing Strategies</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-random text-primary me-2"></i><strong>Round Robin:</strong> Distribute requests evenly</li>
+                        <li class="list-group-item"><i class="fas fa-weight text-info me-2"></i><strong>Weighted Round Robin:</strong> Favor faster servers</li>
+                        <li class="list-group-item"><i class="fas fa-heartbeat text-success me-2"></i><strong>Least Connections:</strong> Send to least busy server</li>
+                        <li class="list-group-item"><i class="fas fa-tachometer-alt text-warning me-2"></i><strong>Response Time:</strong> Route to fastest responding</li>
+                        <li class="list-group-item"><i class="fas fa-map-marker-alt text-danger me-2"></i><strong>Geographic:</strong> Route to nearest server</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Auto-scaling Configuration</h5>
+                    <div class="code-example">
+// Auto-scaling rules
+scaling_rules: {
+    min_instances: 2,
+    max_instances: 10,
+    scale_up: {
+        cpu_threshold: 70,
+        gpu_threshold: 80,
+        consecutive_periods: 3
+    },
+    scale_down: {
+        cpu_threshold: 30,
+        gpu_threshold: 40,
+        cooldown_period: 300  // seconds
+    },
+    predictive_scaling: {
+        enabled: true,
+        history_window: "7d",
+        forecast_horizon: "1h"
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Backup & Recovery -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-shield-alt text-danger me-2"></i>Backup & Disaster Recovery</h2>
+
+            <div class="backup-plan">
+                <h5 class="text-success mb-3">Production Backup Strategy</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-2">Data Backup</h6>
+                        <ul class="small">
+                            <li><strong>Models:</strong> Daily snapshots, version control</li>
+                            <li><strong>Configurations:</strong> Git-based version control</li>
+                            <li><strong>Logs:</strong> Centralized logging with retention</li>
+                            <li><strong>User data:</strong> Encrypted backups, compliance</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-2">Recovery Procedures</h6>
+                        <ul class="small">
+                            <li><strong>RTO:</strong> 4-hour recovery time objective</li>
+                            <li><strong>RPO:</strong> 1-hour recovery point objective</li>
+                            <li><strong>Failover:</strong> Automatic to backup region</li>
+                            <li><strong>Testing:</strong> Monthly disaster recovery drills</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example">
+// Backup automation script
+const backup = {
+    async createBackup() {
+        const timestamp = new Date().toISOString();
+
+        // Backup models
+        await this.backupDirectory('./models', `models-${timestamp}`);
+
+        // Backup configurations
+        await this.backupDirectory('./config', `config-${timestamp}`);
+
+        // Backup database (if applicable)
+        await this.backupDatabase(`db-${timestamp}`);
+
+        // Upload to cloud storage
+        await this.uploadToCloud(`backup-${timestamp}`);
+
+        console.log(`Backup completed: ${timestamp}`);
+    },
+
+    async restoreBackup(backupId) {
+        // Download from cloud
+        await this.downloadFromCloud(backupId);
+
+        // Restore models
+        await this.restoreDirectory(`models-${backupId}`);
+
+        // Restore configurations
+        await this.restoreDirectory(`config-${backupId}`);
+
+        console.log(`Restore completed: ${backupId}`);
+    }
+};
+                    </div>
+        </div>
+
+        <!-- Security & Compliance -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lock text-danger me-2"></i>Security & Compliance in Production</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Security Measures</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-shield-alt text-success me-2"></i><strong>Network Security:</strong> Firewalls, VPC isolation</li>
+                        <li class="list-group-item"><i class="fas fa-key text-success me-2"></i><strong>Access Control:</strong> Role-based access, API keys</li>
+                        <li class="list-group-item"><i class="fas fa-user-secret text-success me-2"></i><strong>Data Encryption:</strong> At rest and in transit</li>
+                        <li class="list-group-item"><i class="fas fa-bug text-success me-2"></i><strong>Input Validation:</strong> Sanitize all user inputs</li>
+                        <li class="list-group-item"><i class="fas fa-eye text-success me-2"></i><strong>Audit Logging:</strong> Track all access and changes</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Compliance Considerations</h5>
+                    <div class="code-example">
+// GDPR Compliance for LLM deployments
+compliance: {
+    dataRetention: {
+        logs: "90days",
+        userData: "2years",
+        modelOutputs: "1year"
+    },
+    dataProcessing: {
+        consentRequired: true,
+        dataMinimization: true,
+        rightToDeletion: true,
+        dataPortability: true
+    },
+    security: {
+        encryption: "AES-256",
+        accessLogging: true,
+        incidentResponse: "4hour SLA",
+        privacyByDesign: true
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment Checklist -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-clipboard-check text-danger me-2"></i>Production Deployment Checklist</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Pre-Deployment</h5>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item"><input type="checkbox"> Performance benchmarks completed</li>
+                        <li class="list-group-item"><input type="checkbox"> Security audit passed</li>
+                        <li class="list-group-item"><input type="checkbox"> Load testing successful</li>
+                        <li class="list-group-item"><input type="checkbox"> Backup procedures tested</li>
+                        <li class="list-group-item"><input type="checkbox"> Monitoring tools configured</li>
+                        <li class="list-group-item"><input type="checkbox"> Rollback plan documented</li>
+                        <li class="list-group-item"><input type="checkbox"> Team trained on procedures</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Post-Deployment</h5>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item"><input type="checkbox"> Health checks passing</li>
+                        <li class="list-group-item"><input type="checkbox"> Monitoring alerts configured</li>
+                        <li class="list-group-item"><input type="checkbox"> User acceptance testing completed</li>
+                        <li class="list-group-item"><input type="checkbox"> Documentation updated</li>
+                        <li class="list-group-item"><input type="checkbox"> Support team notified</li>
+                        <li class="list-group-item"><input type="checkbox"> Performance monitoring active</li>
+                        <li class="list-group-item"><input type="checkbox"> Incident response plan ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-danger me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-danger">
+                <h5 class="alert-heading"><i class="fas fa-server me-2"></i>Production Deployment Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>Infrastructure as code:</strong> Define your deployment configuration programmatically</li>
+                    <li><strong>Monitoring is critical:</strong> Implement comprehensive observability from day one</li>
+                    <li><strong>Scale horizontally:</strong> Design for multiple instances and load balancing</li>
+                    <li><strong>Security first:</strong> Implement defense-in-depth security measures</li>
+                    <li><strong>Backup everything:</strong> Have tested recovery procedures for all components</li>
+                    <li><strong>Automate deployment:</strong> Use CI/CD pipelines for reliable releases</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🚀 From Development to Production</h4>
+                <p>Production deployment transforms your AI experiments into reliable, scalable services. You've now learned the complete pipeline from model development to production operations. In the final sessions, we'll explore advanced fine-tuning and cutting-edge research techniques.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session11.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Application Integration
+            </a>
+            <a href="session13.html" class="btn btn-primary">
+                Next: Custom Model Training <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(12)) {
+                    completedSessions.push(12);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

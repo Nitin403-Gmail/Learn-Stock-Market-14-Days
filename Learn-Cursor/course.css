@@ -208,3 +208,212 @@ td {
     margin-bottom: 0.5rem;
     display: inline-block;
 }
+
+/* Dark Theme Support */
+.dark-theme {
+    --bg-color: #0f172a;
+    --text-color: #f1f5f9;
+    --sidebar-bg: #1e293b;
+    --card-bg: #334155;
+    --border-color: #475569;
+}
+
+.dark-theme body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.dark-theme .navbar {
+    background: var(--sidebar-bg) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .sidebar {
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+}
+
+.dark-theme .module-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.dark-theme .feature-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.dark-theme .prerequisites {
+    background: var(--sidebar-bg);
+    border-color: var(--border-color);
+}
+
+.dark-theme .search-input {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.dark-theme .search-input::placeholder {
+    color: #94a3b8;
+}
+
+.dark-theme .filter-btn {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.dark-theme .filter-btn:hover,
+.dark-theme .filter-btn.active {
+    background: var(--primary-color);
+}
+
+.dark-theme .stat-item {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+/* Enhanced Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.module-card {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.module-card:nth-child(1) { animation-delay: 0.1s; }
+.module-card:nth-child(2) { animation-delay: 0.2s; }
+.module-card:nth-child(3) { animation-delay: 0.3s; }
+.module-card:nth-child(4) { animation-delay: 0.4s; }
+.module-card:nth-child(5) { animation-delay: 0.5s; }
+.module-card:nth-child(6) { animation-delay: 0.6s; }
+.module-card:nth-child(7) { animation-delay: 0.7s; }
+
+.module-card {
+    opacity: 0;
+}
+
+/* Interactive Elements */
+.module-link:hover {
+    transform: translateX(5px);
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress Animation */
+.progress-ring-fill {
+    transition: stroke-dashoffset 2s ease-in-out;
+}
+
+/* Mobile Enhancements */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .module-card {
+        margin-bottom: 1rem;
+        padding: 1.5rem;
+    }
+
+    .module-meta {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.5rem;
+    }
+
+    .filter-buttons {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus States */
+.btn:focus,
+.search-input:focus,
+.filter-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .sidebar,
+    .btn,
+    .filter-buttons,
+    .search-container {
+        display: none !important;
+    }
+
+    .module-card {
+        break-inside: avoid;
+        border: 1px solid #000;
+        margin-bottom: 1rem;
+        page-break-inside: avoid;
+    }
+}

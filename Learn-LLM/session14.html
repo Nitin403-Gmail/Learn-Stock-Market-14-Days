@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 14: Advanced Fine-tuning & Project - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(124, 58, 237, 0.1); border-left: 4px solid #7c3aed; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .technique-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .technique-card { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .technique-card:hover { border-color: #7c3aed; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2); }
+        .technique-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%); }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; overflow-x: auto; }
+        .comparison-matrix { background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .matrix-table { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; }
+        .time-indicator { background: #f3e8ff; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; color: #7c3aed; }
+        .progress-indicator { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex: justify-content; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .project-card { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .advanced-method { background: rgba(124, 58, 237, 0.05); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        .experiment-results { background: white; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; border: 1px solid #e5e7eb; }
+        .technique-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin: 0.25rem; }
+        .badge-cutting-edge { background: #fef3c7; color: #92400e; }
+        .badge-advanced { background: #e0f2fe; color: #0277bd; }
+        .badge-experimental { background: #fce7f3; color: #c2185b; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-primary me-2">Session 14 of 15</span>
+                <span class="text-muted small">45 min + 60 min project</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 93.33%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 14: Advanced Fine-tuning</h1>
+                    <p class="lead mb-0">Master cutting-edge fine-tuning techniques and research methods</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 min + 60 min project
+                    </div>
+                    <div class="badge bg-white text-primary">
+                        <i class="fas fa-microscope me-1"></i>Expert Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-primary me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Master advanced fine-tuning methods</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Implement instruction tuning</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Apply preference optimization</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Experiment with multi-task learning</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Conduct ablation studies</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Complete advanced fine-tuning project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Techniques Overview -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-rocket text-primary me-2"></i>Advanced Fine-tuning Techniques</h2>
+
+            <div class="technique-showcase">
+                <div class="technique-card">
+                    <technique-badge class="badge-cutting-edge">Cutting Edge</technique-badge>
+                    <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                    <h5 class="text-primary mb-3">Instruction Tuning</h5>
+                    <p class="mb-3">Teach models to follow natural language instructions through curated instruction-response pairs.</p>
+                    <ul class="small mb-3">
+                        <li>Follows human-like instructions</li>
+                        <li>Generalizes to unseen tasks</li>
+                        <li>Requires diverse instruction dataset</li>
+                        <li>Foundation for chat models</li>
+                    </ul>
+                    <div class="badge bg-primary">Most Important</div>
+                </div>
+
+                <div class="technique-card">
+                    <technique-badge class="badge-advanced">Advanced</technique-badge>
+                    <i class="fas fa-balance-scale fa-3x text-info mb-3"></i>
+                    <h5 class="text-info mb-3">Preference Optimization</h5>
+                    <p class="mb-3">Align model outputs with human preferences using reinforcement learning techniques.</p>
+                    <ul class="small mb-3">
+                        <li>Improves response quality</li>
+                        <li>Reduces harmful outputs</li>
+                        <li>Requires preference dataset</li>
+                        <li>Computationally intensive</li>
+                    </ul>
+                    <div class="badge bg-info">Quality Focused</div>
+                </div>
+
+                <div class="technique-card">
+                    <technique-badge class="badge-experimental">Experimental</technique-badge>
+                    <i class="fas fa-network-wired fa-3x text-warning mb-3"></i>
+                    <h5 class="text-warning mb-3">Multi-Task Learning</h5>
+                    <p class="mb-3">Train models on multiple related tasks simultaneously for better generalization.</p>
+                    <ul class="small mb-3">
+                        <li>Improves transfer learning</li>
+                        <li>Reduces overfitting</li>
+                        <li>Complex training setup</li>
+                        <li>Better generalization</li>
+                    </ul>
+                    <div class="badge bg-warning">Research Oriented</div>
+                </div>
+
+                <div class="technique-card">
+                    <technique-badge class="badge-advanced">Advanced</technique-badge>
+                    <i class="fas fa-microscope fa-3x text-success mb-3"></i>
+                    <h5 class="text-success mb-3">Ablation Studies</h5>
+                    <p class="mb-3">Systematically remove components to understand their contribution to performance.</p>
+                    <ul class="small mb-3">
+                        <li>Identifies key components</li>
+                        <li>Optimizes training efficiency</li>
+                        <li>Scientific rigor</li>
+                        <li>Time-consuming process</li>
+                    </ul>
+                    <div class="badge bg-success">Scientific Method</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instruction Tuning Deep Dive -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-graduation-cap text-primary me-2"></i>Instruction Tuning in Depth</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">📚 The Art of Instruction Following</h4>
+                <p><strong>Instruction tuning</strong> transforms base language models into helpful assistants by training them on diverse instruction-response pairs. This technique enables models to understand and execute natural language instructions across different domains and tasks.</p>
+            </div>
+
+            <div class="advanced-method">
+                <h5 class="text-primary mb-3">Instruction Dataset Structure</h5>
+                <div class="code-example">
+// High-quality instruction tuning example
+{
+  "instruction": "Write a Python function that calculates the factorial of a number using recursion.",
+  "input": "",
+  "output": "Here's a Python function that calculates the factorial using recursion:\n\n```python\ndef factorial(n):\n    if n == 0 or n == 1:\n        return 1\n    else:\n        return n * factorial(n - 1)\n\n# Example usage\nprint(factorial(5))  # Output: 120\n```\n\nThis function uses recursion to calculate the factorial. The base case is when n is 0 or 1, returning 1. Otherwise, it multiplies n by the factorial of n-1."
+}
+
+// Complex multi-step instruction
+{
+  "instruction": "Analyze the following code for potential security vulnerabilities and suggest improvements.",
+  "input": "def authenticate_user(username, password):\n    query = f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\"\n    result = database.execute(query)\n    return len(result) > 0",
+  "output": "This code has several critical security vulnerabilities:\n\n1. **SQL Injection**: The query directly concatenates user input without parameterization\n2. **Plaintext Password Storage**: Passwords should be hashed\n3. **Information Disclosure**: Returns boolean instead of proper authentication\n\n**Improved version:**\n```python\nimport bcrypt\n\ndef authenticate_user(username, password):\n    # Use parameterized queries\n    query = \"SELECT password_hash FROM users WHERE username = ?\"\n    stored_hash = database.execute(query, (username,)).fetchone()\n    \n    if stored_hash:\n        return bcrypt.checkpw(password.encode(), stored_hash[0])\n    return False\n```"
+}
+                    </div>
+                <p class="small text-muted mt-2">Quality instruction datasets require diverse examples, clear instructions, and comprehensive responses that demonstrate reasoning and best practices.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preference Optimization -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-balance-scale text-primary me-2"></i>Preference Optimization (RLHF/DPO)</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Reinforcement Learning from Human Feedback (RLHF)</h5>
+                    <div class="advanced-method">
+                        <ul class="small">
+                            <li><strong>Phase 1:</strong> Collect human preferences on model outputs</li>
+                            <li><strong>Phase 2:</strong> Train reward model on preference data</li>
+                            <li><strong>Phase 3:</strong> Use RL to fine-tune model to maximize reward</li>
+                            <li><strong>Result:</strong> Model outputs align with human preferences</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Direct Preference Optimization (DPO)</h5>
+                    <div class="advanced-method">
+                        <ul class="small">
+                            <li><strong>Simplified RLHF:</strong> No separate reward model needed</li>
+                            <li><strong>Direct optimization:</strong> Optimize preferences directly</li>
+                            <li><strong>More stable:</strong> Less sensitive to hyperparameters</li>
+                            <li><strong>Faster training:</strong> Simpler loss function</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example">
+// DPO Training Example
+def dpo_loss(chosen_logits, rejected_logits, beta=0.1):
+    """
+    Direct Preference Optimization loss
+    chosen_logits: Logits for preferred response
+    rejected_logits: Logits for non-preferred response
+    """
+    log_ratio = chosen_logits - rejected_logits
+    loss = -torch.log(torch.sigmoid(beta * log_ratio))
+    return loss.mean()
+
+// Preference data format
+{
+  "prompt": "Write a function to sort a list",
+  "chosen": "def sort_list(arr): return sorted(arr)",
+  "rejected": "Here's a sorting function: def sort(arr): arr.sort()"
+}
+                    </div>
+        </div>
+
+        <!-- Multi-Task Learning -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-tasks text-primary me-2"></i>Multi-Task Learning & Transfer</h2>
+
+            <div class="comparison-matrix">
+                <h5 class="text-primary mb-3">Multi-Task Learning Benefits</h5>
+                <div class="matrix-table">
+                    <table class="table table-sm mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Single Task</th>
+                                <th>Multi-Task</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Generalization</strong></td>
+                                <td>Task-specific</td>
+                                <td>Cross-domain</td>
+                                <td class="text-success">+25%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Efficiency</strong></td>
+                                <td>Task-specific data</td>
+                                <td>Shared learning</td>
+                                <td class="text-success">+40%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Robustness</strong></td>
+                                <td>Vulnerable to shifts</td>
+                                <td>More stable</td>
+                                <td class="text-success">+30%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Training Time</strong></td>
+                                <td>Faster convergence</td>
+                                <td>Slower per step</td>
+                                <td class="text-warning">+15%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="advanced-method">
+                <h5 class="text-warning mb-3">Multi-Task Training Strategies</h5>
+                <div class="code-example">
+// Multi-task training configuration
+training_config = {
+    "tasks": [
+        {
+            "name": "code_generation",
+            "dataset": "code_dataset.jsonl",
+            "weight": 0.4,
+            "loss_weight": 1.0
+        },
+        {
+            "name": "text_summarization",
+            "dataset": "summarization_dataset.jsonl",
+            "weight": 0.3,
+            "loss_weight": 0.8
+        },
+        {
+            "name": "question_answering",
+            "dataset": "qa_dataset.jsonl",
+            "weight": 0.3,
+            "loss_weight": 0.6
+        }
+    ],
+    "task_sampling": "weighted_random",
+    "gradient_accumulation": true,
+    "task_balancing": "dynamic_weighting"
+}
+
+// Dynamic task weighting based on loss
+def update_task_weights(current_losses):
+    total_loss = sum(current_losses.values())
+    for task, loss in current_losses.items():
+        # Increase weight for tasks with higher loss (need more training)
+        weight = loss / total_loss
+        training_config["tasks"][task]["loss_weight"] = weight
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ablation Studies -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-microscope text-primary me-2"></i>Conducting Ablation Studies</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🔬 Scientific Fine-tuning</h4>
+                <p><strong>Ablation studies</strong> systematically remove or modify components of your training setup to understand their individual contributions. This scientific approach ensures you optimize the right aspects and avoid wasted effort on ineffective changes.</p>
+            </div>
+
+            <div class="experiment-results">
+                <h6 class="text-info mb-2">Ablation Study Example: Impact of Dataset Size</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Dataset Size</th>
+                                <th>Training Time</th>
+                                <th>Validation Loss</th>
+                                <th>Task Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>100 examples</td>
+                                <td>30 min</td>
+                                <td>2.45</td>
+                                <td class="text-warning">68%</td>
+                            </tr>
+                            <tr>
+                                <td>500 examples</td>
+                                <td>45 min</td>
+                                <td>1.89</td>
+                                <td class="text-success">78%</td>
+                            </tr>
+                            <tr class="table-success">
+                                <td>1000 examples</td>
+                                <td>60 min</td>
+                                <td>1.34</td>
+                                <td class="text-success">85%</td>
+                            </tr>
+                            <tr>
+                                <td>2000 examples</td>
+                                <td>120 min</td>
+                                <td>1.12</td>
+                                <td class="text-success">87%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="small text-muted mt-2"><strong>Key Insight:</strong> Performance gains diminish beyond 1000 examples. Optimal dataset size found through systematic testing.</p>
+            </div>
+
+            <div class="advanced-method">
+                <h5 class="text-danger mb-3">Ablation Study Protocol</h5>
+                <ol class="small">
+                    <li><strong>Establish baseline:</strong> Train with full configuration</li>
+                    <li><strong>Single variable changes:</strong> Modify one aspect at a time</li>
+                    <li><strong>Controlled conditions:</strong> Same random seeds, hardware, etc.</li>
+                    <li><strong>Multiple runs:</strong> Average results over 3+ runs</li>
+                    <li><strong>Statistical significance:</strong> Ensure changes are meaningful</li>
+                    <li><strong>Document everything:</strong> Record all parameters and results</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Project: Advanced Fine-tuning Experiment -->
+        <div class="project-card">
+            <h2 class="h4 mb-4"><i class="fas fa-flask text-warning me-2"></i>Project: Advanced Fine-tuning Research</h2>
+
+            <div class="alert alert-warning">
+                <strong>⏰ Time Estimate:</strong> 45-60 minutes
+                <strong>🎯 Objective:</strong> Conduct a systematic fine-tuning experiment comparing different advanced techniques
+            </div>
+
+            <h5 class="text-primary mb-3">Project Overview</h5>
+            <p>Design and execute a rigorous fine-tuning experiment that compares multiple advanced techniques. This research-oriented project teaches scientific methodology and advanced optimization strategies.</p>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="text-success mb-3">Experimental Design</h5>
+                    <div class="technique-card">
+                        <h6>Phase 1: Research Question & Hypothesis (10 minutes)</h6>
+                        <ul class="small">
+                            <li>Define clear research question (e.g., "Which technique improves code generation most?")</li>
+                            <li>Formulate testable hypothesis</li>
+                            <li>Identify dependent and independent variables</li>
+                            <li>Choose appropriate evaluation metrics</li>
+                        </ul>
+                    </div>
+
+                    <div class="technique-card">
+                        <h6>Phase 2: Experimental Setup (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Select base model and datasets</li>
+                            <li>Design experimental conditions (control vs variants)</li>
+                            <li>Implement proper randomization</li>
+                            <li>Set up automated evaluation pipeline</li>
+                        </ul>
+                    </div>
+
+                    <div class="technique-card">
+                        <h6>Phase 3: Execution & Data Collection (20 minutes)</h6>
+                        <ul class="small">
+                            <li>Run experiments with consistent conditions</li>
+                            <li>Collect comprehensive metrics and logs</li>
+                            <li>Monitor for anomalies or unexpected results</li>
+                            <li>Document all observations and issues</li>
+                        </ul>
+                    </div>
+
+                    <div class="technique-card">
+                        <h6>Phase 4: Analysis & Conclusions (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Statistical analysis of results</li>
+                            <li>Identify significant findings and patterns</li>
+                            <li>Draw evidence-based conclusions</li>
+                            <li>Document limitations and future work</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-info mb-3">Research Variables</h5>
+                    <div class="experiment-results">
+                        <strong>Independent Variables:</strong>
+                        <ul class="small mb-2">
+                            <li>• Fine-tuning technique</li>
+                            <li>• Dataset composition</li>
+                            <li>• Hyperparameter settings</li>
+                            <li>• Training duration</li>
+                        </ul>
+
+                        <strong>Dependent Variables:</strong>
+                        <ul class="small mb-2">
+                            <li>• Task performance metrics</li>
+                            <li>• Training efficiency</li>
+                            <li>• Model robustness</li>
+                            <li>• Inference speed</li>
+                        </ul>
+                    </div>
+
+                    <h5 class="text-warning mb-3 mt-3">Advanced Techniques to Compare</h5>
+                    <ul class="small">
+                        <li>• Instruction tuning vs task-specific</li>
+                        <li>• Full fine-tuning vs LoRA</li>
+                        <li>• Single-task vs multi-task learning</li>
+                        <li>• Different dataset sizes and compositions</li>
+                    </ul>
+
+                    <div class="mt-3">
+                        <div class="alert alert-success small">
+                            <strong>✅ Success Criteria:</strong><br>
+                            • Rigorous experimental design<br>
+                            • Statistically significant results<br>
+                            • Clear conclusions and insights<br>
+                            • Reproducible methodology
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>🧪 Advanced Extensions:</strong> Cross-validation, statistical significance testing, meta-analysis of results, publication-quality reporting
+                <br><strong>📊 Deliverables:</strong> Complete research report with methodology, results, analysis, and conclusions
+            </div>
+        </div>
+
+        <!-- Research Best Practices -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-book text-primary me-2"></i>Research Methodology & Best Practices</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Experimental Rigor</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-check-double text-success me-2"></i><strong>Reproducibility:</strong> Same results with same setup</li>
+                        <li class="list-group-item"><i class="fas fa-balance-scale text-success me-2"></i><strong>Controlled variables:</strong> Isolate what you're testing</li>
+                        <li class="list-group-item"><i class="fas fa-chart-line text-success me-2"></i><strong>Statistical validity:</strong> Sufficient sample size and runs</li>
+                        <li class="list-group-item"><i class="fas fa-bullseye text-success me-2"></i><strong>Clear metrics:</strong> Well-defined success criteria</li>
+                        <li class="list-group-item"><i class="fas fa-file-alt text-success me-2"></i><strong>Detailed logging:</strong> Record everything for analysis</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Common Research Pitfalls</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Confirmation bias:</strong> Only seeing results you expect</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Insufficient runs:</strong> Drawing conclusions from too few experiments</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>P-value hacking:</strong> Running tests until significant results appear</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Overfitting to test:</strong> Optimizing for benchmark rather than real use</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Poor documentation:</strong> Can't reproduce or verify results</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-primary me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-primary">
+                <h5 class="alert-heading"><i class="fas fa-microscope me-2"></i>Advanced Fine-tuning Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>Instruction tuning is foundational:</strong> Transforms models into helpful assistants capable of following natural language instructions</li>
+                    <li><strong>Preference optimization aligns behavior:</strong> RLHF and DPO techniques ensure model outputs match human preferences and values</li>
+                    <li><strong>Multi-task learning improves generalization:</strong> Training on diverse tasks leads to more robust and capable models</li>
+                    <li><strong>Ablation studies provide scientific rigor:</strong> Systematic experimentation identifies what actually matters</li>
+                    <li><strong>Research methodology matters:</strong> Proper experimental design ensures reliable and reproducible results</li>
+                    <li><strong>Quality over quantity:</strong> Thoughtful dataset curation beats large but noisy datasets</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🚀 Pushing the Boundaries</h4>
+                <p>You've now mastered advanced fine-tuning techniques that are at the cutting edge of AI research. These methods form the foundation for creating truly intelligent and helpful AI systems. In our final session, we'll explore research frontiers and future directions.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session13.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Custom Model Training
+            </a>
+            <a href="session15.html" class="btn btn-primary">
+                Next: Research & Innovation <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(14)) {
+                    completedSessions.push(14);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

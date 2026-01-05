@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 4: Basic Prompting & Project - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(102, 126, 234, 0.1); border-left: 4px solid #667eea; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .prompt-example { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        .good-prompt { background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; }
+        .bad-prompt { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; }
+        .time-indicator { background: #e3f2fd; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
+        .progress-indicator { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .project-card { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .task-list { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        .task-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+        .task-checkbox { width: 20px; height: 20px; border: 2px solid #667eea; border-radius: 4px; cursor: pointer; }
+        .task-checkbox.checked { background: #667eea; border-color: #667eea; }
+        .task-checkbox.checked::after { content: '✓'; color: white; font-size: 12px; display: flex; align-items: center; justify-content: center; height: 100%; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-primary me-2">Session 4 of 15</span>
+                <span class="text-muted small">45 min + 60 min project</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 26.67%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 4: Basic Prompting</h1>
+                    <p class="lead mb-0">Master the fundamentals of effective AI communication</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 min + 60 min project
+                    </div>
+                    <div class="badge bg-light text-dark">
+                        <i class="fas fa-seedling me-1"></i>Beginner Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-primary me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand what makes a good prompt</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn basic prompting techniques</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Identify common prompting mistakes</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Practice iterative prompt refinement</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Complete a hands-on prompting project</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Build confidence in AI communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- What is Prompting? -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-comments text-primary me-2"></i>What is Prompting?</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">💬 Definition</h4>
+                <p><strong>Prompting</strong> is the art of crafting instructions that help AI models produce the responses you want. Think of it as giving clear directions to a skilled assistant.</p>
+                <p>The quality of your prompt directly determines the quality of the AI's response. A well-crafted prompt can turn a mediocre AI response into an excellent one.</p>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Good Prompt Characteristics</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i><strong>Specific:</strong> Clear and detailed instructions</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i><strong>Contextual:</strong> Provides relevant background</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i><strong>Structured:</strong> Organized and easy to follow</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i><strong>Actionable:</strong> Tells AI exactly what to do</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-danger mb-3">Common Prompting Mistakes</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Too Vague:</strong> "Write something" vs "Write a 500-word article"</li>
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>No Context:</strong> Missing background information</li>
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Overly Complex:</strong> Confusing multi-part requests</li>
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Unclear Goals:</strong> What success looks like</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prompt Examples -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-primary me-2"></i>Prompt Examples</h2>
+
+            <div class="prompt-example good-prompt">
+                <h5 class="text-success mb-3"><i class="fas fa-thumbs-up me-2"></i>Good Prompt Example</h5>
+                <p><strong>Prompt:</strong> "Write a 300-word blog post about the benefits of morning exercise routines. Include 3 specific benefits with scientific backing, and end with a call-to-action encouraging readers to start their morning routine tomorrow."</p>
+
+                <p><strong>Why it works:</strong></p>
+                <ul class="small">
+                    <li>✅ Specific word count (300 words)</li>
+                    <li>✅ Clear format (blog post)</li>
+                    <li>✅ Detailed requirements (3 benefits, scientific backing)</li>
+                    <li>✅ Specific ending (call-to-action)</li>
+                </ul>
+            </div>
+
+            <div class="prompt-example bad-prompt">
+                <h5 class="text-danger mb-3"><i class="fas fa-thumbs-down me-2"></i>Poor Prompt Example</h5>
+                <p><strong>Prompt:</strong> "Write about exercise."</p>
+
+                <p><strong>Why it fails:</strong></p>
+                <ul class="small text-danger">
+                    <li>❌ Too vague - what type of writing?</li>
+                    <li>❌ No length specification</li>
+                    <li>❌ No specific focus or angle</li>
+                    <li>❌ No clear objective or outcome</li>
+                </ul>
+            </div>
+
+            <div class="prompt-example good-prompt">
+                <h5 class="text-success mb-3"><i class="fas fa-code me-2"></i>Coding Prompt Example</h5>
+                <p><strong>Prompt:</strong> "Create a Python function called 'calculate_average' that takes a list of numbers as input and returns the average. Include proper error handling for empty lists and non-numeric values. Add a docstring explaining the function's purpose and parameters."</p>
+
+                <p><strong>Why it works:</strong></p>
+                <ul class="small">
+                    <li>✅ Specific language and function name</li>
+                    <li>✅ Clear input/output requirements</li>
+                    <li>✅ Error handling specifications</li>
+                    <li>✅ Documentation requirements</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Basic Prompting Techniques -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-tools text-primary me-2"></i>Basic Prompting Techniques</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">1. Be Specific</h5>
+                    <p>Instead of "Write a story," say "Write a 800-word mystery story about a detective solving a jewelry theft in Victorian London."</p>
+
+                    <h5 class="text-primary mb-3 mt-4">2. Provide Context</h5>
+                    <p>Give the AI background information it needs: "As a marketing expert with 10 years experience..." or "Using React and TypeScript..."</p>
+
+                    <h5 class="text-primary mb-3 mt-4">3. Specify Format</h5>
+                    <p>Tell the AI how to structure the response: "Format your answer as a bullet-point list" or "Use markdown formatting"</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">4. Define Output Length</h5>
+                    <p>Set expectations: "Write a 500-word article" or "Provide a brief 2-3 sentence summary"</p>
+
+                    <h5 class="text-info mb-3 mt-4">5. Use Examples</h5>
+                    <p>Show what you want: "Like this example: [example here]" or "Similar to how [famous person/company] does it"</p>
+
+                    <h5 class="text-info mb-3 mt-4">6. Iterate and Refine</h5>
+                    <p>If the first response isn't perfect, provide feedback: "Make it more formal" or "Add more technical details"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hands-On Project -->
+        <div class="project-card">
+            <h2 class="h4 mb-4"><i class="fas fa-project-diagram text-warning me-2"></i>Project: Personal AI Assistant</h2>
+
+            <div class="alert alert-warning">
+                <strong>⏰ Time Estimate:</strong> 45-60 minutes
+                <br><strong>🎯 Objective:</strong> Create a comprehensive prompt that builds a personal AI assistant for a specific use case
+            </div>
+
+            <h5 class="text-primary mb-3">Project Overview</h5>
+            <p>You'll create a detailed prompt that instructs an AI to act as a personal assistant for a specific scenario. This project will teach you how to craft complex, multi-part prompts that produce useful, actionable results.</p>
+
+            <h5 class="text-primary mb-3 mt-4">Project Steps</h5>
+            <div class="task-list" id="project-tasks">
+                <div class="task-item">
+                    <div class="task-checkbox" data-task="1"></div>
+                    <div>
+                        <strong>Step 1:</strong> Choose your scenario (10 minutes)
+                        <br><small class="text-muted">Pick one: Fitness Coach, Study Buddy, Meal Planner, Budget Advisor, or Career Counselor</small>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <div class="task-checkbox" data-task="2"></div>
+                    <div>
+                        <strong>Step 2:</strong> Define requirements (10 minutes)
+                        <br><small class="text-muted">What should your AI assistant be able to do? List 5-7 specific capabilities</small>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <div class="task-checkbox" data-task="3"></div>
+                    <div>
+                        <strong>Step 3:</strong> Craft your master prompt (15 minutes)
+                        <br><small class="text-muted">Write a detailed prompt that includes role, capabilities, constraints, and examples</small>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <div class="task-checkbox" data-task="4"></div>
+                    <div>
+                        <strong>Step 4:</strong> Test and refine (15-20 minutes)
+                        <br><small class="text-muted">Test your prompt with LM Studio, iterate based on results, document improvements</small>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <div class="task-checkbox" data-task="5"></div>
+                    <div>
+                        <strong>Step 5:</strong> Create documentation (10 minutes)
+                        <br><small class="text-muted">Write a brief guide explaining how to use your AI assistant prompt</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h5 class="text-success mb-3">Example Scenario: Fitness Coach</h5>
+                <div class="bg-light p-3 rounded">
+                    <p><strong>Sample Prompt Structure:</strong></p>
+                    <p class="small mb-2">"You are an experienced personal fitness coach with 15 years of experience helping people achieve their fitness goals. You have certifications in personal training, nutrition, and sports psychology."</p>
+                    <p class="small mb-2">"Your role is to create personalized workout and nutrition plans, provide motivation, track progress, and answer fitness-related questions."</p>
+                    <p class="small mb-0">"Always prioritize safety, encourage sustainable habits, and be encouraging while being realistic about goals."</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>💡 Pro Tips:</strong>
+                <ul class="mb-0 small">
+                    <li>Start simple, then add complexity as you test</li>
+                    <li>Use your first few conversations to understand what works</li>
+                    <li>Keep iterating - each test improves your prompt</li>
+                    <li>Document what changes improve results</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Project Deliverables -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-clipboard-check text-primary me-2"></i>Project Deliverables</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">Required Files</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><code>your_assistant_prompt.txt</code> - Your complete prompt</li>
+                        <li class="list-group-item"><code>test_conversations.txt</code> - Sample interactions</li>
+                        <li class="list-group-item"><code>user_guide.md</code> - How to use your assistant</li>
+                        <li class="list-group-item"><code>improvements_log.txt</code> - What you learned</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Evaluation Criteria</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Prompt clarity and specificity</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Assistant capability range</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Response quality testing</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Documentation completeness</li>
+                        <li class="list-group-item"><i class="fas fa-check text-success me-2"></i>Iterative improvement process</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Tips -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-magic text-primary me-2"></i>Advanced Prompting Tips</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Temperature Settings</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>0.1-0.3:</strong> Factual, consistent responses</li>
+                        <li class="list-group-item"><strong>0.4-0.6:</strong> Balanced creativity and accuracy</li>
+                        <li class="list-group-item"><strong>0.7-1.0:</strong> Highly creative, varied responses</li>
+                    </ul>
+
+                    <h5 class="text-warning mb-3 mt-4">Context Management</h5>
+                    <p class="small">Keep conversations focused by periodically restating context or using shorter conversation threads for complex tasks.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Prompt Templates</h5>
+                    <div class="bg-light p-3 rounded small">
+                        <strong>Template Structure:</strong>
+                        <br>1. Define the role/expertise
+                        <br>2. Specify the task/goal
+                        <br>3. Provide constraints/limitations
+                        <br>4. Give examples if needed
+                        <br>5. Define output format
+                    </div>
+
+                    <h5 class="text-info mb-3 mt-4">Common Patterns</h5>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item">"Act as a [role] and [task]"</li>
+                        <li class="list-group-item">"You are an expert [field]"</li>
+                        <li class="list-group-item">"Explain [topic] as if to [audience]"</li>
+                        <li class="list-group-item">"Create [output] following [format]"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-primary me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-success">
+                <h5 class="alert-heading"><i class="fas fa-check-circle me-2"></i>What You Mastered</h5>
+                <ul class="mb-0">
+                    <li><strong>Prompt specificity</strong> - Clear, detailed instructions produce better results</li>
+                    <li><strong>Context importance</strong> - Background information improves AI understanding</li>
+                    <li><strong>Iterative refinement</strong> - Testing and improving prompts is key to success</li>
+                    <li><strong>Format specification</strong> - Telling AI how to structure responses</li>
+                    <li><strong>Practical application</strong> - Built a complete AI assistant through hands-on project</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🚀 Project Completion</h4>
+                <p>Congratulations on completing your first major prompting project! You've now experienced the full cycle of prompt engineering - from concept to testing to refinement. This skill will serve you well in all future AI interactions.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session03.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: First Conversations
+            </a>
+            <a href="session05.html" class="btn btn-primary">
+                Next: Model Selection <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed and handle project tasks
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark session completion
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(4)) {
+                    completedSessions.push(4);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+
+            // Handle project task checkboxes
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    this.classList.toggle('checked');
+                    const taskId = this.dataset.task;
+                    const completedTasks = JSON.parse(localStorage.getItem('llm-project-tasks') || '[]');
+
+                    if (this.classList.contains('checked')) {
+                        if (!completedTasks.includes(taskId)) {
+                            completedTasks.push(taskId);
+                        }
+                    } else {
+                        const index = completedTasks.indexOf(taskId);
+                        if (index > -1) {
+                            completedTasks.splice(index, 1);
+                        }
+                    }
+
+                    localStorage.setItem('llm-project-tasks', JSON.stringify(completedTasks));
+                });
+            });
+
+            // Load saved task states
+            const savedTasks = JSON.parse(localStorage.getItem('llm-project-tasks') || '[]');
+            savedTasks.forEach(taskId => {
+                const checkbox = document.querySelector(`[data-task="${taskId}"]`);
+                if (checkbox) {
+                    checkbox.classList.add('checked');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

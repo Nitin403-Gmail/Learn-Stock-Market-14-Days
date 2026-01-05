@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 9: Model Architecture Deep Dive - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .architecture-diagram { background: #f8f9fa; border-radius: 8px; padding: 2rem; margin: 2rem 0; text-align: center; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; }
+        .math-formula { background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center; }
+        .time-indicator { background: #fef2f2; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; color: #dc2626; }
+        .progress-indicator { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .attention-viz { background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 2rem; border-radius: 12px; margin: 2rem 0; }
+        .layer-card { background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; transition: all 0.3s ease; }
+        .layer-card:hover { border-color: #ef4444; transform: translateX(10px); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-danger me-2">Session 9 of 15</span>
+                <span class="text-muted small">45 minutes</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 60%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 9: Model Architecture Deep Dive</h1>
+                    <p class="lead mb-0">Understanding the transformer architecture that powers modern LLMs</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 minutes
+                    </div>
+                    <div class="badge bg-white text-danger">
+                        <i class="fas fa-microscope me-1"></i>Advanced Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-danger me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Master the transformer architecture</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand attention mechanisms</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn tokenization and embeddings</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Explore model layers and parameters</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand training vs inference</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Optimize for performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transformer Overview -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-project-diagram text-danger me-2"></i>The Transformer Architecture</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🏗️ Architecture Revolution</h4>
+                <p>The Transformer architecture, introduced in the 2017 paper "Attention is All You Need" by Google researchers, revolutionized AI by enabling:</p>
+                <ul class="mb-0">
+                    <li><strong>Parallel processing</strong> of text sequences</li>
+                    <li><strong>Long-range dependency modeling</strong> without recursion</li>
+                    <li><strong>Scalable training</strong> on massive datasets</li>
+                    <li><strong>Transfer learning</strong> across different tasks</li>
+                </ul>
+            </div>
+
+            <div class="architecture-diagram">
+                <h5 class="text-danger mb-3">Transformer Block Architecture</h5>
+                <div class="bg-white p-3 rounded" style="max-width: 600px; margin: 0 auto;">
+                    <div id="transformer-diagram"></div>
+                </div>
+                <p class="small text-muted mt-2">Input → Multi-Head Attention → Feed Forward → Output</p>
+            </div>
+        </div>
+
+        <!-- Tokenization -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-cut text-danger me-2"></i>Tokenization: Breaking Down Text</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🔤 From Text to Numbers</h4>
+                <p>Tokenization converts human-readable text into numerical representations that models can process. This is the crucial first step in LLM processing.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">Tokenization Process</h5>
+                    <div class="code-example">
+Input: "Hello world!"
+Tokens: ["Hello", " world", "!"]  // Word-level
+Token IDs: [15496, 995, 0]        // Numerical representation
+Embeddings: [0.1, 0.3, -0.2, ...] // Vector representation
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Tokenization Types</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Word-level:</strong> Splits on spaces (simple but limited vocab)</li>
+                        <li class="list-group-item"><strong>Subword:</strong> BPE, WordPiece (balances flexibility and efficiency)</li>
+                        <li class="list-group-item"><strong>Character-level:</strong> Every character (universal but long sequences)</li>
+                        <li class="list-group-item"><strong>Byte-level:</strong> UTF-8 bytes (handles any language perfectly)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-warning mt-3">
+                <strong>⚠️ Context Window Limit:</strong> Models have maximum token limits (e.g., 4096 tokens). Longer conversations require truncation or summarization.
+            </div>
+        </div>
+
+        <!-- Attention Mechanism -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-eye text-danger me-2"></i>The Attention Mechanism</h2>
+
+            <div class="attention-viz">
+                <h5 class="text-danger mb-3">How Attention Works</h5>
+                <p>Attention allows the model to focus on relevant parts of the input when generating each output token.</p>
+
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-search fa-3x text-primary mb-2"></i>
+                            <h6>Query</h6>
+                            <p class="small">What we're looking for</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-key fa-3x text-info mb-2"></i>
+                            <h6>Key</h6>
+                            <p class="small">What we compare against</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-star fa-3x text-warning mb-2"></i>
+                            <h6>Value</h6>
+                            <p class="small">What we retrieve</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="math-formula mt-4">
+                    <strong>Attention(Q, K, V) = softmax(QK^T / √d_k) V</strong>
+                    <p class="small text-muted mt-2">Q = Query, K = Key, V = Value, d_k = dimension of keys</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🔍 Multi-Head Attention</h4>
+                <p>Modern transformers use multiple attention heads to capture different types of relationships simultaneously:</p>
+                <ul class="mb-0">
+                    <li><strong>Syntactic attention:</strong> Grammar and sentence structure</li>
+                    <li><strong>Semantic attention:</strong> Meaning and context</li>
+                    <li><strong>Positional attention:</strong> Word order and sequence</li>
+                    <li><strong>Entity attention:</strong> Named entities and relationships</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Model Layers -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-layer-group text-danger me-2"></i>Understanding Model Layers</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">Layer Functions</h5>
+                    <div class="layer-card">
+                        <h6 class="text-primary">1. Input Embeddings</h6>
+                        <p class="small mb-0">Convert tokens to dense vector representations</p>
+                    </div>
+                    <div class="layer-card">
+                        <h6 class="text-primary">2. Positional Encoding</h6>
+                        <p class="small mb-0">Add sequence position information</p>
+                    </div>
+                    <div class="layer-card">
+                        <h6 class="text-primary">3. Multi-Head Attention</h6>
+                        <p class="small mb-0">Learn relationships between tokens</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Advanced Components</h5>
+                    <div class="layer-card">
+                        <h6 class="text-info">4. Feed Forward Networks</h6>
+                        <p class="small mb-0">Process attention outputs through MLPs</p>
+                    </div>
+                    <div class="layer-card">
+                        <h6 class="text-info">5. Layer Normalization</h6>
+                        <p class="small mb-0">Stabilize training and improve convergence</p>
+                    </div>
+                    <div class="layer-card">
+                        <h6 class="text-info">6. Output Projection</h6>
+                        <p class="small mb-0">Generate next token probabilities</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">📊 Parameter Scaling</h4>
+                <p>Larger models achieve better performance through:</p>
+                <ul class="mb-0">
+                    <li><strong>More layers:</strong> Deeper understanding of complex patterns</li>
+                    <li><strong>Larger embeddings:</strong> Richer token representations</li>
+                    <li><strong>More attention heads:</strong> Better relationship modeling</li>
+                    <li><strong>Bigger feed-forward networks:</strong> Enhanced processing capacity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Training vs Inference -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-exchange-alt text-danger me-2"></i>Training vs Inference</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Training Phase</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-cogs text-primary me-2"></i><strong>Batch Processing:</strong> Multiple sequences simultaneously</li>
+                        <li class="list-group-item"><i class="fas fa-chart-line text-primary me-2"></i><strong>Gradient Descent:</strong> Optimize parameters over epochs</li>
+                        <li class="list-group-item"><i class="fas fa-clock text-primary me-2"></i><strong>Time Intensive:</strong> Days to weeks on powerful hardware</li>
+                        <li class="list-group-item"><i class="fas fa-database text-primary me-2"></i><strong>Massive Data:</strong> Terabytes of text for training</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Inference Phase</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-tachometer-alt text-info me-2"></i><strong>Real-time:</strong> Generate responses in seconds</li>
+                        <li class="list-group-item"><i class="fas fa-microchip text-info me-2"></i><strong>Efficient:</strong> Single sequence processing</li>
+                        <li class="list-group-item"><i class="fas fa-memory text-info me-2"></i><strong>Memory Bound:</strong> Model must fit in RAM/VRAM</li>
+                        <li class="list-group-item"><i class="fas fa-sliders-h text-info me-2"></i><strong>Configurable:</strong> Temperature, context, parameters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Optimization -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-rocket text-danger me-2"></i>Performance Optimization Techniques</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Quantization</h5>
+                    <div class="code-example">
+8-bit quantization: 50% memory reduction
+4-bit quantization: 75% memory reduction
+2-bit quantization: 87.5% memory reduction
+
+Trade-off: Quality vs Speed/Memory
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">KV Cache Optimization</h5>
+                    <p>Key-Value caching stores attention computations to avoid recomputing them for each token generation.</p>
+                    <p class="small text-muted">Benefits: 2-3x speedup for longer sequences</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3">
+                <strong>💡 Architecture Insight:</strong> Understanding these concepts allows you to make informed decisions about model selection, optimization, and troubleshooting in LM Studio.
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-danger me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-danger">
+                <h5 class="alert-heading"><i class="fas fa-brain me-2"></i>Architecture Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>Transformer architecture</strong> enables parallel processing and long-range dependencies</li>
+                    <li><strong>Tokenization</strong> converts text to numerical representations for model processing</li>
+                    <li><strong>Attention mechanisms</strong> allow models to focus on relevant context</li>
+                    <li><strong>Model layers</strong> work together to process and generate coherent responses</li>
+                    <li><strong>Training vs inference</strong> have fundamentally different computational requirements</li>
+                    <li><strong>Optimization techniques</strong> like quantization improve practical performance</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🚀 Advanced Understanding</h4>
+                <p>You now understand the fundamental architecture powering all modern language models. This knowledge will help you optimize performance, troubleshoot issues, and push the boundaries of what's possible with local AI.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session08.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Dataset Preparation
+            </a>
+            <a href="session10.html" class="btn btn-primary">
+                Next: Performance Optimization <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize Mermaid
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({ startOnLoad: true });
+
+                // Create transformer diagram
+                const transformerDiagram = `
+                    graph TD
+                        A[Input Tokens] --> B[Token Embeddings]
+                        B --> C[Positional Encoding]
+                        C --> D[Multi-Head Attention]
+                        D --> E[Add & Norm]
+                        E --> F[Feed Forward]
+                        F --> G[Add & Norm]
+                        G --> H[Output]
+                `;
+                document.getElementById('transformer-diagram').innerHTML = transformerDiagram;
+                mermaid.init(undefined, document.getElementById('transformer-diagram'));
+            }
+
+            // Mark session as completed
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(9)) {
+                    completedSessions.push(9);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

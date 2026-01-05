@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 5: Model Selection & Comparison - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(102, 126, 234, 0.1); border-left: 4px solid #667eea; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .model-card { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; margin: 1rem 0; transition: all 0.3s ease; }
+        .model-card:hover { border-color: #667eea; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .model-recommendation { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
+        .comparison-table { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+        .time-indicator { background: #e3f2fd; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
+        .progress-indicator { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .performance-meter { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+        .performance-bar { flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+        .performance-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-primary me-2">Session 5 of 15</span>
+                <span class="text-muted small">45 minutes</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 33.33%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 5: Model Selection & Comparison</h1>
+                    <p class="lead mb-0">Choose the right AI model for your specific needs and hardware</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 minutes
+                    </div>
+                    <div class="badge bg-warning text-dark">
+                        <i class="fas fa-cogs me-1"></i>Intermediate Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-primary me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand different model architectures</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn model size and performance trade-offs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Identify model strengths and weaknesses</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Match models to specific use cases</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Optimize for your hardware constraints</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Download and test multiple models</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Families -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-sitemap text-primary me-2"></i>Understanding Model Families</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🏗️ Model Architecture Overview</h4>
+                <p>Different model families are built on various architectures, each with unique strengths. Understanding these helps you choose the right tool for each job.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="model-card">
+                        <h5 class="text-primary mb-3"><i class="fas fa-brain me-2"></i>LLaMA/Mistral Family</h5>
+                        <p class="mb-2">Meta's open-source models, highly optimized and efficient.</p>
+                        <div class="performance-meter">
+                            <span class="small">Speed:</span>
+                            <div class="performance-bar">
+                                <div class="performance-fill bg-success" style="width: 85%"></div>
+                            </div>
+                            <span class="small fw-bold">85%</span>
+                        </div>
+                        <div class="performance-meter">
+                            <span class="small">Quality:</span>
+                            <div class="performance-bar">
+                                <div class="performance-fill bg-info" style="width: 80%"></div>
+                            </div>
+                            <span class="small fw-bold">80%</span>
+                        </div>
+                        <p class="small text-muted mt-2">Best for: General purpose, coding, efficiency</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="model-card">
+                        <h5 class="text-primary mb-3"><i class="fas fa-robot me-2"></i>GPT/Claude Family</h5>
+                        <p class="mb-2">Proprietary models with exceptional reasoning capabilities.</p>
+                        <div class="performance-meter">
+                            <span class="small">Speed:</span>
+                            <div class="performance-bar">
+                                <div class="performance-fill bg-warning" style="width: 60%"></div>
+                            </div>
+                            <span class="small fw-bold">60%</span>
+                        </div>
+                        <div class="performance-meter">
+                            <span class="small">Quality:</span>
+                            <div class="performance-bar">
+                                <div class="performance-fill bg-success" style="width: 95%"></div>
+                            </div>
+                            <span class="small fw-bold">95%</span>
+                        </div>
+                        <p class="small text-muted mt-2">Best for: Complex reasoning, analysis, creativity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Size Comparison -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-balance-scale text-primary me-2"></i>Model Size vs Performance</h2>
+
+            <div class="comparison-table">
+                <h5 class="text-primary mb-3">Parameter Count Guide</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Use Case</th>
+                                <th>Hardware Requirements</th>
+                                <th>Response Quality</th>
+                                <th>Speed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1-3B</strong></td>
+                                <td>Simple tasks, basic chat</td>
+                                <td>4GB RAM, any CPU</td>
+                                <td>Basic</td>
+                                <td>Very Fast</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7-13B</strong></td>
+                                <td>General purpose, coding</td>
+                                <td>8-16GB RAM, modern CPU</td>
+                                <td>Good</td>
+                                <td>Fast</td>
+                            </tr>
+                            <tr>
+                                <td><strong>30-70B</strong></td>
+                                <td>Complex reasoning, analysis</td>
+                                <td>32GB+ RAM, GPU recommended</td>
+                                <td>Excellent</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr>
+                                <td><strong>100B+</strong></td>
+                                <td>Professional, research-grade</td>
+                                <td>64GB+ RAM, powerful GPU</td>
+                                <td>Outstanding</td>
+                                <td>Slow</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>💡 Hardware Tip:</strong> Start with smaller models (7-13B) on modest hardware. You can always upgrade to larger models as your needs grow and hardware allows.
+            </div>
+        </div>
+
+        <!-- Use Case Matching -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-crosshairs text-primary me-2"></i>Matching Models to Use Cases</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Creative Writing</h5>
+                    <div class="model-card">
+                        <div class="model-recommendation">Recommended: GPT-4 or Claude</div>
+                        <p>Best for creative tasks requiring nuance, style, and emotional depth.</p>
+                        <p class="small text-muted">Alternative: Large LLaMA models (65B+) for local use</p>
+                    </div>
+
+                    <h5 class="text-info mb-3 mt-4">Code Generation</h5>
+                    <div class="model-card">
+                        <div class="model-recommendation">Recommended: CodeLlama or Mistral</div>
+                        <p>Specialized for programming with excellent syntax understanding.</p>
+                        <p class="small text-muted">Size: 7-13B parameters works well</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Data Analysis</h5>
+                    <div class="model-card">
+                        <div class="model-recommendation">Recommended: GPT-4 or Large LLaMA</div>
+                        <p>Strong mathematical reasoning and pattern recognition capabilities.</p>
+                        <p class="small text-muted">Needs good context window for complex data</p>
+                    </div>
+
+                    <h5 class="text-danger mb-3 mt-4">General Chat</h5>
+                    <div class="model-card">
+                        <div class="model-recommendation">Recommended: Mistral 7B</div>
+                        <p>Excellent balance of quality, speed, and resource efficiency.</p>
+                        <p class="small text-muted">Perfect starting point for most users</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hands-On Exercise -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-flask text-primary me-2"></i>Practical Exercise: Model Comparison</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🧪 Testing Different Models</h4>
+                <p>Let's download and compare three different models to understand their strengths and weaknesses.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="model-card text-center">
+                        <h6 class="text-primary mb-2">Model A: Mistral 7B</h6>
+                        <p class="small mb-2">General purpose, fast</p>
+                        <div class="badge bg-secondary mb-2">~4GB download</div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="testModel('mistral')">
+                            <i class="fas fa-download me-1"></i>Test
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="model-card text-center">
+                        <h6 class="text-primary mb-2">Model B: LLaMA 13B</h6>
+                        <p class="small mb-2">Better quality, slower</p>
+                        <div class="badge bg-secondary mb-2">~7GB download</div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="testModel('llama')">
+                            <i class="fas fa-download me-1"></i>Test
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="model-card text-center">
+                        <h6 class="text-primary mb-2">Model C: CodeLlama 7B</h6>
+                        <p class="small mb-2">Coding specialist</p>
+                        <div class="badge bg-secondary mb-2">~4GB download</div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="testModel('codellama')">
+                            <i class="fas fa-download me-1"></i>Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h5 class="text-primary mb-3">Testing Protocol</h5>
+                <ol>
+                    <li><strong>Download all three models</strong> in LM Studio</li>
+                    <li><strong>Test each with the same prompt:</strong> "Write a Python function to calculate fibonacci numbers recursively"</li>
+                    <li><strong>Compare results:</strong> Speed, accuracy, code quality, explanation clarity</li>
+                    <li><strong>Note your observations:</strong> Which model performs best for coding tasks?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Optimization Tips -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-tachometer-alt text-primary me-2"></i>Performance Optimization</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Hardware Optimization</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-microchip text-primary me-2"></i><strong>GPU Acceleration:</strong> Use NVIDIA GPUs for 10-50x speed boost</li>
+                        <li class="list-group-item"><i class="fas fa-memory text-primary me-2"></i><strong>RAM:</strong> More RAM allows larger models and context</li>
+                        <li class="list-group-item"><i class="fas fa-clock text-primary me-2"></i><strong>CPU:</strong> Modern multi-core CPUs for CPU-only inference</li>
+                        <li class="list-group-item"><i class="fas fa-hdd text-primary me-2"></i><strong>SSD:</strong> Fast storage reduces model loading time</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Software Optimization</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-sliders-h text-info me-2"></i><strong>Quantization:</strong> 4-bit/8-bit models use less RAM</li>
+                        <li class="list-group-item"><i class="fas fa-compress text-info me-2"></i><strong>Context Window:</strong> Smaller windows for faster responses</li>
+                        <li class="list-group-item"><i class="fas fa-temperature-half text-info me-2"></i><strong>Temperature:</strong> Lower values for faster, consistent output</li>
+                        <li class="list-group-item"><i class="fas fa-stop text-info me-2"></i><strong>Early Stopping:</strong> Define stop sequences to end responses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-primary me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-success">
+                <h5 class="alert-heading"><i class="fas fa-check-circle me-2"></i>Model Selection Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>Different architectures</strong> excel at different tasks (LLaMA for efficiency, GPT for reasoning)</li>
+                    <li><strong>Model size matters</strong> - larger models = better quality but slower performance</li>
+                    <li><strong>Hardware constraints</strong> guide your model selection process</li>
+                    <li><strong>Use case matching</strong> - choose models based on your specific needs</li>
+                    <li><strong>Practical testing</strong> - always compare models with real tasks before committing</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🚀 Next Steps</h4>
+                <p>You now understand how to select and compare different language models. In the next session, we'll dive deep into advanced prompting techniques that work across all model types.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session04.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Basic Prompting
+            </a>
+            <a href="session06.html" class="btn btn-primary">
+                Next: Advanced Prompting <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(5)) {
+                    completedSessions.push(5);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+
+        function testModel(modelType) {
+            const messages = {
+                mistral: "Mistral 7B is great for general-purpose tasks with excellent speed and quality balance.",
+                llama: "LLaMA 13B offers superior reasoning capabilities but requires more resources.",
+                codellama: "CodeLlama specializes in programming tasks with exceptional code generation abilities."
+            };
+
+            alert(`Model Test: ${messages[modelType]}\n\nDownload this model in LM Studio to test it yourself!`);
+        }
+    </script>
+</body>
+</html>

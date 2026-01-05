@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 1: Introduction to Large Language Models - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(102, 126, 234, 0.1); border-left: 4px solid #667eea; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; }
+        .time-indicator { background: #e3f2fd; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
+        .progress-indicator { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-primary me-2">Session 1 of 15</span>
+                <span class="text-muted small">45 minutes</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 6.67%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 1: Introduction to Large Language Models</h1>
+                    <p class="lead mb-0">Understanding what LLMs are and why they revolutionize how we interact with AI</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 minutes
+                    </div>
+                    <div class="badge bg-light text-dark">
+                        <i class="fas fa-seedling me-1"></i>Beginner Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-primary me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand what Large Language Models are</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn how LLMs differ from traditional AI</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Explore real-world applications</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand the transformer architecture</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn about model sizes and capabilities</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Discover the future of AI interaction</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- What are LLMs? -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-question-circle text-primary me-2"></i>What are Large Language Models?</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🤖 Definition</h4>
+                <p><strong>Large Language Models (LLMs)</strong> are AI systems trained on massive amounts of text data to understand and generate human-like text. They can perform a wide variety of language tasks including:</p>
+                <ul class="mb-0">
+                    <li>Writing articles and stories</li>
+                    <li>Answering questions</li>
+                    <li>Translating languages</li>
+                    <li>Writing code</li>
+                    <li>Analyzing documents</li>
+                </ul>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h5 class="text-primary">Traditional AI vs LLMs</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Traditional AI</th>
+                                <th>Large Language Models</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Narrow, task-specific</td>
+                                <td>General-purpose language understanding</td>
+                            </tr>
+                            <tr>
+                                <td>Requires extensive training per task</td>
+                                <td>Learns from vast text data</td>
+                            </tr>
+                            <tr>
+                                <td>Limited to predefined patterns</td>
+                                <td>Can handle novel situations</td>
+                            </tr>
+                            <tr>
+                                <td>Rule-based programming</td>
+                                <td>Statistical pattern recognition</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-primary">Popular LLMs</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            GPT-4 (OpenAI)
+                            <span class="badge bg-primary rounded-pill">175B parameters</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Claude (Anthropic)
+                            <span class="badge bg-success rounded-pill">137B parameters</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            LLaMA 2 (Meta)
+                            <span class="badge bg-info rounded-pill">7B-70B parameters</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Mistral 7B
+                            <span class="badge bg-warning rounded-pill">7B parameters</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- How LLMs Work -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-cogs text-primary me-2"></i>How Do Large Language Models Work?</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🧠 The Transformer Architecture</h4>
+                <p>LLMs are built on the <strong>Transformer architecture</strong>, introduced in a groundbreaking 2017 paper by Google researchers. This architecture revolutionized AI by enabling models to:</p>
+                <ul class="mb-0">
+                    <li><strong>Process text in parallel</strong> (much faster training)</li>
+                    <li><strong>Understand context</strong> from entire sentences</li>
+                    <li><strong>Generate coherent responses</strong> based on patterns</li>
+                    <li><strong>Handle long-range dependencies</strong> in text</li>
+                </ul>
+            </div>
+
+            <div class="text-center my-4">
+                <div class="bg-light p-4 rounded" style="font-family: 'JetBrains Mono', monospace;">
+                    <div class="text-primary mb-2">Input Text →</div>
+                    <div class="text-success mb-2">Tokenization →</div>
+                    <div class="text-warning mb-2">Attention Mechanism →</div>
+                    <div class="text-danger">Prediction →</div>
+                    <div class="text-info">Output Text</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-World Applications -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-globe text-primary me-2"></i>Real-World Applications</h2>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-primary">
+                        <div class="card-body text-center">
+                            <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Code Generation</h5>
+                            <p class="card-text">Write, debug, and optimize code across multiple programming languages.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-success">
+                        <div class="card-body text-center">
+                            <i class="fas fa-file-alt fa-3x text-success mb-3"></i>
+                            <h5 class="card-title">Content Creation</h5>
+                            <p class="card-text">Generate articles, marketing copy, creative writing, and documentation.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-info">
+                        <div class="card-body text-center">
+                            <i class="fas fa-language fa-3x text-info mb-3"></i>
+                            <h5 class="card-title">Translation</h5>
+                            <p class="card-text">Translate between languages with context-aware accuracy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-2">
+                <div class="col-md-4">
+                    <div class="card h-100 border-warning">
+                        <div class="card-body text-center">
+                            <i class="fas fa-brain fa-3x text-warning mb-3"></i>
+                            <h5 class="card-title">Research Assistance</h5>
+                            <p class="card-text">Analyze papers, summarize findings, and generate research ideas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-danger">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-line fa-3x text-danger mb-3"></i>
+                            <h5 class="card-title">Data Analysis</h5>
+                            <p class="card-text">Process and analyze large datasets, generate insights and reports.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-secondary">
+                        <div class="card-body text-center">
+                            <i class="fas fa-robot fa-3x text-secondary mb-3"></i>
+                            <h5 class="card-title">Automation</h5>
+                            <p class="card-text">Automate repetitive tasks, generate scripts, and build AI workflows.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why LM Studio? -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-star text-primary me-2"></i>Why Learn with LM Studio?</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="key-concept">
+                        <h4 class="h5 text-primary mb-3">🏠 Local AI Power</h4>
+                        <p>Run powerful language models directly on your computer. No internet connection required for inference, ensuring privacy and reducing costs.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="key-concept">
+                        <h4 class="h5 text-primary mb-3">🎛️ Full Control</h4>
+                        <p>Customize model parameters, experiment with different architectures, and fine-tune models for your specific use cases.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="key-concept">
+                        <h4 class="h5 text-primary mb-3">💰 Cost Effective</h4>
+                        <p>No API costs or subscription fees. Once you download a model, you can use it unlimited times.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="key-concept">
+                        <h4 class="h5 text-primary mb-3">🔒 Privacy First</h4>
+                        <p>Your data stays on your machine. Perfect for sensitive work, research, or when data security is paramount.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-primary me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-success">
+                <h5 class="alert-heading"><i class="fas fa-check-circle me-2"></i>What You Learned</h5>
+                <ul class="mb-0">
+                    <li><strong>LLMs are AI systems</strong> trained on massive text datasets to understand and generate human-like text</li>
+                    <li><strong>Transformer architecture</strong> enables parallel processing and better context understanding</li>
+                    <li><strong>Real-world applications</strong> span coding, writing, translation, research, and automation</li>
+                    <li><strong>LM Studio provides local AI power</strong> with privacy, control, and cost benefits</li>
+                    <li><strong>The future of AI interaction</strong> involves natural language conversations with powerful models</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="index.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Course Overview
+            </a>
+            <a href="session02.html" class="btn btn-primary">
+                Next: LM Studio Setup <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script>
+        // Mark session as completed when user reaches the end
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-mark session as completed when page loads (user has read it)
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(1)) {
+                    completedSessions.push(1);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

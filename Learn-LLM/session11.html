@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 11: Application Integration & Project - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .integration-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .integration-card { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .integration-card:hover { border-color: #ef4444; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(239, 68, 68, 0.2); }
+        .integration-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #ef4444 0%, #10b981 50%, #3b82f6 100%); }
+        .api-demo { background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 2rem 0; border: 1px solid #e5e7eb; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; overflow-x: auto; }
+        .workflow-diagram { background: white; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; border: 1px solid #e5e7eb; }
+        .time-indicator { background: #fef2f2; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; color: #dc2626; }
+        .progress-indicator { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .project-card { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .tech-stack { background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+        .integration-type { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .type-api { background: #dbeafe; color: #1e40af; }
+        .type-local { background: #dcfce7; color: #166534; }
+        .type-hybrid { background: #fef3c7; color: #92400e; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-danger me-2">Session 11 of 15</span>
+                <span class="text-muted small">45 min + 60 min project</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 73.33%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 11: Application Integration</h1>
+                    <p class="lead mb-0">Build AI-powered applications with LLM APIs and integrations</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 min + 60 min project
+                    </div>
+                    <div class="badge bg-white text-danger">
+                        <i class="fas fa-plug me-1"></i>Advanced Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-danger me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Master LLM API integration patterns</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Implement local server APIs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Handle streaming responses</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Build error handling and fallbacks</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Create user interfaces for AI apps</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Complete integration project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Patterns -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-network-wired text-danger me-2"></i>LLM Integration Patterns</h2>
+
+            <div class="integration-showcase">
+                <div class="integration-card">
+                    <div class="integration-type type-api">API Integration</div>
+                    <i class="fas fa-globe fa-3x text-primary mb-3"></i>
+                    <h5 class="text-primary mb-3">REST API Integration</h5>
+                    <p class="mb-3">Connect to LLM Studio's local API server for programmatic access.</p>
+                    <ul class="small mb-3">
+                        <li>HTTP POST requests to localhost:1234</li>
+                        <li>JSON request/response format</li>
+                        <li>Streaming support for real-time output</li>
+                        <li>Error handling and retries</li>
+                    </ul>
+                    <div class="badge bg-primary">Most Common</div>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-type type-local">Local Integration</div>
+                    <i class="fas fa-desktop fa-3x text-success mb-3"></i>
+                    <h5 class="text-success mb-3">Direct Model Access</h5>
+                    <p class="mb-3">Embed LLMs directly into desktop applications.</p>
+                    <ul class="small mb-3">
+                        <li>Native performance and speed</li>
+                        <li>No network dependencies</li>
+                        <li>Higher memory requirements</li>
+                        <li>Platform-specific implementations</li>
+                    </ul>
+                    <div class="badge bg-success">Highest Performance</div>
+                </div>
+
+                <div class="integration-card">
+                    <div class="integration-type type-hybrid">Hybrid Approach</div>
+                    <i class="fas fa-balance-scale fa-3x text-warning mb-3"></i>
+                    <h5 class="text-warning mb-3">Fallback Systems</h5>
+                    <p class="mb-3">Combine local and cloud models for reliability.</p>
+                    <ul class="small mb-3">
+                        <li>Local primary, cloud fallback</li>
+                        <li>Cost optimization strategies</li>
+                        <li>Automatic model selection</li>
+                        <li>Graceful degradation handling</li>
+                    </ul>
+                    <div class="badge bg-warning">Production Ready</div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🔌 API-First Architecture</h4>
+                <p>Modern AI applications follow API-first design principles. LM Studio provides a local REST API that mirrors cloud services, making it easy to build and deploy AI-powered applications.</p>
+            </div>
+        </div>
+
+        <!-- API Integration Demo -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-code text-danger me-2"></i>API Integration in Practice</h2>
+
+            <div class="api-demo">
+                <h5 class="text-danger mb-3">LM Studio Local API Usage</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary mb-2">Python Integration</h6>
+                        <div class="code-example">
+import requests
+import json
+
+def chat_with_llm(message, model="local-model"):
+    url = "http://localhost:1234/v1/chat/completions"
+
+    payload = {
+        "messages": [
+            {"role": "user", "content": message}
+        ],
+        "model": model,
+        "temperature": 0.7,
+        "max_tokens": 500
+    }
+
+    response = requests.post(url, json=payload)
+    return response.json()
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-2">JavaScript/Node.js</h6>
+                        <div class="code-example">
+const axios = require('axios');
+
+async function chatWithLLM(message) {
+    try {
+        const response = await axios.post(
+            'http://localhost:1234/v1/chat/completions',
+            {
+                messages: [{ role: 'user', content: message }],
+                model: 'local-model',
+                temperature: 0.7,
+                stream: true
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        console.error('API Error:', error);
+    }
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-diagram">
+                <h5 class="text-danger mb-3">Application Architecture Flow</h5>
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <i class="fas fa-user fa-2x text-primary mb-2"></i>
+                        <h6>User Interface</h6>
+                        <small>Web app, desktop app, mobile</small>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-server fa-2x text-info mb-2"></i>
+                        <h6>Application Server</h6>
+                        <small>Node.js, Python, etc.</small>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-brain fa-2x text-warning mb-2"></i>
+                        <h6>LM Studio API</h6>
+                        <small>Local inference server</small>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-database fa-2x text-success mb-2"></i>
+                        <h6>Response Handling</h6>
+                        <small>Process and display results</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Streaming & Real-time -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-stream text-danger me-2"></i>Streaming Responses & Real-time Interaction</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Server-Sent Events (SSE)</h5>
+                    <div class="code-example">
+// Frontend - Receiving streamed responses
+const eventSource = new EventSource('/api/chat/stream');
+
+eventSource.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    if (data.choices[0].finish_reason) {
+        eventSource.close();
+    } else {
+        const token = data.choices[0].delta.content;
+        // Append token to UI
+        appendToChat(token);
+    }
+};
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">WebSocket Integration</h5>
+                    <div class="code-example">
+// Real-time bidirectional communication
+const ws = new WebSocket('ws://localhost:1234/ws');
+
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    const token = data.choices[0].delta.content;
+
+    if (token) {
+        updateChatInterface(token);
+    }
+};
+
+// Send user messages
+function sendMessage(message) {
+    ws.send(JSON.stringify({
+        type: 'chat',
+        message: message,
+        model: 'current-model'
+    }));
+}
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>⚡ Streaming Benefits:</strong> Real-time responses, better user experience, reduced perceived latency, ability to handle long responses efficiently.
+            </div>
+        </div>
+
+        <!-- Error Handling & Resilience -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-shield-alt text-danger me-2"></i>Error Handling & Application Resilience</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Common Error Scenarios</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Model not loaded:</strong> Server running but no active model</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Out of memory:</strong> VRAM insufficient for requested model</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Rate limiting:</strong> Too many concurrent requests</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Network timeout:</strong> Slow responses or connection issues</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Invalid parameters:</strong> Incorrect API usage</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Resilience Patterns</h5>
+                    <div class="code-example">
+// Robust error handling strategy
+async function safeChat(message) {
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            body: JSON.stringify({ message }),
+            timeout: 30000  // 30 second timeout
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        return await response.json();
+
+    } catch (error) {
+        // Fallback strategies
+        if (error.name === 'TimeoutError') {
+            return { error: 'Request timed out', fallback: true };
+        }
+
+        // Try alternative model or simplified prompt
+        return await fallbackChat(message);
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UI/UX Considerations -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-palette text-danger me-2"></i>Building AI-Powered User Interfaces</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary mb-3">Loading States & Feedback</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-spinner text-primary me-2"></i><strong>Progressive loading:</strong> Show partial results as they arrive</li>
+                        <li class="list-group-item"><i class="fas fa-clock text-primary me-2"></i><strong>Time estimates:</strong> Give users response time expectations</li>
+                        <li class="list-group-item"><i class="fas fa-brain text-primary me-2"></i><strong>Model status:</strong> Show which model is active</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-circle text-primary me-2"></i><strong>Error states:</strong> Clear error messages with recovery options</li>
+                        <li class="list-group-item"><i class="fas fa-save text-primary me-2"></i><strong>Conversation history:</strong> Allow users to review past interactions</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">AI-Specific UX Patterns</h5>
+                    <div class="tech-stack">
+                        <h6 class="text-success mb-2">Advanced Features</h6>
+                        <ul class="small mb-0">
+                            <li><strong>Prompt templates:</strong> Pre-built prompts for common tasks</li>
+                            <li><strong>Model switching:</strong> Allow users to change models on-the-fly</li>
+                            <li><strong>Parameter controls:</strong> Creative vs. focused modes</li>
+                            <li><strong>Response editing:</strong> Refine AI outputs collaboratively</li>
+                            <li><strong>Confidence indicators:</strong> Show AI certainty levels</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project: AI Chat Application -->
+        <div class="project-card">
+            <h2 class="h4 mb-4"><i class="fas fa-robot text-warning me-2"></i>Project: AI-Powered Chat Application</h2>
+
+            <div class="alert alert-warning">
+                <strong>⏰ Time Estimate:</strong> 45-60 minutes
+                <strong>🎯 Objective:</strong> Build a complete AI chat application with LM Studio integration
+            </div>
+
+            <h5 class="text-primary mb-3">Project Overview</h5>
+            <p>Create a web-based chat application that integrates with LM Studio's local API. This project combines frontend development, API integration, and AI interaction patterns.</p>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="text-success mb-3">Development Phases</h5>
+                    <div class="integration-card">
+                        <h6>Phase 1: Frontend Setup (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Create HTML/CSS/JavaScript chat interface</li>
+                            <li>Implement responsive design and modern styling</li>
+                            <li>Add input handling and message display</li>
+                            <li>Set up basic UI components (send button, typing indicator)</li>
+                        </ul>
+                    </div>
+
+                    <div class="integration-card">
+                        <h6>Phase 2: API Integration (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Connect to LM Studio local API</li>
+                            <li>Implement async/await for API calls</li>
+                            <li>Add error handling and connection status</li>
+                            <li>Handle streaming responses for real-time display</li>
+                        </ul>
+                    </div>
+
+                    <div class="integration-card">
+                        <h6>Phase 3: Advanced Features (20 minutes)</h6>
+                        <ul class="small">
+                            <li>Add conversation history and persistence</li>
+                            <li>Implement model switching capability</li>
+                            <li>Add prompt templates and quick actions</li>
+                            <li>Create settings panel for parameters</li>
+                        </ul>
+                    </div>
+
+                    <div class="integration-card">
+                        <h6>Phase 4: Testing & Polish (10 minutes)</h6>
+                        <ul class="small">
+                            <li>Test with different models and prompts</li>
+                            <li>Add loading states and error recovery</li>
+                            <li>Polish UI/UX and add final touches</li>
+                            <li>Document the application features</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-info mb-3">Tech Stack</h5>
+                    <div class="tech-stack">
+                        <strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)<br>
+                        <strong>API:</strong> Fetch API / Axios<br>
+                        <strong>Styling:</strong> Bootstrap or custom CSS<br>
+                        <strong>Backend:</strong> LM Studio local server<br>
+                        <strong>Storage:</strong> LocalStorage for history
+                    </div>
+
+                    <h5 class="text-warning mb-3 mt-3">Features to Include</h5>
+                    <ul class="small">
+                        <li>• Real-time streaming responses</li>
+                        <li>• Multiple model support</li>
+                        <li>• Conversation persistence</li>
+                        <li>• Error handling & recovery</li>
+                        <li>• Responsive design</li>
+                        <li>• Parameter controls</li>
+                    </ul>
+
+                    <div class="mt-3">
+                        <div class="alert alert-success small">
+                            <strong>✅ Success Criteria:</strong><br>
+                            • Functional chat interface<br>
+                            • LM Studio API integration<br>
+                            • Streaming responses<br>
+                            • Error handling<br>
+                            • Modern UI/UX
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>🚀 Extension Ideas:</strong> Voice input/output, file uploads, conversation export, theme customization, multi-user support
+                <br><strong>📁 Deliverables:</strong> Complete web application with documentation
+            </div>
+        </div>
+
+        <!-- Security & Privacy -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lock text-danger me-2"></i>Security & Privacy Considerations</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Local AI Security</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-shield-alt text-success me-2"></i><strong>Data stays local:</strong> No cloud transmission of sensitive data</li>
+                        <li class="list-group-item"><i class="fas fa-home text-success me-2"></i><strong>Network isolation:</strong> API only accessible locally</li>
+                        <li class="list-group-item"><i class="fas fa-key text-warning me-2"></i><strong>Access control:</strong> Implement local authentication if needed</li>
+                        <li class="list-group-item"><i class="fas fa-file-contract text-info me-2"></i><strong>Model licensing:</strong> Respect open-source licenses</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Application Security</h5>
+                    <div class="code-example">
+// Secure API integration practices
+const API_CONFIG = {
+    baseURL: 'http://localhost:1234',
+    timeout: 30000,
+    headers: {
+        'Content-Type': 'application/json',
+        // Add API key if using authentication
+    }
+};
+
+// Input sanitization
+function sanitizeInput(input) {
+    return input
+        .replace(/[<>]/g, '')  // Remove potential HTML
+        .trim()
+        .substring(0, 10000); // Length limits
+}
+
+// Rate limiting
+const requestQueue = [];
+let lastRequest = 0;
+const MIN_INTERVAL = 100; // ms
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-danger me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-danger">
+                <h5 class="alert-heading"><i class="fas fa-plug me-2"></i>Application Integration Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>API-first design:</strong> Build applications around LLM APIs for maximum flexibility</li>
+                    <li><strong>Streaming responses:</strong> Real-time output dramatically improves user experience</li>
+                    <li><strong>Error resilience:</strong> Robust error handling ensures reliable AI applications</li>
+                    <li><strong>Local-first approach:</strong> LM Studio enables privacy-preserving AI applications</li>
+                    <li><strong>UI/UX considerations:</strong> AI applications need specialized interface patterns</li>
+                    <li><strong>Security awareness:</strong> Local AI doesn't eliminate security concerns</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-danger mb-3">🚀 From Components to Applications</h4>
+                <p>You've now learned to integrate LLMs into complete applications! This bridges the gap between AI capabilities and real-world software. In the next session, we'll explore production deployment strategies.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session10.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Performance Optimization
+            </a>
+            <a href="session12.html" class="btn btn-primary">
+                Next: Production Deployment <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(11)) {
+                    completedSessions.push(11);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

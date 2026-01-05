@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 2: LM Studio Setup - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(102, 126, 234, 0.1); border-left: 4px solid #667eea; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .step-card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        .step-number { background: #667eea; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; }
+        .time-indicator { background: #e3f2fd; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
+        .progress-indicator { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .download-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; padding: 1rem 2rem; border-radius: 8px; color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-primary me-2">Session 2 of 15</span>
+                <span class="text-muted small">45 minutes</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 13.33%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 2: LM Studio Installation & Setup</h1>
+                    <p class="lead mb-0">Get LM Studio running on your computer and download your first model</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 minutes
+                    </div>
+                    <div class="badge bg-light text-dark">
+                        <i class="fas fa-seedling me-1"></i>Beginner Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-primary me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Download and install LM Studio</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Configure system settings</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Download your first language model</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand model file formats</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Test basic functionality</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Troubleshoot common issues</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Requirements -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-desktop text-primary me-2"></i>System Requirements</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Minimum Requirements</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-memory text-primary me-2"></i><strong>RAM:</strong> 8GB (16GB recommended)</li>
+                        <li class="list-group-item"><i class="fas fa-microchip text-primary me-2"></i><strong>CPU:</strong> Modern multi-core processor</li>
+                        <li class="list-group-item"><i class="fas fa-hdd text-primary me-2"></i><strong>Storage:</strong> 10GB free space</li>
+                        <li class="list-group-item"><i class="fab fa-windows text-primary me-2"></i><strong>OS:</strong> Windows 10/11, macOS, Linux</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Recommended for Large Models</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-memory text-success me-2"></i><strong>RAM:</strong> 32GB or more</li>
+                        <li class="list-group-item"><i class="fas fa-microchip text-success me-2"></i><strong>GPU:</strong> NVIDIA RTX 30-series or better</li>
+                        <li class="list-group-item"><i class="fas fa-hdd text-success me-2"></i><strong>Storage:</strong> 50GB+ SSD space</li>
+                        <li class="list-group-item"><i class="fas fa-tachometer-alt text-success me-2"></i><strong>Performance:</strong> Faster inference speeds</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>💡 Hardware Note:</strong> LM Studio can run models with CPU-only inference, but GPU acceleration significantly improves performance. Modern GPUs can be 10-50x faster than CPU-only processing.
+            </div>
+        </div>
+
+        <!-- Installation Steps -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-download text-primary me-2"></i>Step-by-Step Installation</h2>
+
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h5 class="mb-3">Download LM Studio</h5>
+                <p>Visit the official LM Studio website and download the appropriate version for your operating system.</p>
+
+                <div class="text-center my-3">
+                    <a href="https://lmstudio.ai/" target="_blank" class="download-btn">
+                        <i class="fas fa-download"></i>
+                        Download LM Studio
+                    </a>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>🔒 Security Note:</strong> Always download from the official website (lmstudio.ai) to avoid malware. LM Studio is free and open-source.
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h5 class="mb-3">Install the Application</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6 class="text-primary">Windows</h6>
+                        <ol class="small">
+                            <li>Run the .exe installer</li>
+                            <li>Follow the setup wizard</li>
+                            <li>Launch LM Studio</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-primary">macOS</h6>
+                        <ol class="small">
+                            <li>Open the .dmg file</li>
+                            <li>Drag to Applications</li>
+                            <li>Launch from Applications</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="text-primary">Linux</h6>
+                        <ol class="small">
+                            <li>Extract the .tar.gz</li>
+                            <li>Run the executable</li>
+                            <li>Follow GUI setup</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h5 class="mb-3">Initial Configuration</h5>
+                <p>When you first launch LM Studio, you'll see the main interface. Let's configure the basic settings:</p>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">Download Folder</h6>
+                        <p class="small">Choose where models will be stored. Ensure you have enough space (10GB+ recommended).</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-primary">Hardware Detection</h6>
+                        <p class="small">LM Studio will automatically detect your GPU. Enable GPU acceleration if available.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Downloading Your First Model -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-robot text-primary me-2"></i>Downloading Your First Model</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🎯 Recommended Starting Model</h4>
+                <p>For beginners, we recommend starting with <strong>Mistral 7B</strong> - it's powerful, fast, and works well on most hardware configurations.</p>
+                <ul class="mb-0">
+                    <li><strong>Size:</strong> ~4GB download, fits in 8GB RAM</li>
+                    <li><strong>Performance:</strong> Excellent balance of speed and quality</li>
+                    <li><strong>Use Cases:</strong> Chat, coding, writing, analysis</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h5 class="mb-3">Access the Model Library</h5>
+                <ol>
+                    <li>Click on the <strong>"My Models"</strong> tab in LM Studio</li>
+                    <li>Click <strong>"Download a model"</strong> button</li>
+                    <li>Search for "Mistral 7B" in the search bar</li>
+                    <li>Look for models like <code>Mistral-7B-Instruct-v0.2</code></li>
+                </ol>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <h5 class="mb-3">Download Process</h5>
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>The download may take 10-30 minutes depending on your internet speed. You'll see progress indicators showing:</p>
+                        <ul>
+                            <li>Download progress percentage</li>
+                            <li>Estimated time remaining</li>
+                            <li>File size and transfer speed</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-download fa-3x text-primary mb-2"></i>
+                            <p class="small text-muted">~4GB download</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading and Testing -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-play-circle text-primary me-2"></i>Loading and Testing Your Model</h2>
+
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <h5 class="mb-3">Load the Model</h5>
+                <ol>
+                    <li>Go to the <strong>"Chat"</strong> tab in LM Studio</li>
+                    <li>Click <strong>"Load Model"</strong> button</li>
+                    <li>Select your downloaded Mistral model</li>
+                    <li>Wait for the model to load (may take 30-60 seconds)</li>
+                </ol>
+
+                <div class="alert alert-success">
+                    <strong>✅ Success Indicator:</strong> You'll see "Model loaded successfully" and the chat interface will become active.
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">7</div>
+                <h5 class="mb-3">Test Basic Functionality</h5>
+                <p>Send your first message to test if everything is working:</p>
+
+                <div class="code-example">
+Hello! Can you introduce yourself and tell me what you can help me with?
+                </div>
+
+                <p>You should receive a response that includes information about the model and its capabilities.</p>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-tools text-primary me-2"></i>Troubleshooting Common Issues</h2>
+
+            <div class="accordion" id="troubleshootingAccordion">
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <i class="fas fa-memory me-2 text-danger"></i>Out of Memory Error
+                        </button>
+                    </h3>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#troubleshootingAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Solution:</strong> Try a smaller model or reduce context length in model settings.</p>
+                            <ul>
+                                <li>Use Mistral 7B instead of larger models</li>
+                                <li>Set context length to 2048 or lower</li>
+                                <li>Close other memory-intensive applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <i class="fas fa-download me-2 text-warning"></i>Slow Download Speeds
+                        </button>
+                    </h3>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Check your internet connection</li>
+                                <li>Try downloading during off-peak hours</li>
+                                <li>Use a download manager if available</li>
+                                <li>Consider using a different mirror if provided</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            <i class="fas fa-exclamation-triangle me-2 text-warning"></i>Model Won't Load
+                        </button>
+                    </h3>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Solutions:</strong></p>
+                            <ul>
+                                <li>Ensure the model file is not corrupted (check file size)</li>
+                                <li>Try restarting LM Studio</li>
+                                <li>Check available RAM and disk space</li>
+                                <li>Verify you're using the correct model format</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-primary me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-success">
+                <h5 class="alert-heading"><i class="fas fa-check-circle me-2"></i>What You Accomplished</h5>
+                <ul class="mb-0">
+                    <li><strong>Installed LM Studio</strong> on your local machine</li>
+                    <li><strong>Configured system settings</strong> for optimal performance</li>
+                    <li><strong>Downloaded your first model</strong> (Mistral 7B)</li>
+                    <li><strong>Tested basic functionality</strong> with a simple conversation</li>
+                    <li><strong>Learned troubleshooting</strong> for common setup issues</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-primary mb-3">🚀 Next Steps</h4>
+                <p>You now have a working AI environment on your local machine! In the next session, we'll dive into your first conversations and explore what different models can do.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session01.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Introduction to LLMs
+            </a>
+            <a href="session03.html" class="btn btn-primary">
+                Next: First Conversations <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed when user reaches the end
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(2)) {
+                    completedSessions.push(2);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

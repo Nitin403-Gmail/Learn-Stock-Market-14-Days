@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 8: Dataset Preparation & Project - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .data-pipeline { background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .pipeline-step { background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; transition: all 0.3s ease; }
+        .pipeline-step:hover { border-color: #f59e0b; transform: translateX(10px); }
+        .step-number { background: #f59e0b; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 1rem; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; }
+        .time-indicator { background: #fef3c7; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; color: #92400e; }
+        .progress-indicator { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .project-card { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .data-quality-check { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+        .format-examples { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+        .quality-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .metric-card { background: white; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb; }
+        .metric-value { font-size: 1.5rem; font-weight: bold; color: #f59e0b; margin-bottom: 0.5rem; }
+        .metric-label { font-size: 0.9rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-warning me-2">Session 8 of 15</span>
+                <span class="text-muted small">45 min + 60 min project</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 53.33%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 8: Dataset Preparation</h1>
+                    <p class="lead mb-0">Create high-quality training data for fine-tuning</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 min + 60 min project
+                    </div>
+                    <div class="badge bg-white text-warning">
+                        <i class="fas fa-cogs me-1"></i>Intermediate Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-warning me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand data preparation pipeline</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Master data quality assessment</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn dataset formatting standards</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Create balanced training datasets</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Implement data validation techniques</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Complete hands-on dataset project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Preparation Pipeline -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-stream text-warning me-2"></i>The Data Preparation Pipeline</h2>
+
+            <div class="data-pipeline">
+                <h5 class="text-warning mb-4">From Raw Data to Training-Ready Dataset</h5>
+                <div class="row text-center">
+                    <div class="col-md-2">
+                        <i class="fas fa-file-alt fa-2x text-primary mb-2"></i>
+                        <h6>1. Collection</h6>
+                        <small>Gather raw data</small>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fas fa-filter fa-2x text-info mb-2"></i>
+                        <h6>2. Cleaning</h6>
+                        <small>Remove noise</small>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fas fa-tags fa-2x text-warning mb-2"></i>
+                        <h6>3. Labeling</h6>
+                        <small>Add structure</small>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fas fa-balance-scale fa-2x text-success mb-2"></i>
+                        <h6>4. Balancing</h6>
+                        <small>Ensure diversity</small>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fas fa-split fa-2x text-danger mb-2"></i>
+                        <h6>5. Splitting</h6>
+                        <small>Train/val/test</small>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fas fa-check-circle fa-2x text-secondary mb-2"></i>
+                        <h6>6. Validation</h6>
+                        <small>Quality check</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">🎯 Quality Over Quantity</h4>
+                <p>Dataset preparation follows the principle that <strong>quality matters more than quantity</strong>. A well-curated dataset of 500 examples often outperforms a noisy dataset of 50,000 examples.</p>
+            </div>
+        </div>
+
+        <!-- Data Sources & Collection -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-search text-warning me-2"></i>Data Sources & Collection</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Primary Data Sources</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-book text-primary me-2"></i><strong>Domain Books:</strong> Specialized literature</li>
+                        <li class="list-group-item"><i class="fas fa-file-alt text-primary me-2"></i><strong>Research Papers:</strong> Academic publications</li>
+                        <li class="list-group-item"><i class="fas fa-code text-primary me-2"></i><strong>Code Repositories:</strong> Programming examples</li>
+                        <li class="list-group-item"><i class="fas fa-comments text-primary me-2"></i><strong>Expert Conversations:</strong> Domain discussions</li>
+                        <li class="list-group-item"><i class="fas fa-newspaper text-primary me-2"></i><strong>Industry Reports:</strong> Professional content</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Data Collection Strategies</h5>
+                    <div class="pipeline-step">
+                        <h6 class="text-info mb-2">Web Scraping (Ethical)</h6>
+                        <ul class="small mb-0">
+                            <li>Respect robots.txt</li>
+                            <li>Use rate limiting</li>
+                            <li>Credit sources</li>
+                            <li>Check copyrights</li>
+                        </ul>
+                    </div>
+                    <div class="pipeline-step">
+                        <h6 class="text-info mb-2">Manual Curation</h6>
+                        <ul class="small mb-0">
+                            <li>Subject matter experts</li>
+                            <li>Quality over speed</li>
+                            <li>Consistent formatting</li>
+                            <li>Peer review process</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-quality-check">
+                <h6 class="text-warning mb-2"><i class="fas fa-shield-alt me-2"></i>Ethical Data Collection</h6>
+                <ul class="small mb-0">
+                    <li><strong>Privacy:</strong> Avoid personal identifiable information</li>
+                    <li><strong>Consent:</strong> Only use data with proper permissions</li>
+                    <li><strong>Bias:</strong> Ensure diverse and representative data</li>
+                    <li><strong>Accuracy:</strong> Verify information before including</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Cleaning & Processing -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-broom text-warning me-2"></i>Data Cleaning & Processing</h2>
+
+            <div class="pipeline-step">
+                <div class="step-number">1</div>
+                <h5 class="mb-3">Text Normalization</h5>
+                <div class="row">
+                    <div class="col-md-8">
+                        <ul>
+                            <li><strong>Unicode normalization:</strong> Standardize character encodings</li>
+                            <li><strong>Whitespace handling:</strong> Consistent spacing and line breaks</li>
+                            <li><strong>Case normalization:</strong> Decide on uppercase/lowercase strategy</li>
+                            <li><strong>Special character removal:</strong> Handle emojis, symbols appropriately</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="code-example">
+# Text cleaning example
+def clean_text(text):
+    # Normalize unicode
+    text = unicodedata.normalize('NFKC', text)
+    # Remove extra whitespace
+    text = ' '.join(text.split())
+    # Handle special characters
+    text = re.sub(r'[^\w\s.,!?-]', '', text)
+    return text.strip()
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="step-number">2</div>
+                <h5 class="mb-3">Quality Filtering</h5>
+                <div class="quality-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">100+</div>
+                        <div class="metric-label">Min Characters</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">80%</div>
+                        <div class="metric-label">Readability Score</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">Duplicate Content</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">95%</div>
+                        <div class="metric-label">Language Purity</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pipeline-step">
+                <div class="step-number">3</div>
+                <h5 class="mb-3">Deduplication</h5>
+                <p>Remove duplicate or near-duplicate content that could bias training:</p>
+                <div class="code-example">
+# Deduplication strategies
+1. Exact string matching
+2. Fuzzy similarity (80%+ threshold)
+3. Semantic similarity using embeddings
+4. Document-level vs sentence-level deduplication
+
+# Example: Remove near-duplicates
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(documents)
+similarity_matrix = cosine_similarity(tfidf_matrix)
+
+# Remove documents with similarity > 0.8
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Formatting -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-file-code text-warning me-2"></i>Dataset Formatting Standards</h2>
+
+            <div class="format-examples">
+                <h5 class="text-warning mb-3">Common Dataset Formats</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary mb-2">Instruction Tuning Format</h6>
+                        <div class="code-example">
+{
+  "instruction": "Summarize this article",
+  "input": "Article content here...",
+  "output": "Concise summary..."
+}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-info mb-2">Conversation Format</h6>
+                        <div class="code-example">
+{
+  "messages": [
+    {"role": "user", "content": "Hello"},
+    {"role": "assistant", "content": "Hi there!"},
+    {"role": "user", "content": "How are you?"},
+    {"role": "assistant", "content": "I'm doing well!"}
+  ]
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-2">Text Classification Format</h6>
+                        <div class="code-example">
+{
+  "text": "This product is amazing!",
+  "label": "positive",
+  "confidence": 0.95
+}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-warning mb-2">Question-Answer Format</h6>
+                        <div class="code-example">
+{
+  "question": "What is Python?",
+  "answer": "Python is a programming language...",
+  "context": "Additional background info..."
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">📋 Format Consistency</h4>
+                <p>Choose one format and stick to it throughout your dataset. Inconsistent formatting can break training or reduce model performance.</p>
+            </div>
+        </div>
+
+        <!-- Train/Validation/Test Split -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-split text-warning me-2"></i>Train/Validation/Test Splitting</h2>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="text-primary mb-3">Standard Split Ratios</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Dataset Size</th>
+                                    <th>Training</th>
+                                    <th>Validation</th>
+                                    <th>Test</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Small (100-1000)</strong></td>
+                                    <td>70%</td>
+                                    <td>15%</td>
+                                    <td>15%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Medium (1000-10000)</strong></td>
+                                    <td>80%</td>
+                                    <td>10%</td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Large (10000+)</strong></td>
+                                    <td>90%</td>
+                                    <td>5%</td>
+                                    <td>5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-info mb-3">Stratified Splitting</h5>
+                    <div class="code-example">
+# Ensure balanced splits
+from sklearn.model_selection import train_test_split
+
+# Stratified split maintains class distribution
+train_data, temp_data = train_test_split(
+    data, test_size=0.3, stratify=data['category']
+)
+
+val_data, test_data = train_test_split(
+    temp_data, test_size=0.5, stratify=temp_data['category']
+)
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>🎯 Validation Purpose:</strong> Validation data is used during training to tune hyperparameters and prevent overfitting. Test data is only used at the end to evaluate final model performance.
+            </div>
+        </div>
+
+        <!-- Project: Custom Dataset Creation -->
+        <div class="project-card">
+            <h2 class="h4 mb-4"><i class="fas fa-database text-warning me-2"></i>Project: Custom Dataset Creation</h2>
+
+            <div class="alert alert-warning">
+                <strong>⏰ Time Estimate:</strong> 45-60 minutes
+                <strong>🎯 Objective:</strong> Create a high-quality dataset for a specific fine-tuning task
+            </div>
+
+            <h5 class="text-primary mb-3">Project Overview</h5>
+            <p>Create a curated dataset that could be used to fine-tune an AI model for a specific task. This project teaches the complete data preparation pipeline from collection to validation.</p>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="text-success mb-3">Project Requirements</h5>
+                    <div class="pipeline-step">
+                        <h6>Phase 1: Task Definition (10 minutes)</h6>
+                        <ul class="small">
+                            <li>Choose a specific task (e.g., code review, recipe writing, technical explanations)</li>
+                            <li>Define clear success criteria</li>
+                            <li>Determine dataset scope (50-200 examples)</li>
+                        </ul>
+                    </div>
+
+                    <div class="pipeline-step">
+                        <h6>Phase 2: Data Collection (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Gather high-quality examples from reliable sources</li>
+                            <li>Ensure diversity in examples</li>
+                            <li>Document sources and permissions</li>
+                        </ul>
+                    </div>
+
+                    <div class="pipeline-step">
+                        <h6>Phase 3: Data Processing (20 minutes)</h6>
+                        <ul class="small">
+                            <li>Clean and normalize text</li>
+                            <li>Format consistently for training</li>
+                            <li>Create train/validation/test splits</li>
+                        </ul>
+                    </div>
+
+                    <div class="pipeline-step">
+                        <h6>Phase 4: Quality Validation (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Review sample outputs</li>
+                            <li>Check data distribution</li>
+                            <li>Document quality metrics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-info mb-3">Example Tasks</h5>
+                    <div class="bg-light p-3 rounded small">
+                        <strong>🔧 Technical:</strong><br>
+                        • Code documentation<br>
+                        • Bug report analysis<br>
+                        • API design review<br><br>
+
+                        <strong>📚 Educational:</strong><br>
+                        • Concept explanations<br>
+                        • Quiz generation<br>
+                        • Study guides<br><br>
+
+                        <strong>💼 Professional:</strong><br>
+                        • Email writing<br>
+                        • Report summaries<br>
+                        • Meeting notes
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="alert alert-success small">
+                            <strong>✅ Deliverables:</strong><br>
+                            • Formatted dataset (JSON/CSV)<br>
+                            • Quality metrics report<br>
+                            • Usage documentation
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>🛠️ Tools Recommended:</strong> Text editor, spreadsheet software, Python (optional for automation)
+                <br><strong>📊 Quality Checklist:</strong> Diversity, accuracy, consistency, documentation
+            </div>
+        </div>
+
+        <!-- Common Pitfalls -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Common Dataset Pitfalls</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-danger mb-3">Data Quality Issues</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Low-quality sources:</strong> Unreliable or biased content</li>
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Inconsistent formatting:</strong> Mixed structures confuse models</li>
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Duplicate content:</strong> Reduces effective dataset size</li>
+                        <li class="list-group-item"><i class="fas fa-times text-danger me-2"></i><strong>Outdated information:</strong> Time-sensitive content becomes stale</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-warning mb-3">Distribution Problems</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Class imbalance:</strong> Over/under-represented categories</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Length bias:</strong> Mostly short or long examples</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Domain narrowness:</strong> Too specialized, lacks generalization</li>
+                        <li class="list-group-item"><i class="fas fa-exclamation-triangle text-warning me-2"></i><strong>Language mixing:</strong> Multiple languages in single dataset</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-warning me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-warning">
+                <h5 class="alert-heading"><i class="fas fa-database me-2"></i>Dataset Preparation Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>Quality over quantity:</strong> Well-curated data outperforms large noisy datasets</li>
+                    <li><strong>Consistent formatting:</strong> Standardized structure is crucial for training</li>
+                    <li><strong>Ethical collection:</strong> Respect privacy, copyrights, and data quality standards</li>
+                    <li><strong>Proper splitting:</strong> Maintain separate train/validation/test sets for reliable evaluation</li>
+                    <li><strong>Diversity matters:</strong> Balanced, representative data prevents bias and improves generalization</li>
+                    <li><strong>Iterative process:</strong> Dataset preparation requires multiple refinement cycles</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">🚀 Foundation for Fine-tuning</h4>
+                <p>You've now mastered the art of dataset preparation! This skill forms the foundation for all successful fine-tuning projects. In the advanced sessions, you'll apply these techniques to real fine-tuning workflows.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session07.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Fine-tuning Basics
+            </a>
+            <a href="session09.html" class="btn btn-primary">
+                Next: Model Architecture <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(8)) {
+                    completedSessions.push(8);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

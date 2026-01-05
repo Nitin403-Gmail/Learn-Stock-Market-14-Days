@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 6: Advanced Prompting & Project - LLM Studio Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .content-section { background: white; border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .session-header { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .key-concept { background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .prompt-comparison { background: #f8f9fa; border-radius: 12px; padding: 2rem; margin: 1rem 0; }
+        .technique-card { background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; transition: all 0.3s ease; }
+        .technique-card:hover { border-color: #f59e0b; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .comparison-table { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+        .time-indicator { background: #fef3c7; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; margin-bottom: 1rem; color: #92400e; }
+        .progress-indicator { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); height: 4px; border-radius: 2px; margin-bottom: 2rem; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .project-card { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .code-example { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; }
+        .prompt-template { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        .interactive-demo { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #0ea5e9; border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-brain text-primary me-2"></i>LLM Studio Course
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-warning me-2">Session 6 of 15</span>
+                <span class="text-muted small">45 min + 60 min project</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-indicator" style="width: 40%;"></div>
+    </div>
+
+    <!-- Session Header -->
+    <div class="container">
+        <div class="session-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-5 fw-bold mb-3">Session 6: Advanced Prompting Techniques</h1>
+                    <p class="lead mb-0">Master sophisticated prompt engineering for consistent, high-quality AI responses</p>
+                </div>
+                <div class="text-end">
+                    <div class="time-indicator">
+                        <i class="fas fa-clock me-1"></i>45 min + 60 min project
+                    </div>
+                    <div class="badge bg-white text-warning">
+                        <i class="fas fa-cogs me-1"></i>Intermediate Level
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="h4 mb-3"><i class="fas fa-bullseye text-warning me-2"></i>Learning Objectives</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Master advanced prompt structures</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Learn chain-of-thought prompting</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Understand few-shot learning</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Apply role-playing techniques</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Create reusable prompt templates</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Complete advanced prompting project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chain of Thought -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-link text-warning me-2"></i>Chain-of-Thought Prompting</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">🧠 Breaking Down Complex Problems</h4>
+                <p><strong>Chain-of-Thought (CoT)</strong> prompting teaches AI to break down complex problems into step-by-step reasoning. This technique significantly improves performance on mathematical, analytical, and multi-step tasks.</p>
+            </div>
+
+            <div class="prompt-comparison">
+                <h5 class="text-warning mb-3"><i class="fas fa-balance-scale me-2"></i>CoT vs Standard Prompting</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-danger">❌ Standard Prompt</h6>
+                        <div class="code-example">
+Solve: 23 + 47 × 5 - 12 ÷ 3
+                        </div>
+                        <p class="small text-muted mt-2">AI might give direct answer without showing work</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-success">✅ Chain-of-Thought Prompt</h6>
+                        <div class="code-example">
+Solve this step by step: 23 + 47 × 5 - 12 ÷ 3
+
+First, identify the order of operations (PEMDAS):
+1. Parentheses (none)
+2. Exponents (none)
+3. Multiplication: 47 × 5
+4. Division: 12 ÷ 3
+5. Addition: 23 + result
+6. Subtraction: final calculation
+
+Now solve:
+                        </div>
+                        <p class="small text-muted mt-2">AI follows structured reasoning process</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3">
+                <strong>💡 CoT Benefits:</strong> Improves accuracy by 10-30% on complex tasks, makes AI reasoning transparent, helps debug incorrect answers.
+            </div>
+        </div>
+
+        <!-- Few-Shot Learning -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-graduation-cap text-warning me-2"></i>Few-Shot Learning</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">📚 Teaching by Example</h4>
+                <p><strong>Few-shot learning</strong> provides AI with examples of the desired input-output pattern. Instead of just describing what you want, you show specific examples that demonstrate the pattern.</p>
+            </div>
+
+            <div class="technique-card">
+                <h5 class="text-warning mb-3">Example: Sentiment Analysis</h5>
+                <div class="code-example">
+Classify the sentiment of these movie reviews as Positive, Negative, or Neutral.
+
+Examples:
+Review: "This movie was absolutely fantastic! The acting was superb."
+Sentiment: Positive
+
+Review: "The film was okay, nothing special but not terrible either."
+Sentiment: Neutral
+
+Review: "Complete waste of time. Poor plot and terrible acting."
+Sentiment: Negative
+
+Now classify this review:
+Review: "An incredible cinematic experience that left me speechless."
+Sentiment:
+                </div>
+                <p class="small text-muted mt-2">The AI learns the pattern from examples and applies it to new data.</p>
+            </div>
+
+            <div class="technique-card">
+                <h5 class="text-warning mb-3">Example: Code Translation</h5>
+                <div class="code-example">
+Convert Python functions to JavaScript. Here are examples:
+
+Python: def greet(name): return f"Hello, {name}!"
+JavaScript: function greet(name) { return `Hello, \${name}!`; }
+
+Python: def add(a, b): return a + b
+JavaScript: function add(a, b) { return a + b; }
+
+Python: def is_even(n): return n % 2 == 0
+JavaScript: function isEven(n) { return n % 2 === 0; }
+
+Now convert this Python function:
+def calculate_area(radius): return 3.14159 * radius * radius
+                </div>
+            </div>
+        </div>
+
+        <!-- Role-Playing Techniques -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-theater-masks text-warning me-2"></i>Role-Playing & System Prompts</h2>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">🎭 AI Role Assignment</h4>
+                <p>Assigning specific roles or personas to AI models can dramatically improve response quality and consistency. This technique leverages the model's ability to adopt different behavioral patterns.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Expert Role Assignment</h5>
+                    <div class="prompt-template">
+                        <strong>Before:</strong> "Explain machine learning."<br>
+                        <strong>After:</strong> "You are a PhD machine learning researcher with 15 years of experience. Explain neural networks to a beginner, using simple analogies and avoiding complex mathematics."
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-success mb-3">Contextual Roles</h5>
+                    <div class="prompt-template">
+                        <strong>Code Review:</strong> "You are a senior software engineer conducting a code review. Focus on best practices, potential bugs, and performance optimizations."
+                    </div>
+                </div>
+            </div>
+
+            <div class="technique-card">
+                <h5 class="text-warning mb-3">Advanced Role-Playing Example</h5>
+                <div class="code-example">
+You are Dr. Sarah Chen, a world-renowned AI ethics researcher and professor at MIT.
+You have published 50+ papers on responsible AI development and speak regularly at international conferences.
+
+A student approaches you after your lecture on AI safety and asks:
+"I'm interested in AI but worried about job displacement. What advice would you give someone starting their career in tech today?"
+
+Respond as Dr. Chen would - thoughtfully, encouragingly, and drawing from real research insights.
+                </div>
+                <p class="small text-muted mt-2">This creates a more engaging, authoritative, and contextually appropriate response.</p>
+            </div>
+        </div>
+
+        <!-- Advanced Techniques -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-magic text-warning me-2"></i>Advanced Prompting Techniques</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="technique-card">
+                        <h5 class="text-primary mb-3">Self-Consistency</h5>
+                        <p>Generate multiple reasoning paths for the same problem and select the most consistent answer.</p>
+                        <div class="code-example">
+Solve this 3 times, showing your work each time, then give your final answer:
+
+Problem: A bat and ball cost $1.10 total. The bat costs $1 more than the ball. How much does the ball cost?
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="technique-card">
+                        <h5 class="text-info mb-3">Prompt Chaining</h5>
+                        <p>Break complex tasks into sequential prompts, using the output of one as input for the next.</p>
+                        <div class="code-example">
+Step 1: Analyze this code for bugs
+Step 2: Using the analysis above, suggest fixes
+Step 3: Create unit tests for the fixes
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="technique-card">
+                <h5 class="text-warning mb-3">Multi-Persona Prompting</h5>
+                <div class="code-example">
+I want you to act as three different experts analyzing the same topic:
+
+Expert 1 (Technical): Focus on technical implementation details
+Expert 2 (Business): Focus on market impact and monetization
+Expert 3 (Ethical): Focus on societal implications and risks
+
+Topic: The deployment of autonomous vehicles in cities
+
+Provide analysis from each expert's perspective, then synthesize their viewpoints.
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Demo -->
+        <div class="interactive-demo">
+            <h2 class="h4 mb-4"><i class="fas fa-play-circle text-info me-2"></i>Interactive Prompting Exercise</h2>
+
+            <div class="alert alert-info">
+                <strong>🎯 Try This Now:</strong> Open LM Studio and experiment with these advanced techniques. Compare results with basic prompting.
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Technique A: Chain-of-Thought</h5>
+                    <div class="code-example">
+You are a math tutor. Solve this step by step:
+
+If a train travels at 60 mph for 2 hours, then slows to 30 mph for 1 hour, what's the average speed?
+
+Show your work clearly.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3">Technique B: Few-Shot + Role</h5>
+                    <div class="code-example">
+You are an experienced code reviewer. Review this function for:
+
+1. Code quality and style
+2. Potential bugs
+3. Performance issues
+4. Best practices
+
+Examples of good feedback:
+- "Good use of early returns, but consider adding input validation"
+- "Clear variable names, but function is doing too many things"
+
+Function to review:
+def process_data(data):
+    result = []
+    for item in data:
+        if item > 0:
+            result.append(item * 2)
+    return result
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project: Advanced Prompt Library -->
+        <div class="project-card">
+            <h2 class="h4 mb-4"><i class="fas fa-book-open text-warning me-2"></i>Project: Advanced Prompt Engineering Library</h2>
+
+            <div class="alert alert-warning">
+                <strong>⏰ Time Estimate:</strong> 45-60 minutes
+                <strong>🎯 Objective:</strong> Create a comprehensive library of advanced prompt templates for different use cases
+            </div>
+
+            <h5 class="text-primary mb-3">Project Overview</h5>
+            <p>Create a well-organized collection of advanced prompt templates that you can reuse across different projects. This library will serve as your personal toolkit for effective AI interactions.</p>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="text-success mb-3">Project Deliverables</h5>
+                    <div class="step-advanced">
+                        <h6>Phase 1: Template Categories (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Create folders/categories: Creative, Technical, Business, Educational, Personal</li>
+                            <li>Define 3-5 templates per category</li>
+                            <li>Include clear naming conventions</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-advanced">
+                        <h6>Phase 2: Advanced Techniques (20 minutes)</h6>
+                        <ul class="small">
+                            <li>Implement Chain-of-Thought templates</li>
+                            <li>Create Few-Shot learning examples</li>
+                            <li>Design Role-Playing scenarios</li>
+                            <li>Add Multi-Persona templates</li>
+                        </ul>
+                    </div>
+
+                    <div class="step-advanced">
+                        <h6>Phase 3: Testing & Documentation (15 minutes)</h6>
+                        <ul class="small">
+                            <li>Test each template with LM Studio</li>
+                            <li>Document expected outcomes</li>
+                            <li>Note which models work best</li>
+                            <li>Create usage guidelines</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-info mb-3">Template Examples</h5>
+                    <div class="bg-light p-3 rounded small">
+                        <strong>📝 Creative Writing:</strong><br>
+                        Chain-of-Thought plotting<br>
+                        Character development<br>
+                        Style analysis<br><br>
+
+                        <strong>💻 Technical:</strong><br>
+                        Code review templates<br>
+                        Architecture analysis<br>
+                        Debugging assistance<br><br>
+
+                        <strong>📊 Business:</strong><br>
+                        Market analysis<br>
+                        Strategy planning<br>
+                        Competitive research
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="alert alert-success small">
+                            <strong>💡 Success Metric:</strong> 15+ working templates across 5 categories
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <strong>🔧 Tools Needed:</strong> LM Studio, Text Editor, Folder structure for organization
+                <br><strong>📁 Suggested Structure:</strong> <code>prompts/{category}/{template-name}.txt</code>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-award text-warning me-2"></i>Prompt Engineering Best Practices</h2>
+
+            <div class="comparison-table">
+                <h5 class="text-warning mb-3">Do's and Don'ts</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-success mb-3">✅ Effective Strategies</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Iterate:</strong> Test, refine, test again</li>
+                            <li class="list-group-item"><strong>Be Specific:</strong> Clear instructions beat vague ones</li>
+                            <li class="list-group-item"><strong>Use Examples:</strong> Show, don't just tell</li>
+                            <li class="list-group-item"><strong>Context Matters:</strong> Provide relevant background</li>
+                            <li class="list-group-item"><strong>Test Models:</strong> Different models need different approaches</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-danger mb-3">❌ Common Mistakes</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Over-Prompting:</strong> Too many instructions confuse AI</li>
+                            <li class="list-group-item"><strong>Assuming Knowledge:</strong> AI doesn't know your context</li>
+                            <li class="list-group-item"><strong>One-Shot Only:</strong> Don't stop at first attempt</li>
+                            <li class="list-group-item"><strong>Ignoring Models:</strong> Same prompt doesn't work for all models</li>
+                            <li class="list-group-item"><strong>No Testing:</strong> Always verify results</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="h4 mb-4"><i class="fas fa-lightbulb text-warning me-2"></i>Key Takeaways</h2>
+
+            <div class="alert alert-warning">
+                <h5 class="alert-heading"><i class="fas fa-brain me-2"></i>Advanced Prompting Mastery</h5>
+                <ul class="mb-0">
+                    <li><strong>Chain-of-Thought prompting</strong> improves reasoning by breaking down complex problems</li>
+                    <li><strong>Few-shot learning</strong> teaches AI through examples rather than lengthy descriptions</li>
+                    <li><strong>Role assignment</strong> leverages AI's ability to adopt different personas and expertise</li>
+                    <li><strong>Advanced techniques</strong> like prompt chaining and self-consistency enhance results</li>
+                    <li><strong>Template libraries</strong> provide reusable solutions for common tasks</li>
+                    <li><strong>Iterative refinement</strong> is key to prompt engineering success</li>
+                </ul>
+            </div>
+
+            <div class="key-concept">
+                <h4 class="h5 text-warning mb-3">🚀 From Prompting to Engineering</h4>
+                <p>You've now mastered the art of prompt engineering! These techniques form the foundation for all advanced AI applications. In the next sessions, we'll explore how to fine-tune models and integrate AI into real applications.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="session05.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Previous: Model Selection
+            </a>
+            <a href="session07.html" class="btn btn-primary">
+                Next: Fine-tuning Basics <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mark session as completed
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof localStorage !== 'undefined') {
+                const completedSessions = JSON.parse(localStorage.getItem('llm-course-completed') || '[]');
+                if (!completedSessions.includes(6)) {
+                    completedSessions.push(6);
+                    localStorage.setItem('llm-course-completed', JSON.stringify(completedSessions));
+                }
+            }
+        });
+    </script>
+</body>
+</html>
